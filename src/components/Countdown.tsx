@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-type CountdownParts = {
+export type CountdownParts = {
   days: string;
   hours: string;
   minutes: string;
@@ -32,12 +32,15 @@ function partsUntil(target: number): CountdownParts {
 }
 
 type CountdownProps = {
-  /** ISO date-time the festival starts, e.g. "2027-06-12T18:00:00+03:00" */
+  /** ISO date-time to count down to, e.g. "2027-06-12T18:00:00+03:00" */
   target: string;
+  label?: string;
+  /** Values shown before the timer starts in the browser */
+  placeholder?: CountdownParts;
 };
 
-export function Countdown({ target }: CountdownProps) {
-  const [parts, setParts] = useState(PLACEHOLDER);
+export function Countdown({ target, label = "Time until the festival", placeholder = PLACEHOLDER }: CountdownProps) {
+  const [parts, setParts] = useState(placeholder);
 
   useEffect(() => {
     const targetTime = new Date(target).getTime();
@@ -56,7 +59,7 @@ export function Countdown({ target }: CountdownProps) {
   }, [target]);
 
   return (
-    <div className="countdown" role="timer" aria-label="Time until the festival">
+    <div className="countdown" role="timer" aria-label={label}>
       {UNITS.map(([unit, label]) => (
         <div className="countdown__item" key={unit}>
           <span className="countdown__value">{parts[unit]}</span>

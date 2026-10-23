@@ -96,5 +96,18 @@ Hex-коды прочитаны со скриншота и сверены по �
 8. By the organizer (фон Surface): «More from View Bar», 2 карточки (Weekly events, Bar & Restaurant).
 9. Footer (фон Line): подписка на рассылку, 4 колонки (бренд, Festival, Legal, Follow us), способы оплаты, копирайт.
 
+## Tickets: секции (desktop / mobile)
+| Секция | Desktop | Mobile |
+|---|---|---|
+| Шапка страницы: хлебные крошки, постер, факты, текущий релиз | `2:40` | `3:9192`, `77:2` (карточка фазы с таймером) |
+| Ticket releases | `2:89` | `77:7` (список) |
+| Choose your ticket + Add-ons | `2:146` | `3:9283` |
+| Banner · Where to stay | `179:4244` | `179:4252` |
+| Venue plan / Pick your seat | `2:259` | `3:9356` |
+| How it works | `2:293` | `3:9365` |
+| Ticket FAQ | `2:329` | `3:9400` |
+
+На мобильном шапка страницы другая: вместо постера и фактов карточка «Phase 1 · On sale» с прогрессом продаж и таймером до повышения цены.
+
 ## Бюджет MCP
 Аккаунт Figma на тарифе Starter, лимит около 20 запросов MCP в месяц. Home сверстан без запросов MCP.

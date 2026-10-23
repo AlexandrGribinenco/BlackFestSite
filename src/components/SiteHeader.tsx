@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { mainNav } from "@/lib/navigation";
 import { Logo } from "./Logo";
@@ -8,6 +9,7 @@ import { Socials } from "./Socials";
 
 // Figma: Components / Header · desktop 1:481, Header · mobile 1:813, Mobile / M2 · Menu open 2:8622
 export function SiteHeader() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -49,7 +51,7 @@ export function SiteHeader() {
 
           <nav className="main-nav" aria-label="Main">
             {mainNav.map((link) => (
-              <Link key={link.href} href={link.href}>
+              <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
                 {link.label}
               </Link>
             ))}
@@ -95,7 +97,7 @@ export function SiteHeader() {
         </div>
         <nav className="mobile-menu__nav" aria-label="Mobile">
           {mainNav.map((link) => (
-            <Link key={link.href} href={link.href}>
+            <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
               {link.label} <span aria-hidden="true">→</span>
             </Link>
           ))}

@@ -1,0 +1,359 @@
+/* Tickets page — Figma: Desktop / D2 · Tickets 2:2, Mobile / M3 · Tickets 3:9151 */
+
+/* ---------- Page hero ---------- */
+.page-hero { padding: 24px 0 64px; }
+.page-hero .breadcrumbs { margin-bottom: 20px; }
+
+.page-hero__grid {
+  display: grid;
+  grid-template-columns: 400px minmax(0, 620px);
+  align-items: start;
+  gap: 56px;
+}
+
+.page-hero__poster { aspect-ratio: 3 / 4; }
+
+.page-hero__title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.page-hero__subtitle { margin-top: 8px; font-size: 20px; line-height: 1.4; }
+.page-hero__meta { display: none; }
+
+.event-facts {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  margin: 28px 0 0;
+  padding: 12px 0;
+  border-block: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.event-facts dt,
+.event-facts dd { margin: 0; padding: 7px 0; }
+.event-facts dt { color: var(--muted); }
+
+.release-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 24px;
+  padding: 20px 24px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+}
+
+.release-banner .eyebrow { margin-bottom: 4px; }
+.release-banner__title { font-size: 20px; font-weight: 700; line-height: 1.3; }
+.release-banner__text { margin-top: 4px; font-size: 12px; }
+
+/* Mobile-only current release card */
+.phase-card { display: none; }
+
+/* ---------- Ticket releases ---------- */
+.releases {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.release-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+}
+
+.release-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.release-card__title { font-size: 18px; font-weight: 600; line-height: 1.3; }
+.release-card__note { display: none; }
+.release-card__meta { font-size: 13px; }
+.release-card__price { font-size: 18px; font-weight: 700; }
+
+/* ---------- Choose your ticket ---------- */
+.ticket-options-section { padding-bottom: 64px; }
+.section-head__note { font-size: 13px; padding-bottom: 8px; }
+
+.ticket-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.option-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.option-card__category {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.option-card__head { margin-top: 16px; }
+.option-card__title { font-size: 20px; font-weight: 600; line-height: 1.3; }
+.option-card__price { margin-top: 12px; font-size: 28px; font-weight: 700; line-height: 1.2; }
+
+.option-card__features {
+  display: grid;
+  gap: 4px;
+  margin-top: 16px;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  list-style: disc;
+}
+
+.option-card__features li::marker { color: var(--muted); }
+.option-card__summary { display: none; }
+.option-card__select { height: 48px; margin-top: 20px; }
+
+.addons-title { margin-top: 56px; margin-bottom: 24px; font-size: 20px; font-weight: 700; }
+
+.addons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.addon-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.addon-card__icon { flex: none; width: 96px; height: 72px; border-radius: var(--radius); }
+.addon-card__body { flex: 1; min-width: 0; }
+.addon-card__title { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; }
+.addon-card__text { margin-top: 2px; font-size: 13px; }
+.addon-card__price { flex: none; font-size: 14px; font-weight: 700; }
+
+/* ---------- Where to stay banner ---------- */
+.stay-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 36px 40px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.stay-banner__title { font-size: 22px; font-weight: 700; line-height: 1.35; }
+.stay-banner__text { max-width: 760px; margin-top: 8px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+/* ---------- Venue plan ---------- */
+.venue { padding-top: 80px; }
+
+.venue__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  align-items: start;
+  gap: 48px;
+}
+
+.venue__title { display: none; }
+.venue__plan { min-height: 520px; gap: 8px; }
+.venue__plan-title { font-size: 13px; font-weight: 700; }
+.venue__plan-text { font-size: 12px; }
+.venue__note { display: none; }
+
+.venue__side { display: flex; flex-direction: column; align-items: flex-start; }
+.venue__side .section-title { font-size: 28px; }
+.venue__side-text { margin-top: 12px; font-size: 14px; line-height: 1.5; }
+
+.seat-legend { display: grid; gap: 12px; margin-top: 16px; font-size: 13px; }
+.seat-legend li { display: flex; align-items: center; gap: 12px; }
+.seat-legend__swatch { width: 18px; height: 18px; border-radius: 3px; }
+.seat-legend__swatch--available { border: 1.5px solid var(--text); }
+.seat-legend__swatch--selected { background: var(--text); }
+.seat-legend__swatch--sold { background: var(--line); }
+
+.venue__side .btn { height: 48px; margin-top: 20px; }
+
+/* ---------- How it works ---------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.step { display: flex; align-items: center; gap: 16px; }
+
+.step__number {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.step__title { font-size: 15px; font-weight: 700; line-height: 1.4; }
+.step__text { margin-top: 2px; font-size: 13px; }
+
+/* ---------- FAQ ---------- */
+.faq__grid {
+  display: grid;
+  grid-template-columns: 382px minmax(0, 1fr);
+  gap: 24px;
+}
+
+.faq__intro .section-title { font-size: 28px; }
+.faq__intro p { margin-top: 8px; font-size: 13px; }
+.faq__intro a { text-decoration: underline; text-underline-offset: 2px; }
+
+.faq__list { display: grid; gap: 20px; }
+.faq__question { padding-left: 20px; font-size: 16px; font-weight: 700; line-height: 1.5; }
+.faq__item .skeleton { margin-top: 10px; gap: 10px; }
+
+/* Smaller section titles on this page */
+.tickets-page .section-title { font-size: 28px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .page-hero__grid { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr); gap: 40px; }
+  .page-hero__title { font-size: 56px; }
+  .venue__grid { grid-template-columns: minmax(0, 1fr) 320px; gap: 32px; }
+  .faq__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr); }
+}
+
+@media (max-width: 960px) {
+  .page-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .page-hero__poster { display: none; }
+  .releases,
+  .ticket-options,
+  .addons,
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .stay-banner { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .venue__grid { grid-template-columns: minmax(0, 1fr); }
+  .faq__grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+}
+
+@media (max-width: 720px) {
+  .tickets-page .section-title { font-size: 26px; }
+
+  /* Hero: title, meta line and the phase card */
+  .page-hero { padding: 12px 0 0; }
+  .page-hero .breadcrumbs { margin-bottom: 8px; font-size: 12px; }
+  .page-hero__title { font-size: 40px; }
+  .page-hero__subtitle,
+  .event-facts,
+  .release-banner { display: none; }
+  .page-hero__meta { display: block; margin-top: 4px; font-size: 13px; }
+
+  .phase-card {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .phase-card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .phase-card__phase { color: var(--magenta); font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .phase-card__from { margin-top: 16px; color: var(--muted); font-size: 12px; }
+  .phase-card__price { font-size: 40px; font-weight: 700; line-height: 1.2; }
+
+  .progress { height: 6px; margin-top: 8px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .progress__bar { display: block; height: 100%; background: var(--accent); }
+
+  .phase-card .countdown { margin-top: 16px; }
+  .phase-card .countdown__item { height: 64px; }
+  .phase-card .countdown__value { font-size: 22px; }
+  .phase-card__caption { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
+  .phase-card .btn { height: 48px; margin-top: 16px; }
+
+  /* Releases become a plain list under the phase card */
+  .releases-section { padding: 16px 0 0; background: none; }
+  .releases-section .section-head { display: none; }
+  .releases { gap: 0; }
+  .release-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: none;
+  }
+  .release-card--current { display: none; }
+  .release-card__head .badge,
+  .release-card__meta { display: none; }
+  .release-card__title { font-size: 13px; font-weight: 700; }
+  .release-card__note { display: inline; color: var(--muted); font-weight: 400; }
+  .release-card__price { color: var(--muted); font-size: 13px; font-weight: 400; }
+
+  /* Ticket options: title and price on one row, summary instead of the list */
+  .ticket-options-section { padding-top: 40px; padding-bottom: 40px; }
+  .section-head__note { display: none; }
+  .ticket-options { gap: 12px; }
+  .option-card { padding: 16px; }
+  .option-card__category,
+  .option-card__features { display: none; }
+  .option-card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 0; }
+  .option-card__title,
+  .option-card__price { margin: 0; font-size: 18px; font-weight: 700; }
+  .option-card__summary { display: block; margin-top: 4px; font-size: 12px; }
+  .option-card__select { height: 40px; margin-top: 16px; }
+
+  .addons-title { margin-top: 32px; margin-bottom: 12px; font-size: 18px; }
+  .addons { gap: 12px; }
+  .addon-card { padding: 14px 16px; }
+  .addon-card__icon { display: none; }
+  .addon-card__title { font-size: 15px; }
+  .addon-card__text { font-size: 12px; }
+  .addon-card__price { align-self: flex-start; font-size: 15px; }
+
+  .stay-banner { padding: 20px; gap: 16px; }
+  .stay-banner__title { font-size: 20px; }
+  .stay-banner__text { font-size: 14px; }
+  .stay-banner .btn { width: 100%; }
+
+  /* Venue: heading on top, no seat legend */
+  .venue { padding-top: 40px; padding-bottom: 40px; }
+  .venue__title { display: block; margin-bottom: 16px; }
+  .venue__plan { min-height: 0; aspect-ratio: 358 / 300; }
+  .venue__plan-text { display: none; }
+  .venue__note { display: block; margin-top: 12px; font-size: 13px; }
+  .venue__side { display: none; }
+
+  .how-section { padding-block: 32px; }
+  .steps { gap: 16px; }
+  .step { gap: 12px; }
+  .step__number { width: 36px; height: 36px; }
+  .step__text { font-size: 12px; }
+
+  .faq-section { padding-top: 40px; padding-bottom: 48px; }
+  .faq__list { gap: 16px; }
+  .faq__question { font-size: 14px; }
+}

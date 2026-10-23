@@ -26,14 +26,18 @@ src/
   app/
     layout.tsx      шапка, подвал, шрифт Inter, метаданные
     page.tsx        главная страница (Home)
-    globals.css     стили и токены палитры «UV Night»
+    globals.css     общие стили и токены палитры «UV Night»
+    tickets/
+      page.tsx      страница Tickets
+      tickets.css   стили страницы Tickets
   components/
     SiteHeader.tsx  шапка и мобильное меню
     SiteFooter.tsx  подвал
     NewsletterForm.tsx
-    TicketCard.tsx, ProductCard.tsx, OrganizerCard.tsx  карточки
-    Countdown.tsx   обратный отсчёт до начала фестиваля
-    SectionHead.tsx, Skeleton.tsx, Logo.tsx, Socials.tsx
+    TicketCard.tsx, ProductCard.tsx, OrganizerCard.tsx            карточки Home
+    ReleaseCard.tsx, TicketOptionCard.tsx, AddonCard.tsx, PhaseCard.tsx  карточки Tickets
+    Countdown.tsx   обратный отсчёт (до фестиваля, до повышения цены)
+    Breadcrumbs.tsx, AdaptiveText.tsx, SectionHead.tsx, Skeleton.tsx, Logo.tsx, Socials.tsx
   lib/
     navigation.ts   ссылки меню, подвала и соцсетей
 docs/
@@ -43,7 +47,7 @@ docs/
 
 ## Что ещё не готово
 
-- Готова только главная страница. Ссылки на остальные (Tickets, Shop, Gallery и т.д.) пока ведут на 404.
-- Дата обратного отсчёта — заглушка (`FESTIVAL_START` в `src/app/page.tsx`).
+- Готовы страницы Home и Tickets. Ссылки на остальные (Shop, Gallery, Checkout и т.д.) пока ведут на 404.
+- Даты обратного отсчёта — заглушки (`FESTIVAL_START` в `src/app/page.tsx`, `PRICE_STEP_AT` в `src/app/tickets/page.tsx`).
 - Форма подписки и кнопки «Add to cart» ещё никуда не подключены.
 - Ссылки на соцсети — заглушки `#` (`src/lib/navigation.ts`).
