@@ -1,3 +1,5 @@
+import { ComingSoonImage } from "./ComingSoonImage";
+
 export type ProductCardProps = {
   title: string;
   price: string;
@@ -9,8 +11,8 @@ export function ProductCard({ title, price, badge }: ProductCardProps) {
   return (
     <article className="product-card">
       <div className="placeholder product-card__photo">
+        <ComingSoonImage alt={`${title} — photo coming soon`} />
         {badge && <span className="badge badge--accent">{badge}</span>}
-        Product photo
       </div>
       <div className="product-card__info">
         <div>

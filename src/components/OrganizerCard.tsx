@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ComingSoonImage } from "./ComingSoonImage";
 import { Skeleton } from "./Skeleton";
 
 export type OrganizerCardProps = {
@@ -10,7 +11,9 @@ export type OrganizerCardProps = {
 export function OrganizerCard({ badge, title, link }: OrganizerCardProps) {
   return (
     <article className="org-card">
-      <div className="placeholder org-card__photo">Photo</div>
+      <div className="placeholder org-card__photo">
+        <ComingSoonImage alt={`${title} — photo coming soon`} />
+      </div>
       <div className="org-card__body">
         <span className="badge badge--outline">{badge}</span>
         <h3 className="org-card__title">{title}</h3>

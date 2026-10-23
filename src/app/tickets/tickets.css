@@ -176,9 +176,7 @@
 }
 
 .venue__title { display: none; }
-.venue__plan { min-height: 520px; gap: 8px; }
-.venue__plan-title { font-size: 13px; font-weight: 700; }
-.venue__plan-text { font-size: 12px; }
+.venue__plan { min-height: 520px; }
 .venue__note { display: none; }
 
 .venue__side { display: flex; flex-direction: column; align-items: flex-start; }
@@ -343,7 +341,6 @@
   .venue { padding-top: 40px; padding-bottom: 40px; }
   .venue__title { display: block; margin-bottom: 16px; }
   .venue__plan { min-height: 0; aspect-ratio: 358 / 300; }
-  .venue__plan-text { display: none; }
   .venue__note { display: block; margin-top: 12px; font-size: 13px; }
   .venue__side { display: none; }
 

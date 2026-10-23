@@ -42,7 +42,11 @@ src/
     navigation.ts   ссылки меню, подвала и соцсетей
 docs/
   figma-notes.md    заметки по макету
-  screens/          скриншоты Home (десктоп и мобильная версия)
+  screens/          скриншоты Home и Tickets (десктоп и мобильная версия)
+public/
+  images/coming-soon.svg  исходная временная картинка вместо фото
+  images/coming-soon-bg.svg, coming-soon-text.svg  её фон и надпись отдельными слоями:
+                          так компонент ComingSoonImage заполняет блок любых пропорций без обрезки текста
 ```
 
 ## Что ещё не готово

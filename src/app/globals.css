@@ -175,6 +175,50 @@ img { display: block; max-width: 100%; }
   text-align: center;
 }
 
+/* Temporary "coming soon" artwork inside photo placeholders (components/ComingSoonImage.tsx) */
+.placeholder,
+.experience__tile { position: relative; overflow: hidden; }
+
+.coming-soon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #05060f;
+}
+
+.coming-soon img { position: absolute; }
+
+.coming-soon__bg {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.coming-soon__text {
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 60%;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+}
+
+/* Content placed over the artwork */
+.experience__label { position: relative; z-index: 1; }
+.product-card__photo .badge { z-index: 1; }
+
+/* Promo video: text a bit higher, play button below it */
+.promo-video .coming-soon__text { top: 42%; }
+
+.promo-video .promo-video__play {
+  position: absolute;
+  top: 78%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
 .logo {
   display: inline-flex;
   flex: none;

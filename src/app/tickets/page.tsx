@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { AdaptiveText } from "@/components/AdaptiveText";
 import { AddonCard, type AddonCardProps } from "@/components/AddonCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { PhaseCard } from "@/components/PhaseCard";
 import { ReleaseCard, type ReleaseCardProps } from "@/components/ReleaseCard";
 import { SectionHead } from "@/components/SectionHead";
@@ -92,7 +93,9 @@ export default function TicketsPage() {
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Tickets" }]} />
 
           <div className="page-hero__grid">
-            <div className="placeholder page-hero__poster">Festival poster</div>
+            <div className="placeholder page-hero__poster">
+              <ComingSoonImage alt="Black Out Fest 2027 poster — coming soon" priority />
+            </div>
 
             <div>
               <h1 className="page-hero__title">Tickets</h1>
@@ -187,10 +190,7 @@ export default function TicketsPage() {
           <div className="venue__grid">
             <div>
               <div className="placeholder venue__plan">
-                <span className="venue__plan-title">
-                  <AdaptiveText full="Venue plan / seating chart" short="Seating chart (pinch to zoom)" />
-                </span>
-                <span className="venue__plan-text">Stage · zones A / B / C · VIP tables · bar</span>
+                <ComingSoonImage alt="Venue plan and seating chart — coming soon" />
               </div>
               <p className="venue__note">You pick exact seats at checkout.</p>
             </div>

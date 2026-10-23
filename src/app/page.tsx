@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { Countdown } from "@/components/Countdown";
 import { OrganizerCard, type OrganizerCardProps } from "@/components/OrganizerCard";
 import { ProductCard, type ProductCardProps } from "@/components/ProductCard";
@@ -52,9 +53,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="container hero__grid">
           <div className="placeholder hero__poster">
-            Festival poster / flyer
-            <br />
-            (portrait 3:4, main visual)
+            <ComingSoonImage alt="Black Out Fest 2027 poster — coming soon" priority />
           </div>
 
           <div className="hero__content">
@@ -143,6 +142,7 @@ export default function HomePage() {
           <div className="experience">
             {experienceTiles.map((tile) => (
               <Link key={tile.label} className="experience__tile" href={tile.href}>
+                <ComingSoonImage alt="" />
                 <span className="experience__label">{tile.label}</span>
               </Link>
             ))}
@@ -171,18 +171,18 @@ export default function HomePage() {
                 className={tile.desktopOnly ? "placeholder gallery-strip__item gallery-strip__item--desktop" : "placeholder gallery-strip__item"}
                 href="/gallery"
               >
-                {tile.label}
+                <ComingSoonImage alt={`${tile.label} — photos coming soon`} />
               </Link>
             ))}
           </div>
 
           <div className="placeholder promo-video">
+            <ComingSoonImage alt="Promo video — coming soon" />
             <span className="promo-video__play" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </span>
-            <span>Promo / aftermovie video (16:9)</span>
           </div>
         </div>
       </section>
