@@ -6,11 +6,9 @@ import { ProductCard, type ProductCardProps } from "@/components/ProductCard";
 import { SectionHead } from "@/components/SectionHead";
 import { Skeleton } from "@/components/Skeleton";
 import { TicketCard, type TicketCardProps } from "@/components/TicketCard";
+import { EVENT } from "@/lib/event";
 
 // Figma: Desktop / D1 · Home 1:2, Mobile / M1 · Home 2:7604
-
-// TODO: replace the placeholder date with the real start time
-const FESTIVAL_START = "2027-06-12T18:00:00+03:00";
 
 const tickets: TicketCardProps[] = [
   { phase: "Early bird", title: "General Admission", price: "[PRICE]", status: "sold-out", href: "/tickets" },
@@ -67,7 +65,7 @@ export default function HomePage() {
 
             <Skeleton className="hero__skeleton" widths={["88%", "71%", "49%"]} />
 
-            <Countdown target={FESTIVAL_START} />
+            <Countdown target={EVENT.start} />
 
             <div className="hero__actions">
               <Link className="btn btn-primary btn-lg" href="/tickets">

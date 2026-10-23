@@ -24,13 +24,18 @@ npm run dev
 ```
 src/
   app/
-    layout.tsx      шапка, подвал, шрифт Inter, метаданные
-    page.tsx        главная страница (Home)
+    layout.tsx      корневой layout: шрифт Inter, метаданные
     globals.css     общие стили и токены палитры «UV Night»
-    tickets/
-      page.tsx      страница Tickets
-      tickets.css   стили страницы Tickets
+    (site)/         страницы с шапкой и подвалом сайта
+      layout.tsx
+      page.tsx      главная (Home)
+      tickets/      страница Tickets и её стили
+    checkout/       оформление заказа: своя шапка, без подвала
+      page.tsx
+      checkout.css
   components/
+    checkout/       шаги Checkout: CheckoutFlow (состояние и переходы), TicketsStep, SeatsStep,
+                    DetailsStep, PaymentStep, DoneStep, OrderSummary, MobileOrderBar и др.
     SiteHeader.tsx  шапка и мобильное меню
     SiteFooter.tsx  подвал
     NewsletterForm.tsx
@@ -40,6 +45,8 @@ src/
     Breadcrumbs.tsx, AdaptiveText.tsx, SectionHead.tsx, Skeleton.tsx, Logo.tsx, Socials.tsx
   lib/
     navigation.ts   ссылки меню, подвала и соцсетей
+    event.ts        данные события (дата начала и т.д.)
+    checkout.ts     типы билетов, допы, схема мест, правила заказа
 docs/
   figma-notes.md    заметки по макету
   screens/          скриншоты Home и Tickets (десктоп и мобильная версия)
@@ -51,7 +58,10 @@ public/
 
 ## Что ещё не готово
 
-- Готовы страницы Home и Tickets. Ссылки на остальные (Shop, Gallery, Checkout и т.д.) пока ведут на 404.
-- Даты обратного отсчёта — заглушки (`FESTIVAL_START` в `src/app/page.tsx`, `PRICE_STEP_AT` в `src/app/tickets/page.tsx`).
+- Готовы Home, Tickets и Checkout. Ссылки на остальные страницы (Shop, Gallery, Info и т.д.) пока ведут на 404.
+- Даты — заглушки (`src/lib/event.ts`, `PRICE_STEP_AT` в `src/app/(site)/tickets/page.tsx`).
+- Checkout — прототип без бэкенда: заказ живёт в памяти браузера, места и занятость — заглушки,
+  оплата имитируется (поля карты никуда не отправляются, их нужно заменить полями платёжного провайдера),
+  промокоды не работают, «Download PDF» открывает печать билета.
 - Форма подписки и кнопки «Add to cart» ещё никуда не подключены.
 - Ссылки на соцсети — заглушки `#` (`src/lib/navigation.ts`).

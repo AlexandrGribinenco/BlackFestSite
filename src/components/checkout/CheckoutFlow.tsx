@@ -1,0 +1,232 @@
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import {
+  CHECKOUT_STEPS,
+  EMPTY_ORDER,
+  ORDER_TOTAL,
+  formatSeats,
+  needsSeats,
+  seatsComplete,
+  seatsNeeded,
+  ticketCount,
+  type CheckoutStep,
+  type Order,
+  type SeatCategory,
+} from "@/lib/checkout";
+import { CheckoutHeader } from "./CheckoutHeader";
+import { CheckoutSteps } from "./CheckoutSteps";
+import { DETAILS_FORM_ID, DetailsStep, EMPTY_DETAILS, type CustomerDetails } from "./DetailsStep";
+import { DoneStep } from "./DoneStep";
+import { MobileOrderBar } from "./MobileOrderBar";
+import { OrderSummary } from "./OrderSummary";
+import { PAYMENT_FORM_ID, PaymentStep, type PaymentMethod } from "./PaymentStep";
+import { SeatsStep } from "./SeatsStep";
+import { TicketsStep } from "./TicketsStep";
+
+const stepIndex = (step: CheckoutStep) => CHECKOUT_STEPS.findIndex((s) => s.id === step);
+const stepHref = (step: CheckoutStep) => (step === "tickets" ? "/checkout" : `/checkout?step=${step}`);
+
+function parseStep(value: string | null): CheckoutStep {
+  return CHECKOUT_STEPS.some((s) => s.id === value) ? (value as CheckoutStep) : "tickets";
+}
+
+/** Keeps picked seats within the number of seated tickets of each category */
+function trimSeats(order: Order): Order {
+  const needed = seatsNeeded(order);
+  const kept: Record<SeatCategory, number> = { A: 0, B: 0, C: 0 };
+  const seats = order.seats.filter((id) => {
+    const category = id[0] as SeatCategory;
+    if (kept[category] >= needed[category]) return false;
+    kept[category] += 1;
+    return true;
+  });
+  return { ...order, seats };
+}
+
+// The order lives in memory only: it is gone after a reload, and the step guard sends the buyer back to step 1.
+// TODO: create the order and hold seats on the ticketing backend.
+export function CheckoutFlow() {
+  const router = useRouter();
+  const requested = parseStep(useSearchParams().get("step"));
+
+  const [order, setOrder] = useState<Order>(EMPTY_ORDER);
+  const [details, setDetails] = useState<CustomerDetails>(EMPTY_DETAILS);
+  const [detailsDone, setDetailsDone] = useState(false);
+  const [method, setMethod] = useState<PaymentMethod>("card");
+  const [processing, setProcessing] = useState(false);
+  const [orderNumber, setOrderNumber] = useState<string | null>(null);
+  const [holdKey, setHoldKey] = useState(0);
+  const [holdExpired, setHoldExpired] = useState(false);
+
+  const count = ticketCount(order);
+  const seated = needsSeats(order);
+
+  // Furthest step the current order allows
+  const maxStep: CheckoutStep = orderNumber
+    ? "done"
+    : count === 0
+      ? "tickets"
+      : seated && !seatsComplete(order)
+        ? "seats"
+        : detailsDone
+          ? "payment"
+          : "details";
+
+  let step: CheckoutStep = orderNumber ? "done" : stepIndex(requested) <= stepIndex(maxStep) ? requested : maxStep;
+  if (step === "seats" && !seated) step = "tickets";
+  if (step === "done" && !orderNumber) step = maxStep;
+
+  useEffect(() => {
+    if (step !== requested) router.replace(stepHref(step));
+  }, [step, requested, router]);
+
+  const goTo = (next: CheckoutStep) => router.push(stepHref(next));
+  const nextAfterTickets: CheckoutStep = seated ? "seats" : "details";
+
+  function back() {
+    if (step === "tickets") router.push("/tickets");
+    else if (step === "seats") goTo("tickets");
+    else if (step === "details") goTo(seated ? "seats" : "tickets");
+    else if (step === "payment") goTo("details");
+  }
+
+  function setTicketQty(id: string, qty: number) {
+    setOrder((prev) => trimSeats({ ...prev, tickets: { ...prev.tickets, [id]: qty } }));
+  }
+
+  function setAddonQty(id: string, qty: number) {
+    setOrder((prev) => ({ ...prev, addons: { ...prev.addons, [id]: qty } }));
+  }
+
+  // Clicking a free seat when the category is full moves the oldest pick there
+  function toggleSeat(id: string) {
+    setOrder((prev) => {
+      if (prev.seats.includes(id)) return { ...prev, seats: prev.seats.filter((s) => s !== id) };
+      const category = id[0] as SeatCategory;
+      const inCategory = prev.seats.filter((s) => s[0] === category);
+      const seats = inCategory.length >= seatsNeeded(prev)[category] ? prev.seats.filter((s) => s !== inCategory[0]) : prev.seats;
+      return { ...prev, seats: [...seats, id] };
+    });
+  }
+
+  const handleHoldExpire = useCallback(() => {
+    setHoldExpired(true);
+    setOrder((prev) => ({ ...prev, seats: [] }));
+  }, []);
+
+  function startOver() {
+    setOrder(EMPTY_ORDER);
+    setDetailsDone(false);
+    setHoldExpired(false);
+    setHoldKey((key) => key + 1);
+    goTo("tickets");
+  }
+
+  function pay() {
+    setProcessing(true);
+    // TODO: hand over to the payment provider; this only simulates a successful payment
+    setTimeout(() => {
+      setOrderNumber(String(Math.floor(100000 + Math.random() * 900000)));
+      setProcessing(false);
+      router.push(stepHref("done"));
+    }, 1200);
+  }
+
+  function renderCta(block: boolean) {
+    const className = block ? "btn btn-primary btn-block checkout-cta" : "btn btn-primary checkout-cta";
+    const disabled = holdExpired || processing;
+
+    switch (step) {
+      case "tickets":
+        return (
+          <button className={className} type="button" disabled={disabled || count === 0} onClick={() => goTo(nextAfterTickets)}>
+            {seated ? "Continue to seats" : "Continue to details"}
+          </button>
+        );
+      case "seats":
+        return (
+          <button className={className} type="button" disabled={disabled || !seatsComplete(order)} onClick={() => goTo("details")}>
+            Continue
+          </button>
+        );
+      case "details":
+        return (
+          <button className={className} type="submit" form={DETAILS_FORM_ID} disabled={disabled}>
+            {block ? "Continue to payment" : "To payment"}
+          </button>
+        );
+      case "payment":
+        return (
+          <button className={className} type="submit" form={PAYMENT_FORM_ID} disabled={disabled}>
+            {processing ? "Processing…" : `Pay ${ORDER_TOTAL}`}
+          </button>
+        );
+      default:
+        return null;
+    }
+  }
+
+  const mobileBar: Record<Exclude<CheckoutStep, "done">, [string, string]> = {
+    tickets: [count === 0 ? "No tickets yet" : `${count} ${count === 1 ? "ticket" : "tickets"}`, `Total ${ORDER_TOTAL}`],
+    seats: [formatSeats(order.seats) || "No seats picked", `Total ${ORDER_TOTAL}`],
+    details: [`Total ${ORDER_TOTAL}`, `${count} ${count === 1 ? "ticket" : "tickets"}`],
+    payment: [`Total ${ORDER_TOTAL}`, "Secure payment"],
+  };
+
+  return (
+    <>
+      <CheckoutHeader
+        onBack={step === "done" ? null : back}
+        showTimer={step !== "done"}
+        holdKey={holdKey}
+        onHoldExpire={handleHoldExpire}
+      />
+      <CheckoutSteps current={step} onSelect={step === "done" ? undefined : goTo} />
+
+      <main className="checkout">
+        {step === "done" && orderNumber ? (
+          <div className="container">
+            <DoneStep order={order} email={details.email} orderNumber={orderNumber} />
+          </div>
+        ) : (
+          <div className="container checkout__grid">
+            <div className="checkout__main">
+              {holdExpired && (
+                <div className="hold-expired" role="alert">
+                  <p>Your seat hold has expired and the seats were released. Start again to pick tickets and seats.</p>
+                  <button className="btn btn-primary" type="button" onClick={startOver}>
+                    Start over
+                  </button>
+                </div>
+              )}
+
+              {step === "tickets" && <TicketsStep order={order} onTicketChange={setTicketQty} onAddonChange={setAddonQty} />}
+              {step === "seats" && <SeatsStep order={order} onToggleSeat={toggleSeat} onBack={back} />}
+              {step === "details" && (
+                <DetailsStep
+                  details={details}
+                  onChange={(value) => {
+                    setDetails(value);
+                    setDetailsDone(false);
+                  }}
+                  onSubmit={() => {
+                    setDetailsDone(true);
+                    goTo("payment");
+                  }}
+                  onBack={back}
+                />
+              )}
+              {step === "payment" && <PaymentStep order={order} method={method} onMethodChange={setMethod} onSubmit={pay} onBack={back} />}
+            </div>
+
+            <OrderSummary order={order} cta={renderCta(true)} />
+          </div>
+        )}
+      </main>
+
+      {step !== "done" && <MobileOrderBar primary={mobileBar[step][0]} secondary={mobileBar[step][1]} cta={renderCta(false)} />}
+    </>
+  );
+}
