@@ -5,7 +5,9 @@ import { useCallback, useEffect, useState } from "react";
 import {
   CHECKOUT_STEPS,
   EMPTY_ORDER,
+  HOLD_SECONDS,
   ORDER_TOTAL,
+  SIMULATED_PAYMENT_RESULT,
   formatSeats,
   needsSeats,
   seatsComplete,
@@ -21,6 +23,7 @@ import { DETAILS_FORM_ID, DetailsStep, EMPTY_DETAILS, type CustomerDetails } fro
 import { DoneStep } from "./DoneStep";
 import { MobileOrderBar } from "./MobileOrderBar";
 import { OrderSummary } from "./OrderSummary";
+import { PaymentFailed } from "./PaymentFailed";
 import { PAYMENT_FORM_ID, PaymentStep, type PaymentMethod } from "./PaymentStep";
 import { SeatsStep } from "./SeatsStep";
 import { TicketsStep } from "./TicketsStep";
@@ -57,8 +60,14 @@ export function CheckoutFlow() {
   const [method, setMethod] = useState<PaymentMethod>("card");
   const [processing, setProcessing] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
-  const [holdKey, setHoldKey] = useState(0);
+  const [paymentFailed, setPaymentFailed] = useState(false);
+  const [holdUntil, setHoldUntil] = useState<number | null>(null);
   const [holdExpired, setHoldExpired] = useState(false);
+
+  // The seat hold starts when the buyer opens the checkout (client only, so the server render matches)
+  useEffect(() => {
+    setHoldUntil(Date.now() + HOLD_SECONDS * 1000);
+  }, []);
 
   const count = ticketCount(order);
   const seated = needsSeats(order);
@@ -120,16 +129,22 @@ export function CheckoutFlow() {
     setOrder(EMPTY_ORDER);
     setDetailsDone(false);
     setHoldExpired(false);
-    setHoldKey((key) => key + 1);
+    setPaymentFailed(false);
+    setHoldUntil(Date.now() + HOLD_SECONDS * 1000);
     goTo("tickets");
   }
 
   function pay() {
     setProcessing(true);
-    // TODO: hand over to the payment provider; this only simulates a successful payment
+    setPaymentFailed(false);
+    // TODO: hand over to the payment provider; this only simulates the result
     setTimeout(() => {
-      setOrderNumber(String(Math.floor(100000 + Math.random() * 900000)));
       setProcessing(false);
+      if (SIMULATED_PAYMENT_RESULT === "failure") {
+        setPaymentFailed(true);
+        return;
+      }
+      setOrderNumber(String(Math.floor(100000 + Math.random() * 900000)));
       router.push(stepHref("done"));
     }, 1200);
   }
@@ -158,7 +173,11 @@ export function CheckoutFlow() {
           </button>
         );
       case "payment":
-        return (
+        return paymentFailed ? (
+          <button className={className} type="button" disabled={disabled} onClick={pay}>
+            Try again
+          </button>
+        ) : (
           <button className={className} type="submit" form={PAYMENT_FORM_ID} disabled={disabled}>
             {processing ? "Processing…" : `Pay ${ORDER_TOTAL}`}
           </button>
@@ -180,7 +199,7 @@ export function CheckoutFlow() {
       <CheckoutHeader
         onBack={step === "done" ? null : back}
         showTimer={step !== "done"}
-        holdKey={holdKey}
+        holdUntil={holdUntil}
         onHoldExpire={handleHoldExpire}
       />
       <CheckoutSteps current={step} onSelect={step === "done" ? undefined : goTo} />
@@ -218,7 +237,19 @@ export function CheckoutFlow() {
                   onBack={back}
                 />
               )}
-              {step === "payment" && <PaymentStep order={order} method={method} onMethodChange={setMethod} onSubmit={pay} onBack={back} />}
+              {step === "payment" &&
+                (paymentFailed ? (
+                  <PaymentFailed
+                    holdUntil={holdUntil}
+                    onRetry={pay}
+                    onUseAnotherCard={() => {
+                      setPaymentFailed(false);
+                      setMethod("card");
+                    }}
+                  />
+                ) : (
+                  <PaymentStep order={order} method={method} onMethodChange={setMethod} onSubmit={pay} onBack={back} />
+                ))}
             </div>
 
             <OrderSummary order={order} cta={renderCta(true)} />

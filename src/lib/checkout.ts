@@ -53,6 +53,10 @@ export const MAX_PER_TYPE = 10;
 /** How long seats are held while the buyer completes the order */
 export const HOLD_SECONDS = 10 * 60;
 
+/** Outcome of the simulated payment; switch to "failure" to see the D8 "Payment failed" state */
+// TODO: remove once the payment provider is connected
+export const SIMULATED_PAYMENT_RESULT: "success" | "failure" = "success";
+
 export const BOOKING_FEE = "[FEE]";
 export const ORDER_TOTAL = "[TOTAL]";
 

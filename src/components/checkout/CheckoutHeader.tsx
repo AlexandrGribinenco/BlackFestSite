@@ -11,13 +11,13 @@ type CheckoutHeaderProps = {
   /** Previous step, or back to the Tickets page on step 1; hidden when null */
   onBack: (() => void) | null;
   showTimer: boolean;
-  /** Changing the key restarts the seat hold */
-  holdKey: number;
+  /** Time (ms) when the seat hold ends; null until the page is mounted */
+  holdUntil: number | null;
   onHoldExpire: () => void;
 };
 
 // Figma: D3 header (logo, seat hold, back link); M4 header (back arrow, title, hold)
-export function CheckoutHeader({ onBack, showTimer, holdKey, onHoldExpire }: CheckoutHeaderProps) {
+export function CheckoutHeader({ onBack, showTimer, holdUntil, onHoldExpire }: CheckoutHeaderProps) {
   return (
     <header className="checkout-header">
       <div className="container checkout-header__inner">
@@ -37,7 +37,7 @@ export function CheckoutHeader({ onBack, showTimer, holdKey, onHoldExpire }: Che
         <p className="checkout-header__title">{EVENT.name}</p>
 
         <div className="checkout-header__actions">
-          {showTimer && <HoldTimer key={holdKey} onExpire={onHoldExpire} />}
+          {showTimer && <HoldTimer holdUntil={holdUntil} onExpire={onHoldExpire} />}
           <Link className="checkout-header__back" href="/tickets">
             ← Back to tickets
           </Link>
@@ -49,13 +49,24 @@ export function CheckoutHeader({ onBack, showTimer, holdKey, onHoldExpire }: Che
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-function HoldTimer({ onExpire }: { onExpire: () => void }) {
-  const [secondsLeft, setSecondsLeft] = useState(HOLD_SECONDS);
+export const formatClock = (seconds: number) => `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
+
+/** Seconds left until `until` (ms), ticking every second; the full hold while `until` is not set yet */
+export function useSecondsLeft(until: number | null): number {
+  const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => setSecondsLeft((s) => Math.max(0, s - 1)), 1000);
+    setNow(Date.now());
+    const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  if (until === null || now === null) return HOLD_SECONDS;
+  return Math.max(0, Math.ceil((until - now) / 1000));
+}
+
+function HoldTimer({ holdUntil, onExpire }: { holdUntil: number | null; onExpire: () => void }) {
+  const secondsLeft = useSecondsLeft(holdUntil);
 
   useEffect(() => {
     if (secondsLeft === 0) onExpire();
@@ -68,7 +79,7 @@ function HoldTimer({ onExpire }: { onExpire: () => void }) {
         <path d="M12 9v4l2 2M9 2h6" />
       </svg>
       <span className="only-desktop">Seats held </span>
-      {pad(Math.floor(secondsLeft / 60))}:{pad(secondsLeft % 60)}
+      {formatClock(secondsLeft)}
     </p>
   );
 }

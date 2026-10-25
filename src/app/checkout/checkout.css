@@ -356,6 +356,31 @@
 
 .pay-note { margin-top: 16px; font-size: 12px; line-height: 1.5; }
 
+/* Payment failed (Figma: D8 "Payment failed") */
+.payment-failed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.payment-failed__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--text);
+  border-radius: 50%;
+}
+
+.payment-failed__title { margin-top: 16px; font-size: 22px; font-weight: 700; }
+.payment-failed__text { margin-top: 8px; font-size: 13px; }
+.payment-failed__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
+
 /* ---------- Step 5: done ---------- */
 .done {
   display: flex;
