@@ -68,7 +68,7 @@ export default function HomePage() {
             <Countdown target={EVENT.start} />
 
             <div className="hero__actions">
-              <Link className="btn btn-primary btn-lg" href="/tickets">
+              <Link className="btn btn-primary btn-lg btn-ring" href="/tickets">
                 <span className="only-desktop">Buy tickets</span>
                 <span className="only-mobile">Buy tickets · from [PRICE]</span>
               </Link>

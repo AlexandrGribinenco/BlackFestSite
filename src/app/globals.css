@@ -151,7 +151,7 @@ img { display: block; max-width: 100%; }
 .btn-primary.btn-lg { font-size: 16px; }
 .btn-block { width: 100%; }
 
-/* Primary CTA with a light outline (Tickets: "Buy tickets" in the release banner, "Choose seats") */
+/* Primary CTA with a light outline (Home hero "Buy tickets", Tickets release banner, "Choose seats", "Download PDF") */
 .btn-ring { border-color: var(--text); }
 
 /* ---------- Small UI ---------- */
@@ -312,23 +312,37 @@ img { display: block; max-width: 100%; }
   height: var(--header-h);
 }
 
+/* Nav items are pills (Figma: Components / Nav item 286:6, Default and Active) */
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 8px;
 }
 
 .main-nav a {
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 25px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 16px;
   font-weight: 500;
   white-space: nowrap;
-  transition: color 0.15s;
+  transition: border-color 0.15s, background-color 0.15s;
 }
 
-.main-nav a:hover { color: var(--accent-hover); }
-.main-nav a[aria-current="page"] { font-weight: 700; }
+.main-nav a:hover { border-color: var(--line); }
+
+.main-nav a[aria-current="page"] {
+  border-color: var(--accent);
+  background: rgba(138, 63, 252, 0.18);
+  font-weight: 600;
+}
 
 .site-header__actions { display: flex; align-items: center; gap: 24px; }
+.site-header__actions .btn { height: 52px; padding: 0 32px; border-radius: var(--radius); font-size: 16px; }
 
 .cart-link { position: relative; display: inline-flex; padding: 4px; }
 
@@ -866,7 +880,16 @@ img { display: block; max-width: 100%; }
   .partners { grid-template-columns: minmax(0, 1fr); gap: 32px; }
 }
 
-@media (max-width: 1100px) {
+/* Compact pills so the whole nav fits on 1200–1400 px screens */
+@media (max-width: 1400px) {
+  .site-header__inner { gap: 24px; }
+  .main-nav { gap: 6px; }
+  .main-nav a { height: 44px; padding: 0 16px; font-size: 15px; }
+  .site-header__actions { gap: 16px; }
+  .site-header__actions .btn { height: 48px; padding: 0 24px; font-size: 15px; }
+}
+
+@media (max-width: 1200px) {
   .main-nav { display: none; }
   .site-header__inner { grid-template-columns: auto 1fr; }
   .site-header__actions { justify-self: end; gap: 16px; }
