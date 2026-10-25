@@ -84,14 +84,14 @@ export function DetailsStep({ details, onChange, onSubmit, onBack }: DetailsStep
           <label className="checkbox">
             <input type="checkbox" name="acceptTerms" required checked={details.acceptTerms} onChange={update} />
             <span>
-              I agree to the <Link href="/terms">Terms &amp; Conditions</Link> and refund rules *
+              I agree to the <Link href="/legal/terms">Terms &amp; Conditions</Link> and refund rules *
             </span>
           </label>
           <label className="checkbox">
             <input type="checkbox" name="acceptPrivacy" required checked={details.acceptPrivacy} onChange={update} />
             <span>
-              I agree to the <Link href="/personal-data">Personal Data Processing Agreement</Link> and{" "}
-              <Link href="/privacy">Privacy Policy</Link> *
+              I agree to the <Link href="/legal/personal-data">Personal Data Processing Agreement</Link> and{" "}
+              <Link href="/legal/privacy">Privacy Policy</Link> *
             </span>
           </label>
           <label className="checkbox">

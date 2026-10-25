@@ -25,10 +25,10 @@ export const footerFestivalNav: NavLink[] = [
 ];
 
 export const footerLegalNav: NavLink[] = [
-  { href: "/terms", label: "Terms & Conditions" },
-  { href: "/privacy", label: "Privacy Policy" },
-  { href: "/cookies", label: "Cookie Policy" },
-  { href: "/personal-data", label: "Personal Data Processing Agreement" },
+  { href: "/legal/terms", label: "Terms & Conditions" },
+  { href: "/legal/privacy", label: "Privacy Policy" },
+  { href: "/legal/cookies", label: "Cookie Policy" },
+  { href: "/legal/personal-data", label: "Personal Data Processing Agreement" },
 ];
 
 // TODO: replace "#" with the real social profiles
