@@ -1,0 +1,127 @@
+/* Info & FAQ — Figma: Desktop / D5 · Info & FAQ 347:2389, Mobile / M6 · Info & FAQ 3:10899 */
+
+.info {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: start;
+  gap: 64px;
+  padding-bottom: 72px;
+}
+
+/* In-page navigation (components/SectionNav.tsx) */
+.section-nav {
+  position: sticky;
+  top: 100px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.section-nav ul { display: grid; gap: 4px; }
+
+.section-nav a {
+  display: block;
+  padding: 10px 14px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius);
+  font-size: 13px;
+  transition: border-color 0.15s;
+}
+
+.section-nav a:hover { border-color: var(--line); }
+.section-nav a.is-active { border-color: var(--accent); font-weight: 700; }
+
+/* Sections */
+.info-section {
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 96px;
+}
+
+.info-section:first-child { padding-top: 0; border-top: 0; }
+.info-section:last-child { padding-bottom: 0; }
+.info-section__title { margin-bottom: 20px; font-size: 32px; font-weight: 700; line-height: 1.2; }
+
+.info-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.77fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+.info-split--media-first { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+
+.info-text { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; font-size: 14px; }
+.info-text .skeleton { width: 100%; margin: 4px 0; }
+.info-text .btn { margin-top: 8px; }
+.info-venue { font-size: 16px; font-weight: 700; }
+
+.info-media { aspect-ratio: 558 / 300; }
+.info-media--short { aspect-ratio: 430 / 220; }
+
+.info-list { display: grid; gap: 8px; padding-left: 14px; font-size: 13px; }
+
+.info-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.info-tile { display: flex; flex-direction: column; gap: 10px; }
+.info-tile__media { aspect-ratio: 500 / 240; transition: border-color 0.15s; }
+.info-tile:hover .info-tile__media { border-color: var(--muted); }
+.info-tile__title { margin-top: 6px; font-size: 14px; font-weight: 700; }
+
+.rule-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+
+.rule-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.rule-card__title { font-size: 18px; font-weight: 700; }
+.rule-card__text { font-size: 13px; }
+
+.partner-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 32px;
+  padding: 32px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+}
+
+.partner-card__title { font-size: 18px; font-weight: 700; }
+.partner-card__media { aspect-ratio: 420 / 220; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .info { grid-template-columns: 220px minmax(0, 1fr); gap: 40px; }
+}
+
+@media (max-width: 960px) {
+  .info { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .section-nav { position: static; padding: 0; border: 0; }
+  .section-nav ul { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .section-nav ul::-webkit-scrollbar { display: none; }
+  .section-nav a { padding: 7px 16px; border-color: var(--text); border-radius: 999px; white-space: nowrap; }
+  .section-nav a.is-active { border-color: var(--accent); }
+  .info-split,
+  .info-split--media-first,
+  .partner-card { grid-template-columns: minmax(0, 1fr); }
+  .info-split--media-first .info-media { order: 0; }
+  .rule-cards { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+
+@media (max-width: 720px) {
+  .info { padding-bottom: 48px; }
+  .section-nav { margin-inline: calc(var(--gutter) * -1); }
+  .section-nav ul { padding-inline: var(--gutter); }
+  .info-section { padding: 28px 0; scroll-margin-top: 72px; }
+  .info-section__title { margin-bottom: 14px; font-size: 24px; }
+  .info-tiles { gap: 12px; }
+  .info-tile__media { aspect-ratio: 1 / 1; }
+  .rule-card { padding: 16px; }
+  .partner-card { padding: 20px; }
+  .partner-card .btn { width: 100%; }
+}

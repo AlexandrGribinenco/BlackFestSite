@@ -5,10 +5,10 @@ import { AdaptiveText } from "@/components/AdaptiveText";
 import { AddonCard, type AddonCardProps } from "@/components/AddonCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
+import { FaqList, type FaqItem } from "@/components/FaqList";
 import { PhaseCard } from "@/components/PhaseCard";
 import { ReleaseCard, type ReleaseCardProps } from "@/components/ReleaseCard";
 import { SectionHead } from "@/components/SectionHead";
-import { Skeleton } from "@/components/Skeleton";
 import { TicketOptionCard, type TicketOptionCardProps } from "@/components/TicketOptionCard";
 import "./tickets.css";
 
@@ -76,7 +76,7 @@ const steps = [
   { title: "Show the QR at the entrance", shortTitle: "Show QR at entrance", text: "From your phone or printed.", shortText: "Phone or print" },
 ];
 
-const faq = [
+const faq: FaqItem[] = [
   { question: "Can I get a refund?" },
   { question: "Can I transfer my ticket to someone else?", short: "Can I transfer my ticket?" },
   { question: "I did not receive my ticket email", short: "I did not receive my email" },
@@ -256,17 +256,7 @@ export default function TicketsPage() {
             </p>
           </div>
 
-          {/* TODO: real answers; the wireframe shows grey placeholder lines */}
-          <div className="faq__list">
-            {faq.map((item) => (
-              <div key={item.question} className="faq__item">
-                <h3 className="faq__question">
-                  <AdaptiveText full={item.question} short={item.short} />
-                </h3>
-                <Skeleton size="sm" widths={[undefined, "70%"]} />
-              </div>
-            ))}
-          </div>
+          <FaqList items={faq} />
         </div>
       </section>
     </main>

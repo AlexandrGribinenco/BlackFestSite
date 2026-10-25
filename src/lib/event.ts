@@ -8,4 +8,7 @@ export const EVENT = {
   date: "[DATE]",
   time: "[TIME]",
   venue: "[VENUE]",
+  venueName: "[VENUE NAME]",
+  address: "[ADDRESS], [CITY], Moldova",
+  mapsUrl: "https://www.google.com/maps",
 };

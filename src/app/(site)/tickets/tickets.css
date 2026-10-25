@@ -228,9 +228,6 @@
 .faq__intro p { margin-top: 8px; font-size: 13px; }
 .faq__intro a { text-decoration: underline; text-underline-offset: 2px; }
 
-.faq__list { display: grid; gap: 20px; }
-.faq__question { padding-left: 20px; font-size: 16px; font-weight: 700; line-height: 1.5; }
-.faq__item .skeleton { margin-top: 10px; gap: 10px; }
 
 /* Smaller section titles on this page */
 .tickets-page .section-title { font-size: 28px; }
@@ -351,6 +348,4 @@
   .step__text { font-size: 12px; }
 
   .faq-section { padding-top: 40px; padding-bottom: 48px; }
-  .faq__list { gap: 16px; }
-  .faq__question { font-size: 14px; }
 }

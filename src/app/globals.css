@@ -268,6 +268,17 @@ img { display: block; max-width: 100%; }
 .breadcrumbs a { transition: color 0.15s; }
 .breadcrumbs a:hover { color: var(--text); }
 
+/* FAQ list with placeholder answers (components/FaqList.tsx) */
+.faq-list { display: grid; gap: 20px; }
+.faq-item__question { padding-left: 20px; font-size: 16px; font-weight: 700; line-height: 1.5; }
+.faq-item .skeleton { margin-top: 10px; gap: 10px; }
+
+/* Page title block shared by inner pages: breadcrumbs, h1, intro */
+.page-head { padding-block: 24px 40px; }
+.page-head .breadcrumbs { margin-bottom: 20px; }
+.page-head__title { font-size: 64px; font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+.page-head__intro { margin-top: 8px; font-size: 18px; line-height: 1.4; }
+
 .socials { display: flex; gap: 8px; }
 
 .socials a {
@@ -760,6 +771,94 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.04em;
 }
 
+/* ---------- Cookie consent (components/CookieConsent.tsx) ---------- */
+.cookie-banner {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  left: 24px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1344px;
+  margin-inline: auto;
+  padding: 20px 24px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.cookie-banner__title { font-size: 16px; font-weight: 700; }
+.cookie-banner__text p { margin-top: 4px; font-size: 13px; }
+.cookie-banner a { text-decoration: underline; text-underline-offset: 2px; }
+.cookie-banner__actions { display: flex; flex: none; gap: 12px; }
+
+.cookie-dialog {
+  width: min(560px, calc(100% - 32px));
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.cookie-dialog::backdrop { background: rgba(5, 3, 12, 0.7); }
+.cookie-dialog__title { font-size: 20px; font-weight: 700; }
+
+.cookie-options { display: grid; margin-top: 12px; }
+
+.cookie-options li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.cookie-option__name { font-size: 14px; font-weight: 700; }
+.cookie-option__text { margin-top: 2px; color: var(--muted); font-size: 12px; }
+.cookie-dialog__actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+
+.toggle {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--line);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.toggle__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform 0.15s, background-color 0.15s;
+}
+
+.toggle[aria-checked="true"] { background: var(--accent); }
+.toggle[aria-checked="true"] .toggle__knob { background: #fff; transform: translateX(18px); }
+.toggle:disabled { cursor: not-allowed; opacity: 0.7; }
+
+/* ---------- 404 / error pages (components/StatePanel.tsx) ---------- */
+.state-page { padding-block: 120px; }
+.state-panel { max-width: 560px; }
+.state-panel__code { font-size: 96px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.state-panel__title { margin-top: 20px; font-size: 32px; font-weight: 700; }
+.state-panel__text { margin-top: 12px; font-size: 15px; }
+.state-panel__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1200px) {
   .hero__grid { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); gap: 48px; }
@@ -812,6 +911,26 @@ img { display: block; max-width: 100%; }
   .only-desktop { display: none; }
   .only-mobile { display: initial; }
   p.only-mobile { display: block; }
+
+  .page-head { padding-block: 12px 24px; }
+  .page-head .breadcrumbs { margin-bottom: 8px; font-size: 12px; }
+  .page-head__title { font-size: 40px; }
+  .page-head__intro { font-size: 14px; }
+  .faq-list { gap: 16px; }
+  .faq-item__question { font-size: 14px; }
+
+  /* Cookie banner: Accept all on top, Reject all + Preferences below (Figma: M8) */
+  .cookie-banner { right: 12px; bottom: 12px; left: 12px; flex-direction: column; align-items: stretch; gap: 16px; padding: 16px; }
+  .cookie-banner__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .cookie-banner__actions .btn { padding: 0 12px; }
+  .cookie-banner__accept { grid-column: 1 / -1; order: -1; }
+  .cookie-banner__actions .btn:first-child { order: 1; }
+  .cookie-dialog { padding: 20px; }
+  .cookie-dialog__actions { flex-direction: column-reverse; }
+
+  .state-page { padding-block: 64px; }
+  .state-panel__code { font-size: 72px; }
+  .state-panel__title { font-size: 24px; }
 
   .logo { width: 88px; height: 32px; border-width: 1.5px; font-size: 10px; }
   .site-header__actions .btn { height: 36px; padding: 0 16px; font-size: 13px; }
