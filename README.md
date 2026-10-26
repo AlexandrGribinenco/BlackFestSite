@@ -47,6 +47,7 @@ src/
       bar-restaurant/  Bar & Restaurant с меню
       partners/     Partners
       hotels/       Hotels
+      shop/         Shop — по новому дизайну со страницы Colors в Figma, свой шрифт заголовков Anton
       legal/[slug]/ шаблон юридических страниц: /legal/terms, privacy, cookies, personal-data
     checkout/       оформление заказа: своя шапка, без подвала
       page.tsx
@@ -57,6 +58,8 @@ src/
     gallery/        VenueGallery и Lightbox (фото на весь экран), ZoomableMedia (зум и полный экран), EventMap
     bar/            BarMenu (меню с фильтром по категориям), MenuTagBadge
     hotels/         HotelList (фильтр и сортировка), HotelCard
+    shop/           ShopCatalog (категории, фильтр, сортировка), ShopProductCard, FestivalPackCard,
+                    ProductArt (винил, постер, рамка, журнал — нарисованы в CSS вместо фото)
     PartnerTile.tsx карточка партнёра
     SiteHeader.tsx  шапка и мобильное меню
     SiteFooter.tsx  подвал
@@ -74,6 +77,7 @@ src/
     legal.ts        список юридических документов и их разделов
     bar-menu.ts     меню бара: категории, позиции, метки
     hotels.ts       отели-партнёры
+    shop.ts         товары магазина и Festival pack
     links.ts        внешние ссылки открываются в новой вкладке
 docs/
   figma-notes.md    заметки по макету
@@ -86,8 +90,10 @@ public/
 
 ## Что ещё не готово
 
-- Готовы Home, Tickets, Checkout, Info & FAQ, Contacts, Gallery, Bar & Restaurant, Partners, Hotels,
-  юридические страницы, 404 и баннер cookies. Shop, страница товара и корзина пока ведут на 404.
+- Готовы Home, Tickets, Checkout, Info & FAQ, Contacts, Gallery, Bar & Restaurant, Partners, Hotels, Shop,
+  юридические страницы, 404 и баннер cookies. Страницы товара и корзины пока нет: на ссылку корзины в шапке — 404.
+- Shop: кнопки «Add to cart», «Buy & download», «Sold out · Notify me» и «Get the pack» пока никуда не подключены,
+  товары и цены — заглушки (`src/lib/shop.ts`). Картинки товаров клиент сделает свои.
 - Вместо 3D-модели сцены и плана площадки — картинка-заглушка: кнопки зума и полного экрана работают с ней.
 - Кнопки «Download map (PDF)», «Download menu (PDF)» и «Partner deck (PDF)» пока никуда не ведут — нет файлов.
 - Ссылки на сайты партнёров и отелей — заглушки `#` (`src/app/(site)/partners/page.tsx`, `src/lib/hotels.ts`).
