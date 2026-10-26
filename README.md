@@ -43,6 +43,10 @@ src/
       tickets/      страница Tickets и её стили
       info/         Info & FAQ
       contacts/     Contacts
+      gallery/      Gallery: фото площадки, сцена, звук, карта фестиваля
+      bar-restaurant/  Bar & Restaurant с меню
+      partners/     Partners
+      hotels/       Hotels
       legal/[slug]/ шаблон юридических страниц: /legal/terms, privacy, cookies, personal-data
     checkout/       оформление заказа: своя шапка, без подвала
       page.tsx
@@ -50,6 +54,10 @@ src/
   components/
     checkout/       шаги Checkout: CheckoutFlow (состояние и переходы), TicketsStep, SeatsStep,
                     DetailsStep, PaymentStep, DoneStep, OrderSummary, MobileOrderBar и др.
+    gallery/        VenueGallery и Lightbox (фото на весь экран), ZoomableMedia (зум и полный экран), EventMap
+    bar/            BarMenu (меню с фильтром по категориям), MenuTagBadge
+    hotels/         HotelList (фильтр и сортировка), HotelCard
+    PartnerTile.tsx карточка партнёра
     SiteHeader.tsx  шапка и мобильное меню
     SiteFooter.tsx  подвал
     NewsletterForm.tsx
@@ -64,6 +72,9 @@ src/
     event.ts        данные события (дата начала и т.д.)
     checkout.ts     типы билетов, допы, схема мест, правила заказа
     legal.ts        список юридических документов и их разделов
+    bar-menu.ts     меню бара: категории, позиции, метки
+    hotels.ts       отели-партнёры
+    links.ts        внешние ссылки открываются в новой вкладке
 docs/
   figma-notes.md    заметки по макету
   screens/          скриншоты Home и Tickets (десктоп и мобильная версия)
@@ -75,8 +86,12 @@ public/
 
 ## Что ещё не готово
 
-- Готовы Home, Tickets, Checkout, Info & FAQ, Contacts, юридические страницы, 404 и баннер cookies.
-  Shop, Gallery, Hotels, Bar & Restaurant, Partners и корзина пока ведут на 404.
+- Готовы Home, Tickets, Checkout, Info & FAQ, Contacts, Gallery, Bar & Restaurant, Partners, Hotels,
+  юридические страницы, 404 и баннер cookies. Shop, страница товара и корзина пока ведут на 404.
+- Вместо 3D-модели сцены и плана площадки — картинка-заглушка: кнопки зума и полного экрана работают с ней.
+- Кнопки «Download map (PDF)», «Download menu (PDF)» и «Partner deck (PDF)» пока никуда не ведут — нет файлов.
+- Ссылки на сайты партнёров и отелей — заглушки `#` (`src/app/(site)/partners/page.tsx`, `src/lib/hotels.ts`).
+- Меню бара, отели и партнёры — заглушки (`src/lib/bar-menu.ts`, `src/lib/hotels.ts`).
 - Тексты юридических документов, ответы FAQ и контакты — заглушки.
 - Форма Contacts не отправляет сообщения (показывает, что форма пока не подключена).
 - Выбор cookies сохраняется, но аналитики и рекламы на сайте пока нет — подключать их нужно с учётом этого выбора.
