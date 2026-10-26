@@ -1,8 +1,10 @@
 import { cx } from "@/lib/cx";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 // Layers of public/images/coming-soon.svg
-const BACKGROUND_SRC = "/images/coming-soon-bg.svg";
-const TEXT_SRC = "/images/coming-soon-text.svg";
+const BACKGROUND_SRC = `${BASE_PATH}/images/coming-soon-bg.svg`;
+const TEXT_SRC = `${BASE_PATH}/images/coming-soon-text.svg`;
 
 type ComingSoonImageProps = {
   /** Empty for decorative images, e.g. when a link label already names the tile */

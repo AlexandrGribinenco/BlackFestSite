@@ -19,6 +19,15 @@ npm run dev
 - `npm run start` — запуск собранной версии
 - `npm run typecheck` — только проверка TypeScript
 
+## Тестовый сайт
+
+https://alexandrgribinenco.github.io/BlackFestSite/
+
+Собирается и выкладывается на GitHub Pages автоматически после каждого пуша в `main`
+(`.github/workflows/deploy.yml`, ход сборки — во вкладке Actions репозитория).
+Это статическая версия сайта: workflow передаёт `PAGES_BASE_PATH=/BlackFestSite`, и `next build`
+складывает готовые страницы в `out/`. Без этой переменной сборка обычная, для `npm run start`.
+
 ## Структура
 
 ```
