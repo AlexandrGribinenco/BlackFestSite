@@ -41,7 +41,7 @@ export function PaymentStep({ order, method, onMethodChange, onSubmit, onBack }:
             <label className="pay-option__head">
               <input type="radio" name="method" value="card" checked={method === "card"} onChange={() => onMethodChange("card")} />
               <span className="pay-option__name">Bank card</span>
-              <span className="pay-option__brands">VISA · MC · AMEX</span>
+              <span className="pay-option__brands">Visa · Mastercard · American Express</span>
             </label>
 
             {method === "card" && (

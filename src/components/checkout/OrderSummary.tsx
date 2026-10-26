@@ -42,7 +42,7 @@ export function OrderSummary({ order, cta }: { order: Order; cta: ReactNode }) {
           </svg>
           Secure payment
         </span>
-        <span>VISA · MC · AMEX</span>
+        <span>Visa · Mastercard · American Express · Apple Pay · Google Pay</span>
       </p>
     </aside>
   );

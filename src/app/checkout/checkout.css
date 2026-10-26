@@ -154,10 +154,12 @@
 
 .checkout-cta { height: 48px; }
 
+/* The list of payment methods drops below "Secure payment" when it doesn't fit next to it */
 .order-summary__secure {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 12px;
+  gap: 6px 12px;
   font-size: 11px;
 }
 
@@ -343,7 +345,7 @@
 .pay-option__head { display: flex; align-items: center; gap: 12px; cursor: pointer; }
 .pay-option__head input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
 .pay-option__name { font-size: 14px; font-weight: 700; }
-.pay-option__brands { margin-left: auto; font-size: 11px; font-weight: 700; }
+.pay-option__brands { margin-left: auto; font-size: 11px; font-weight: 700; text-align: right; }
 
 .card-fields {
   display: grid;

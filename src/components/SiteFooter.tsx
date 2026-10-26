@@ -64,9 +64,12 @@ export function SiteFooter() {
         <div className="footer-bottom">
           <div className="payments">
             <span>Secure payment:</span>
-            <span className="payments__card">VISA</span>
-            <span className="payments__card">MC</span>
-            <span className="payments__card">AMEX</span>
+            {/* Full names, as the client asked */}
+            {["Visa", "Mastercard", "American Express", "Apple Pay", "Google Pay"].map((method) => (
+              <span key={method} className="payments__card">
+                {method}
+              </span>
+            ))}
           </div>
           <p className="footer-bottom__copy">© 2027 Black Out Fest. All rights reserved.</p>
         </div>
