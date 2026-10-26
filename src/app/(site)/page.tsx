@@ -25,18 +25,18 @@ const products: ProductCardProps[] = [
 
 const experienceTiles = [
   { href: "/info#concept", label: "The concept" },
-  { href: "/gallery", label: "Stage & sound" },
+  { href: "/gallery#stage", label: "Stage & sound" },
   { href: "/bar-restaurant", label: "Bar & restaurant" },
   { href: "/info#camping", label: "Camping & parking" },
 ];
 
 // The second "Venue" tile is hidden on mobile, as in the M1 wireframe
 const galleryTiles = [
-  { label: "Venue" },
-  { label: "Venue", desktopOnly: true },
-  { label: "3D stage" },
-  { label: "Sound" },
-  { label: "Event map" },
+  { label: "Venue", href: "/gallery#venue" },
+  { label: "Venue", href: "/gallery#venue", desktopOnly: true },
+  { label: "3D stage", href: "/gallery#stage" },
+  { label: "Sound", href: "/gallery#sound" },
+  { label: "Event map", href: "/gallery#event-map" },
 ];
 
 const organizerCards: OrganizerCardProps[] = [
@@ -167,7 +167,7 @@ export default function HomePage() {
               <Link
                 key={i}
                 className={tile.desktopOnly ? "placeholder gallery-strip__item gallery-strip__item--desktop" : "placeholder gallery-strip__item"}
-                href="/gallery"
+                href={tile.href}
               >
                 <ComingSoonImage alt={`${tile.label} — photos coming soon`} />
               </Link>

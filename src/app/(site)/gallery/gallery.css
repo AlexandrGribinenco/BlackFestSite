@@ -1,0 +1,286 @@
+/* Gallery — Figma: Desktop / D4 · Gallery 347:2778, Mobile / M5 · Gallery 3:10546 */
+
+.gallery-nav { margin-top: 20px; }
+
+.gallery-section,
+.gallery-band {
+  padding-block: 64px;
+  scroll-margin-top: var(--header-h);
+}
+
+.gallery-section--first { padding-top: 32px; }
+.gallery-band { background: var(--surface); }
+
+.gallery-title { margin-bottom: 20px; font-size: 32px; font-weight: 700; line-height: 1.2; }
+
+/* ---------- Venue (components/gallery/VenueGallery.tsx) ---------- */
+.venue-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 260px;
+  gap: 16px;
+}
+
+.venue-gallery__item--tall { grid-row: span 2; }
+.venue-gallery__item--wide { grid-column: span 2; }
+
+.venue-gallery__photo {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  cursor: zoom-in;
+  transition: border-color 0.15s;
+}
+
+.venue-gallery__photo:hover { border-color: var(--muted); }
+
+.venue-gallery__more {
+  display: none;
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---------- Lightbox (components/gallery/Lightbox.tsx) ---------- */
+.lightbox {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 24px 104px 32px;
+  border: 0;
+  background: rgba(5, 3, 12, 0.96);
+  color: var(--text);
+}
+
+.lightbox[open] { display: flex; flex-direction: column; gap: 16px; }
+.lightbox::backdrop { background: transparent; }
+
+.lightbox__top { display: flex; align-items: center; justify-content: space-between; }
+.lightbox__counter { font-size: 14px; font-weight: 600; }
+
+.lightbox__figure { display: flex; flex: 1; flex-direction: column; gap: 12px; min-height: 0; margin: 0; }
+.lightbox__photo { flex: 1; min-height: 0; }
+.lightbox__caption { color: var(--muted); font-size: 14px; text-align: center; }
+
+.lightbox__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--text);
+  border-radius: 50%;
+  background: var(--bg);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.lightbox__button:hover { background: var(--text); color: var(--bg); }
+
+.lightbox__nav { position: absolute; top: 50%; transform: translateY(-50%); }
+.lightbox__nav--prev { left: 32px; }
+.lightbox__nav--next { right: 32px; }
+
+/* ---------- Zoomable picture: stage viewer, event map (components/gallery/ZoomableMedia.tsx) ---------- */
+.zoomable__media {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.2s ease;
+}
+
+.zoomable__controls { position: absolute; right: 16px; z-index: 1; display: flex; gap: 8px; }
+.zoomable__controls--top { top: 16px; }
+.zoomable__controls--bottom { bottom: 16px; }
+
+.zoomable__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--text);
+  border-radius: var(--radius);
+  background: var(--bg);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, opacity 0.15s;
+}
+
+.zoomable__button:hover:not(:disabled) { background: var(--text); color: var(--bg); }
+.zoomable__button:disabled { opacity: 0.4; cursor: default; }
+
+.zoomable:fullscreen { border: 0; border-radius: 0; }
+
+/* ---------- The stage ---------- */
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-rows: 1fr auto auto 1fr;
+  grid-template-areas:
+    "viewer ."
+    "viewer title"
+    "viewer details"
+    "viewer .";
+  column-gap: 48px;
+}
+
+.stage__viewer { grid-area: viewer; aspect-ratio: 3 / 2; }
+.stage__title { grid-area: title; margin-bottom: 16px; }
+.stage__details { grid-area: details; }
+
+.stage__specs { display: grid; gap: 10px; margin: 28px 0 0; font-size: 13px; }
+.stage__specs div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; }
+.stage__specs dt { color: var(--muted); }
+.stage__specs dd { margin: 0; }
+
+/* ---------- Sound system ---------- */
+.sound-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.sound-grid__photo { aspect-ratio: 318 / 280; }
+.sound-grid__name { margin-top: 14px; font-size: 16px; font-weight: 700; }
+.sound-grid .skeleton { margin-top: 10px; }
+
+/* ---------- Event map (components/gallery/EventMap.tsx) ---------- */
+.event-map {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "plan title"
+    "plan side";
+  column-gap: 48px;
+}
+
+.event-map__title { grid-area: title; margin-bottom: 16px; }
+.event-map__plan { grid-area: plan; aspect-ratio: 4 / 3; }
+
+.event-map__side { grid-area: side; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.event-map__legend { display: grid; gap: 10px; }
+
+.event-map__zone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.event-map__number {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.event-map__zone:hover .event-map__number { background: var(--accent-hover); color: #fff; }
+.event-map__zone.is-active { font-weight: 700; }
+.event-map__zone.is-active .event-map__number { background: var(--magenta); color: #fff; }
+
+/* Picked zone, shown over the plan */
+.event-map__selected {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px 6px 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.event-map__selected .event-map__number { background: var(--magenta); color: #fff; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .venue-gallery { grid-auto-rows: 200px; }
+  .stage,
+  .event-map { grid-template-columns: minmax(0, 1fr) 300px; column-gap: 32px; }
+}
+
+@media (max-width: 960px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: "title" "viewer" "details";
+  }
+
+  .stage__details { margin-top: 24px; }
+
+  .event-map {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: "title" "plan" "side";
+  }
+
+  .event-map__side { margin-top: 20px; }
+  .event-map__legend { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .sound-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  .gallery-nav { margin-top: 16px; }
+  .gallery-section,
+  .gallery-band { padding-block: 40px; }
+  .gallery-section--first { padding-top: 8px; }
+  .gallery-title { margin-bottom: 14px; font-size: 24px; }
+
+  /* Venue: a wide shot, then two photos per row (Figma: M5) */
+  .venue-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; gap: 12px; }
+  .venue-gallery li { aspect-ratio: 173 / 160; }
+  .venue-gallery .venue-gallery__item--tall,
+  .venue-gallery .venue-gallery__item--wide,
+  .venue-gallery .venue-gallery__item--extra { grid-row: auto; grid-column: span 2; aspect-ratio: 358 / 220; }
+  .venue-gallery:not(.is-expanded) .venue-gallery__item--extra { display: none; }
+  .venue-gallery__more { display: inline-flex; }
+
+  .lightbox { padding: 16px 16px 24px; }
+  .lightbox__button { width: 40px; height: 40px; }
+  .lightbox__nav--prev { left: 24px; }
+  .lightbox__nav--next { right: 24px; }
+
+  /* Zoom buttons give way to pinch-to-zoom; fullscreen stays where the browser supports it */
+  .zoomable__button--zoom { display: none; }
+  .zoomable__controls { right: 12px; }
+  .zoomable__controls--top { top: 12px; }
+  .zoomable__controls--bottom { bottom: 12px; }
+  .zoomable__button { width: 40px; height: 40px; }
+
+  .stage__viewer { aspect-ratio: 358 / 300; }
+  .stage__details { margin-top: 20px; }
+  .stage__specs { margin-top: 20px; }
+  .stage__specs div { grid-template-columns: 88px minmax(0, 1fr); }
+
+  .sound-grid { gap: 16px 12px; }
+  .sound-grid__photo { aspect-ratio: 171 / 150; }
+  .sound-grid__name { margin-top: 8px; font-size: 14px; }
+  .sound-grid .skeleton { display: none; }
+
+  .event-map__plan { aspect-ratio: 358 / 290; }
+  .event-map__side { gap: 20px; }
+  .event-map__legend { gap: 10px 12px; }
+  .event-map__zone { gap: 10px; font-size: 13px; }
+  .event-map__download { width: 100%; }
+}
