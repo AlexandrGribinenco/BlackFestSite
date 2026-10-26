@@ -36,9 +36,8 @@ export function PhaseCard({ phase, price, soldPercent, priceStepAt, href }: Phas
         label="Time until the price goes up"
         placeholder={{ days: "12", hours: "04", minutes: "31", seconds: "08" }}
       />
-      <p className="phase-card__caption">until the price goes up</p>
       <Link className="btn btn-primary btn-block" href={href}>
-        Get tickets
+        Buy tickets
       </Link>
     </article>
   );

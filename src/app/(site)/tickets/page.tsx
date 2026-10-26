@@ -176,7 +176,7 @@ export default function TicketsPage() {
             </p>
           </div>
           <Link className="btn btn-primary" href="/hotels">
-            See hotels →
+            See hotels
           </Link>
         </aside>
       </div>

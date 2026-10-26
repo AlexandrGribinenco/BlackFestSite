@@ -98,7 +98,7 @@ export function SiteHeader() {
         <nav className="mobile-menu__nav" aria-label="Mobile">
           {mainNav.map((link) => (
             <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
-              {link.label} <span aria-hidden="true">→</span>
+              {link.label}
             </Link>
           ))}
         </nav>

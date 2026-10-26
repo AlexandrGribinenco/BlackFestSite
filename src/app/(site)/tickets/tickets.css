@@ -284,7 +284,6 @@
   .phase-card .countdown { margin-top: 16px; }
   .phase-card .countdown__item { height: 64px; }
   .phase-card .countdown__value { font-size: 22px; }
-  .phase-card__caption { margin-top: 12px; color: var(--muted); font-size: 12px; text-align: center; }
   .phase-card .btn { height: 48px; margin-top: 16px; }
 
   /* Releases become a plain list under the phase card */
