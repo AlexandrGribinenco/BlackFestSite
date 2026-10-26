@@ -94,7 +94,7 @@ export default function HomePage() {
             titleId="tickets-title"
             action={
               <Link className="link-arrow" href="/tickets">
-                All<span className="only-desktop"> ticket options</span> →
+                All<span className="only-desktop"> ticket options</span>
               </Link>
             }
           />
@@ -119,7 +119,7 @@ export default function HomePage() {
             titleId="shop-title"
             action={
               <Link className="link-arrow" href="/shop">
-                Shop<span className="only-desktop"> all</span> →
+                Shop<span className="only-desktop"> all</span>
               </Link>
             }
           />
@@ -157,7 +157,7 @@ export default function HomePage() {
             titleId="gallery-title"
             action={
               <Link className="link-arrow" href="/gallery">
-                Open<span className="only-desktop"> gallery</span> →
+                Open<span className="only-desktop"> gallery</span>
               </Link>
             }
           />
@@ -195,7 +195,7 @@ export default function HomePage() {
               titleId="partners-title"
               action={
                 <Link className="link-arrow" href="/partners">
-                  All partners →
+                  All partners
                 </Link>
               }
             />

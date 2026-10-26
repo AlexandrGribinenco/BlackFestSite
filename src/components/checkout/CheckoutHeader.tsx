@@ -39,7 +39,7 @@ export function CheckoutHeader({ onBack, showTimer, holdUntil, onHoldExpire }: C
         <div className="checkout-header__actions">
           {showTimer && <HoldTimer holdUntil={holdUntil} onExpire={onHoldExpire} />}
           <Link className="checkout-header__back" href="/tickets">
-            ← Back to tickets
+            Back to tickets
           </Link>
         </div>
       </div>

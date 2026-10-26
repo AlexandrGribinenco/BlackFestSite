@@ -5,7 +5,7 @@ type SectionHeadProps = {
   title: string;
   titleId: string;
   eyebrow?: string;
-  /** Link on the right side, e.g. "All ticket options →" */
+  /** Link on the right side, e.g. "All ticket options" */
   action?: ReactNode;
   /** Smaller title, centered with the action (Partners) */
   compact?: boolean;

@@ -20,7 +20,7 @@ export function OrganizerCard({ badge, title, link }: OrganizerCardProps) {
         <Skeleton size="sm" widths={[undefined, "60%"]} />
         {link && (
           <Link className="link-arrow" href={link.href}>
-            {link.label} →
+            {link.label}
           </Link>
         )}
       </div>
