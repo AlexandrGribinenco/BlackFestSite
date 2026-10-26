@@ -11,8 +11,16 @@ export type NavSection = {
   short?: string;
 };
 
-// In-page navigation: a sticky list on desktop, a row of chips on mobile. Highlights the section in view.
-export function SectionNav({ sections, label }: { sections: NavSection[]; label: string }) {
+type SectionNavProps = {
+  sections: NavSection[];
+  label: string;
+  /** "list": sticky list on desktop, chips on mobile (Info); "chips": always a row of chips (Gallery) */
+  variant?: "list" | "chips";
+  className?: string;
+};
+
+// In-page navigation that highlights the section in view
+export function SectionNav({ sections, label, variant = "list", className }: SectionNavProps) {
   const [active, setActive] = useState(sections[0]?.id);
 
   useEffect(() => {
@@ -28,14 +36,16 @@ export function SectionNav({ sections, label }: { sections: NavSection[]; label:
     return () => observer.disconnect();
   }, [sections]);
 
+  const chips = variant === "chips";
+
   return (
-    <nav className="section-nav" aria-label={label}>
-      <ul>
+    <nav className={cx("section-nav", `section-nav--${variant}`, className)} aria-label={label}>
+      <ul className={chips ? "chips chips--scroll" : undefined}>
         {sections.map((section) => (
           <li key={section.id}>
             <a
               href={`#${section.id}`}
-              className={cx(section.id === active && "is-active")}
+              className={cx(chips && "chip", section.id === active && "is-active") || undefined}
               aria-current={section.id === active ? "location" : undefined}
               onClick={() => setActive(section.id)}
             >

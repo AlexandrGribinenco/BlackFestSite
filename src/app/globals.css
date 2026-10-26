@@ -13,6 +13,7 @@
   --accent-hover: #9b5bff;
   --on-accent: #ffffff;   /* Text on accent buttons */
   --magenta: #ff2e93;     /* Hot magenta — badges, highlights */
+  --star: #f2c94c;        /* Hotel rating stars (not in the palette, read from the D15 / M14 wireframes) */
   --footer-divider: rgba(154, 143, 179, 0.35);
 
   /* --font-inter is set by next/font in app/layout.tsx */
@@ -169,6 +170,55 @@ img { display: block; max-width: 100%; }
 
 .badge--outline { border: 1px solid var(--text); }
 .badge--accent { background: var(--magenta); color: #fff; }
+.badge--violet { border: 1px solid var(--accent); background: var(--bg); color: var(--accent-hover); }
+
+/* Pills: filters and in-page navigation (Gallery, Bar & Restaurant, Hotels) */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  background: none;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.chip:hover { background: rgba(244, 240, 255, 0.08); }
+.chip.is-active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); font-weight: 700; }
+
+/* Facts shown as pills, not clickable */
+.chip--static { height: 34px; padding: 0 14px; font-size: 13px; cursor: default; }
+.chip--static:hover { background: none; }
+
+/* In-page navigation (components/SectionNav.tsx): a sticky list (Info) or a row of chips (Gallery) */
+.section-nav--list {
+  position: sticky;
+  top: 100px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.section-nav--list ul { display: grid; gap: 4px; }
+
+.section-nav--list a {
+  display: block;
+  padding: 10px 14px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius);
+  font-size: 13px;
+  transition: border-color 0.15s;
+}
+
+.section-nav--list a:hover { border-color: var(--line); }
+.section-nav--list a.is-active { border-color: var(--accent); font-weight: 700; }
 
 .skeleton { display: grid; gap: 12px; }
 
@@ -897,6 +947,12 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 960px) {
+  .section-nav--list { position: static; padding: 0; border: 0; }
+  .section-nav--list ul { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .section-nav--list ul::-webkit-scrollbar { display: none; }
+  .section-nav--list a { padding: 7px 16px; border-color: var(--text); border-radius: 999px; white-space: nowrap; }
+  .section-nav--list a.is-active { border-color: var(--accent); }
+
   .hero__grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); gap: 32px; }
   .hero__title { font-size: 44px; line-height: 1.2; }
   .hero__meta { font-size: 16px; }
@@ -941,6 +997,16 @@ img { display: block; max-width: 100%; }
   .page-head__intro { font-size: 14px; }
   .faq-list { gap: 16px; }
   .faq-item__question { font-size: 14px; }
+
+  /* A row of pills scrolls sideways instead of wrapping */
+  .section-nav--list,
+  .chips--scroll { margin-inline: calc(var(--gutter) * -1); }
+  .section-nav--list ul,
+  .chips--scroll { padding-inline: var(--gutter); }
+  .chips--scroll { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .chips--scroll::-webkit-scrollbar { display: none; }
+  .chip { height: 38px; padding: 0 16px; font-size: 13px; }
+  .chip--static { height: 34px; padding: 0 14px; }
 
   /* Cookie banner: Accept all on top, Reject all + Preferences below (Figma: M8) */
   .cookie-banner { right: 12px; bottom: 12px; left: 12px; flex-direction: column; align-items: stretch; gap: 16px; padding: 16px; }
