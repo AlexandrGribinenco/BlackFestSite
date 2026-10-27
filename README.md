@@ -34,6 +34,12 @@ https://alexandrgribinenco.github.io/BlackFestSite/
 - серверная часть — `src/server/` и `src/app/api/payments/` (файлы `route.api.ts`). Она работает только на хостинге с сервером: статическая сборка для GitHub Pages её пропускает;
 - настройки — в `.env.example`. Пока `NEXT_PUBLIC_PAYMENTS_API_URL` не задан, Checkout имитирует оплату.
 
+## Боевой сайт на хостинге host.md
+
+Node.js в Plesk. Workflow **Build for hosting** (`.github/workflows/hosting.yml`, запускается вручную во вкладке Actions)
+собирает сайт с `STANDALONE_BUILD=1` и кладёт готовую сборку в ветку `deploy`, откуда её забирает Plesk Git.
+Настройка Plesk, переменные окружения и данные для maib — в [docs/deploy-hostmd.md](docs/deploy-hostmd.md).
+
 ## Структура
 
 ```
@@ -60,7 +66,7 @@ src/
       checkout.css
       result/       страница возврата после оплаты на maib
     api/payments/   API оплаты maib: создать платёж, callback, статус (только серверная сборка)
-  server/           серверный код: клиент API maib, расчёт заказа, письмо-подтверждение
+  server/           серверный код: клиент API maib, расчёт заказа, письмо-подтверждение (SMTP)
   components/
     checkout/       шаги Checkout: CheckoutFlow (состояние и переходы), TicketsStep, SeatsStep,
                     DetailsStep, PaymentStep, DoneStep, OrderSummary, MobileOrderBar и др.
@@ -92,6 +98,8 @@ src/
     links.ts        внешние ссылки открываются в новой вкладке
 docs/
   figma-notes.md    заметки по макету
+  payments-maib.md  план подключения оплаты maib
+  deploy-hostmd.md  сайт на хостинге host.md: Plesk, Git, Node.js, почта
   screens/          скриншоты Home и Tickets (десктоп и мобильная версия)
 public/
   images/coming-soon.svg  исходная временная картинка вместо фото

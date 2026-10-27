@@ -4,11 +4,16 @@ import type { NextConfig } from "next";
 // and served from a subfolder, e.g. /BlackFestSite
 const pagesBasePath = process.env.PAGES_BASE_PATH;
 
+// Set by the hosting workflow: .next/standalone gets server.js and only the node_modules it needs,
+// so the hosting runs the site without npm install
+const standalone = process.env.STANDALONE_BUILD === "1";
+
 const nextConfig: NextConfig =
   pagesBasePath === undefined
     ? {
         // Server build: also picks up the payment API routes, named route.api.ts (app/api/payments)
         pageExtensions: ["tsx", "ts", "api.ts"],
+        output: standalone ? "standalone" : undefined,
       }
     : {
         // Static export can't run server code, so the payment API routes are left out

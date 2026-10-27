@@ -1,6 +1,8 @@
 // Payment confirmation e-mail. maib requires it to show: order number, merchant name, website name, amount,
 // currency, payment date and the order description (items and quantities).
-// Sent through the Resend HTTP API when RESEND_API_KEY is set; any other provider only needs sendEmail() changed.
+// Sent over SMTP from a mailbox on the site's domain. host.md doesn't allow sending through outside mail servers or
+// services, only through the hosting's own (mail.<domain>, port 465 or 587), at most 500 e-mails an hour per domain.
+import nodemailer, { type Transporter } from "nodemailer";
 import { COMPANY } from "@/lib/company";
 import type { PaymentInfo } from "./maib";
 
@@ -56,18 +58,17 @@ ${escapeHtml(COMPANY.legalName)}, IDNO ${escapeHtml(COMPANY.idno)}, ${escapeHtml
   return { to: payment.email, subject, text, html };
 }
 
+let transporter: Transporter | undefined;
+
 export async function sendEmail(email: Email): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM;
-  if (!apiKey || !from) {
-    console.warn(`[email] RESEND_API_KEY / EMAIL_FROM not set, not sent: "${email.subject}" to ${email.to}`);
+  const { SMTP_HOST, SMTP_USER, SMTP_PASSWORD, EMAIL_FROM } = process.env;
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD || !EMAIL_FROM) {
+    console.warn(`[email] SMTP_HOST / SMTP_USER / SMTP_PASSWORD / EMAIL_FROM not set, not sent: "${email.subject}" to ${email.to}`);
     return;
   }
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from, to: [email.to], subject: email.subject, text: email.text, html: email.html }),
-  });
-  if (!response.ok) throw new Error(`Resend: HTTP ${response.status} ${await response.text().catch(() => "")}`);
+  // 465 is SSL from the start, 587 switches to TLS with STARTTLS
+  const port = Number(process.env.SMTP_PORT ?? 465);
+  transporter ??= nodemailer.createTransport({ host: SMTP_HOST, port, secure: port === 465, auth: { user: SMTP_USER, pass: SMTP_PASSWORD } });
+  await transporter.sendMail({ from: EMAIL_FROM, to: email.to, subject: email.subject, text: email.text, html: email.html });
 }

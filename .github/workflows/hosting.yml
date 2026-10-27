@@ -1,0 +1,62 @@
+# Server version of the site for the hosting (host.md, Node.js in Plesk). Builds it here and commits the result to the
+# deploy branch; Plesk Git takes it from there (docs/deploy-hostmd.md). Started by hand: Actions → Build for hosting.
+name: Build for hosting
+
+on:
+  workflow_dispatch:
+    inputs:
+      payments:
+        description: "Card payment through maib (off: checkout only simulates the payment)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hosting
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # NEXT_PUBLIC_PAYMENTS_API_URL is read at build time; empty means the payment API is on the same server
+      - name: Build
+        run: |
+          if [ "${{ inputs.payments }}" = "true" ]; then export NEXT_PUBLIC_PAYMENTS_API_URL=""; fi
+          npm run build
+        env:
+          STANDALONE_BUILD: "1"
+
+      # The deploy branch keeps a history that only moves forward, so Plesk can always pull it.
+      # tmp/restart.txt changes on every build: Passenger restarts the app when it changes.
+      - name: Commit to the deploy branch
+        env:
+          REPO: "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+        run: |
+          if git ls-remote --exit-code --heads "$REPO" deploy > /dev/null; then
+            git clone -q --depth 1 --branch deploy "$REPO" bundle
+          else
+            git init -q -b deploy bundle
+          fi
+          find bundle -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r .next/standalone/. bundle/
+          cp -r .next/static bundle/.next/static
+          cp -r public bundle/public
+          mkdir -p bundle/tmp
+          echo "$GITHUB_SHA payments=${{ inputs.payments }}" > bundle/tmp/restart.txt
+          cd bundle
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q --allow-empty -m "Build of $GITHUB_SHA (payments: ${{ inputs.payments }})"
+          git push -q "$REPO" HEAD:deploy
