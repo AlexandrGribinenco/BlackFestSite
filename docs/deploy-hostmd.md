@@ -80,9 +80,19 @@ SSH на Shared Hosting нет. Он и не нужен: сайт приходи
 
 Полный список с пояснениями — в `.env.example`. После изменения переменных — Restart App.
 
+## Проверка после установки
+
+Откройте `https://<домен>/api/health`. Это служебная страница вместо SSH, она показывает:
+- какие переменные окружения заполнены (только да или нет, без значений);
+- отвечает ли серверу maib (`maib`) и пускает ли почтовый сервер (`smtp`);
+- исходящий IP хостинга (`outgoingIp`) — его указывают в Merchant Portal maib;
+- версию Node.js и включена ли оплата в сборке (`paymentsInBuild`).
+
+Страница не создаёт платежей и не отправляет писем. Результат обновляется не чаще раза в минуту.
+
 ## Данные для maib
 
-- **IP сервера** для Merchant Portal: IP хостинга, указан в Plesk на странице домена (Hosting Settings).
+- **IP сервера** для Merchant Portal: `outgoingIp` на странице `/api/health`. Сверить с IP в Plesk на странице домена (Hosting Settings).
 - **Callback URL**: `https://<домен>/api/payments/callback`.
 - **Ok URL** и **Fail URL**: `https://<домен>/checkout/result`.
 

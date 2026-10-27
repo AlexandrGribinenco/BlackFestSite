@@ -66,6 +66,7 @@ src/
       checkout.css
       result/       страница возврата после оплаты на maib
     api/payments/   API оплаты maib: создать платёж, callback, статус (только серверная сборка)
+    api/health/     служебная проверка хостинга: настройки, связь с maib и почтой, исходящий IP
   server/           серверный код: клиент API maib, расчёт заказа, письмо-подтверждение (SMTP)
   components/
     checkout/       шаги Checkout: CheckoutFlow (состояние и переходы), TicketsStep, SeatsStep,

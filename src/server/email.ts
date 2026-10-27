@@ -60,15 +60,28 @@ ${escapeHtml(COMPANY.legalName)}, IDNO ${escapeHtml(COMPANY.idno)}, ${escapeHtml
 
 let transporter: Transporter | undefined;
 
-export async function sendEmail(email: Email): Promise<void> {
-  const { SMTP_HOST, SMTP_USER, SMTP_PASSWORD, EMAIL_FROM } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD || !EMAIL_FROM) {
-    console.warn(`[email] SMTP_HOST / SMTP_USER / SMTP_PASSWORD / EMAIL_FROM not set, not sent: "${email.subject}" to ${email.to}`);
-    return;
-  }
-
+function smtp(): Transporter | null {
+  const { SMTP_HOST, SMTP_USER, SMTP_PASSWORD } = process.env;
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD) return null;
   // 465 is SSL from the start, 587 switches to TLS with STARTTLS
   const port = Number(process.env.SMTP_PORT ?? 465);
   transporter ??= nodemailer.createTransport({ host: SMTP_HOST, port, secure: port === 465, auth: { user: SMTP_USER, pass: SMTP_PASSWORD } });
-  await transporter.sendMail({ from: EMAIL_FROM, to: email.to, subject: email.subject, text: email.text, html: email.html });
+  return transporter;
+}
+
+export async function sendEmail(email: Email): Promise<void> {
+  const from = process.env.EMAIL_FROM;
+  const transport = smtp();
+  if (!transport || !from) {
+    console.warn(`[email] SMTP_HOST / SMTP_USER / SMTP_PASSWORD / EMAIL_FROM not set, not sent: "${email.subject}" to ${email.to}`);
+    return;
+  }
+  await transport.sendMail({ from, to: email.to, subject: email.subject, text: email.text, html: email.html });
+}
+
+/** Connects and logs in to the mail server without sending anything (for /api/health) */
+export async function verifySmtp(): Promise<void> {
+  const transport = smtp();
+  if (!transport) throw new Error("SMTP_HOST / SMTP_USER / SMTP_PASSWORD not set");
+  await transport.verify();
 }

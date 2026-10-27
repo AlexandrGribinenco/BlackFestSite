@@ -46,6 +46,18 @@ async function call<T>(path: string, init: { method: "GET" | "POST"; body?: unkn
   return data.result;
 }
 
+/** Whether this server reaches the maib API at all (for /api/health): any HTTP answer counts, no credentials are sent */
+export async function pingMaib(): Promise<number> {
+  const response = await fetch(`${API_URL}/generate-token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: "{}",
+    cache: "no-store",
+    signal: AbortSignal.timeout(10_000),
+  });
+  return response.status;
+}
+
 // ---------- Access token ----------
 
 type TokenResult = { accessToken: string; expiresIn: number; refreshToken: string; refreshExpiresIn: number };
