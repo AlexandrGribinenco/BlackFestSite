@@ -218,7 +218,7 @@ export function CheckoutFlow() {
         holdUntil={holdUntil}
         onHoldExpire={handleHoldExpire}
       />
-      <CheckoutSteps current={step} onSelect={step === "done" ? undefined : goTo} />
+      <CheckoutSteps steps={CHECKOUT_STEPS} current={step} onSelect={step === "done" ? undefined : goTo} />
 
       <main className="checkout">
         {step === "done" && orderNumber ? (

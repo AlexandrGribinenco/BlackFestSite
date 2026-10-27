@@ -1,20 +1,22 @@
-import { CHECKOUT_STEPS, type CheckoutStep } from "@/lib/checkout";
+import type { CSSProperties } from "react";
 import { cx } from "@/lib/cx";
 
-type CheckoutStepsProps = {
-  current: CheckoutStep;
+type CheckoutStepsProps<Step extends string> = {
+  steps: Array<{ id: Step; label: string }>;
+  current: Step;
   /** Go back to a completed step; omitted after payment */
-  onSelect?: (step: CheckoutStep) => void;
+  onSelect?: (step: Step) => void;
 };
 
-// Desktop: numbered steps band. Mobile: "Step n of 5" with a segmented bar.
-export function CheckoutSteps({ current, onSelect }: CheckoutStepsProps) {
-  const currentIndex = CHECKOUT_STEPS.findIndex((s) => s.id === current);
+// Desktop: numbered steps band. Mobile: "Step n of N" with a segmented bar.
+// Used by the ticket checkout (5 steps) and the shop cart (4 steps).
+export function CheckoutSteps<Step extends string>({ steps, current, onSelect }: CheckoutStepsProps<Step>) {
+  const currentIndex = steps.findIndex((s) => s.id === current);
 
   return (
     <nav className="checkout-steps" aria-label="Checkout progress">
       <ol className="container checkout-steps__list">
-        {CHECKOUT_STEPS.map((step, i) => {
+        {steps.map((step, i) => {
           const state = i === currentIndex ? "current" : i < currentIndex ? "done" : "todo";
           const content = (
             <>
@@ -38,13 +40,13 @@ export function CheckoutSteps({ current, onSelect }: CheckoutStepsProps) {
 
       <div className="container checkout-progress">
         <p className="checkout-progress__head">
-          <span>{CHECKOUT_STEPS[currentIndex].label}</span>
+          <span>{steps[currentIndex].label}</span>
           <span>
-            Step {currentIndex + 1} of {CHECKOUT_STEPS.length}
+            Step {currentIndex + 1} of {steps.length}
           </span>
         </p>
-        <div className="checkout-progress__bar" aria-hidden="true">
-          {CHECKOUT_STEPS.map((step, i) => (
+        <div className="checkout-progress__bar" style={{ "--steps": steps.length } as CSSProperties} aria-hidden="true">
+          {steps.map((step, i) => (
             <span key={step.id} className={cx(i <= currentIndex && "is-filled")} />
           ))}
         </div>

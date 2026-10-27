@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type KeyboardEvent, type MouseEvent } from "react";
 import { ComingSoonImage } from "../ComingSoonImage";
+import "./lightbox.css";
 
 type LightboxProps = {
   /** Photo captions, in viewing order */

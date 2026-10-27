@@ -1,20 +1,22 @@
 import { MAX_PER_TYPE } from "@/lib/checkout";
+import "./stepper.css";
 
 type QuantityStepperProps = {
   label: string;
   value: number;
   onChange: (value: number) => void;
+  min?: number;
   max?: number;
 };
 
-export function QuantityStepper({ label, value, onChange, max = MAX_PER_TYPE }: QuantityStepperProps) {
+export function QuantityStepper({ label, value, onChange, min = 0, max = MAX_PER_TYPE }: QuantityStepperProps) {
   return (
     <div className="stepper" role="group" aria-label={`${label} quantity`}>
       <button
         className="stepper__btn"
         type="button"
         aria-label={`Remove one ${label}`}
-        disabled={value <= 0}
+        disabled={value <= min}
         onClick={() => onChange(value - 1)}
       >
         −

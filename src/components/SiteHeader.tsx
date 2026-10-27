@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { cartCount, useCart } from "@/lib/cart";
 import { mainNav } from "@/lib/navigation";
 import { Logo } from "./Logo";
 import { Socials } from "./Socials";
@@ -10,6 +11,7 @@ import { Socials } from "./Socials";
 // Figma: Components / Header · desktop 1:481, Header · mobile 1:813, Mobile / M2 · Menu open 2:8622
 export function SiteHeader() {
   const pathname = usePathname();
+  const cartItems = cartCount(useCart());
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -51,19 +53,19 @@ export function SiteHeader() {
 
           <nav className="main-nav" aria-label="Main">
             {mainNav.map((link) => (
-              <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
+              <Link key={link.href} href={link.href} aria-current={isCurrent(pathname, link.href) ? "page" : undefined}>
                 {link.label}
               </Link>
             ))}
           </nav>
 
           <div className="site-header__actions">
-            <Link className="cart-link" href="/cart" aria-label="Cart, 2 items">
+            <Link className="cart-link" href="/cart" aria-label={cartItems > 0 ? `Cart, ${cartItems} ${cartItems === 1 ? "item" : "items"}` : "Cart"}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 7h12l-1 13H7L6 7z" />
                 <path d="M9 7a3 3 0 0 1 6 0" />
               </svg>
-              <span className="cart-link__badge">2</span>
+              {cartItems > 0 && <span className="cart-link__badge">{cartItems}</span>}
             </Link>
             <Link className="btn btn-primary" href="/tickets">
               <span className="only-desktop">Buy tickets</span>
@@ -97,7 +99,7 @@ export function SiteHeader() {
         </div>
         <nav className="mobile-menu__nav" aria-label="Mobile">
           {mainNav.map((link) => (
-            <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
+            <Link key={link.href} href={link.href} aria-current={isCurrent(pathname, link.href) ? "page" : undefined}>
               {link.label}
             </Link>
           ))}
@@ -110,4 +112,9 @@ export function SiteHeader() {
       </div>
     </>
   );
+}
+
+/** A section's own pages count too, e.g. a product page under Shop */
+function isCurrent(pathname: string, href: string): boolean {
+  return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 }

@@ -205,28 +205,6 @@
 .ticket-row__phase { color: var(--muted); font-size: 10px; }
 .ticket-row__sold-out { width: 132px; color: var(--muted); font-size: 14px; font-weight: 600; text-align: center; }
 
-.stepper { display: flex; flex: none; align-items: center; gap: 4px; }
-
-.stepper__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 0 0 2px;
-  border: 1.5px solid var(--text);
-  border-radius: 50%;
-  background: none;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
-}
-
-.stepper__btn:hover:not(:disabled) { background: var(--text); color: var(--bg); }
-.stepper__btn:disabled { border-color: var(--line); color: var(--muted); cursor: not-allowed; }
-.stepper__value { width: 36px; font-size: 16px; font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; }
-
 /* ---------- Step 2: seats ---------- */
 .seat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 
@@ -519,7 +497,7 @@ p.pay-option__head { cursor: default; }
   .checkout-progress { display: block; padding-block: 12px; }
   .checkout-progress__head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; }
   .checkout-progress__head span + span { color: var(--muted); font-size: 11px; font-weight: 400; }
-  .checkout-progress__bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 8px; }
+  .checkout-progress__bar { display: grid; grid-template-columns: repeat(var(--steps, 5), 1fr); gap: 6px; margin-top: 8px; }
   .checkout-progress__bar span { height: 4px; border-radius: 2px; background: var(--line); }
   .checkout-progress__bar span.is-filled { background: var(--accent); }
 
@@ -550,7 +528,6 @@ p.pay-option__head { cursor: default; }
   .ticket-row .stepper,
   .ticket-row__sold-out { grid-area: action; justify-self: end; }
   .ticket-row__sold-out { width: auto; font-size: 13px; }
-  .stepper__btn { width: 36px; height: 36px; font-size: 18px; }
 
   /* Seat map scrolls sideways */
   .seat-map { padding: 16px 12px; }

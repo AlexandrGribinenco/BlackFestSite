@@ -76,7 +76,7 @@ export function TicketsStep({ order, onTicketChange, onAddonChange }: TicketsSte
   );
 }
 
-function PromoCode() {
+export function PromoCode() {
   const [message, setMessage] = useState("");
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {

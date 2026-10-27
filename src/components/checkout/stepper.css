@@ -1,0 +1,26 @@
+/* Quantity stepper (QuantityStepper.tsx): ticket checkout, product page, cart */
+.stepper { display: flex; flex: none; align-items: center; gap: 4px; }
+
+.stepper__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0 0 2px;
+  border: 1.5px solid var(--text);
+  border-radius: 50%;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.stepper__btn:hover:not(:disabled) { background: var(--text); color: var(--bg); }
+.stepper__btn:disabled { border-color: var(--line); color: var(--muted); cursor: not-allowed; }
+.stepper__value { width: 36px; font-size: 16px; font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 720px) {
+  .stepper__btn { width: 36px; height: 36px; font-size: 18px; }
+}

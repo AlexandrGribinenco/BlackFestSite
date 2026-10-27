@@ -67,66 +67,6 @@
 .shop-hero__poster { top: 36.6%; left: -6%; z-index: 1; width: 30.6%; transform: rotate(7deg); }
 .shop-hero__journal { top: 49.8%; left: 72.4%; z-index: 1; width: 24.2%; }
 
-/* ---------- Product mock-ups (components/shop/ProductArt.tsx) ---------- */
-.vinyl-art { position: relative; aspect-ratio: 1.48; }
-
-.vinyl-art__sleeve {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 67.6%;
-  height: 100%;
-  overflow: hidden;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-}
-
-.vinyl-art__disc {
-  position: absolute;
-  top: 1.9%;
-  left: 35%;
-  width: 65%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, #0b0714 0 2.5%, var(--magenta) 3% 30%, #0e0e0e 30.5% 31.5%, transparent 32%),
-    repeating-radial-gradient(circle, #121212 0 1.5px, #1d1d1d 1.5px 3px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
-}
-
-.print-art { aspect-ratio: 3 / 4; padding: 4%; background: var(--frame); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5); }
-.print-art__mat { height: 100%; padding: 11%; background: #f7f4ff; box-shadow: inset 0 0 0 1px rgba(11, 7, 20, 0.12); }
-.print-art__picture { position: relative; height: 100%; overflow: hidden; }
-
-.poster-art { position: relative; aspect-ratio: 0.71; overflow: hidden; box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5); }
-
-.journal-art { position: relative; aspect-ratio: 0.75; container-type: inline-size; }
-
-.journal-art__pages,
-.journal-art__pages::before {
-  position: absolute;
-  inset: 0;
-  border-radius: 2px;
-  background: #2b2342;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-}
-
-.journal-art__pages { transform: translate(9%, -5%) rotate(5deg); }
-.journal-art__pages::before { content: ""; background: #3a3156; transform: translate(-4%, 3%) rotate(-3deg); }
-
-.journal-art__cover {
-  position: absolute;
-  inset: 0;
-  padding: 9%;
-  border-radius: 2px;
-  background: var(--magenta);
-  color: var(--bg);
-  font-family: var(--font-display), Impact, sans-serif;
-  font-size: 14cqw;
-  line-height: 1;
-  text-transform: uppercase;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
-}
-
 /* ---------- Category tiles (Figma: "Category tiles" 296:1074) ---------- */
 .shop-categories { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
 

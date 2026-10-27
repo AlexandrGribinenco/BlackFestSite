@@ -1,7 +1,8 @@
 import type { CSSProperties } from "react";
 import { cx } from "@/lib/cx";
-import type { FrameColor } from "@/lib/shop";
+import type { FrameColor, ShopProduct } from "@/lib/shop";
 import { ComingSoonImage } from "../ComingSoonImage";
+import "./product-art.css";
 
 // Product mock-ups drawn in CSS around the placeholder artwork (Figma: 04 · Colors / D10 · Shop).
 // They stand in for product photos until the real ones are made.
@@ -59,4 +60,20 @@ export function JournalArt({ alt, className }: ArtProps) {
       </span>
     </div>
   );
+}
+
+const isFrameColor = (value: string | undefined): value is FrameColor => value !== undefined && value in FRAME_COLORS;
+
+/** The mock-up that stands in for a product's photo; a framed print takes the picked frame colour */
+export function ProductArt({ product, alt, frame, className }: ArtProps & { product: ShopProduct; frame?: string }) {
+  switch (product.visual) {
+    case "vinyl":
+      return <VinylArt alt={alt} className={className} />;
+    case "print":
+      return <PrintArt alt={alt} className={className} frame={isFrameColor(frame) ? frame : undefined} />;
+    case "poster":
+      return <PosterArt alt={alt} className={className} />;
+    case "journal":
+      return <JournalArt alt={alt} className={className} />;
+  }
 }

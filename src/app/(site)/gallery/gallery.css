@@ -45,49 +45,6 @@
   cursor: pointer;
 }
 
-/* ---------- Lightbox (components/gallery/Lightbox.tsx) ---------- */
-.lightbox {
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  max-height: none;
-  margin: 0;
-  padding: 24px 104px 32px;
-  border: 0;
-  background: rgba(5, 3, 12, 0.96);
-  color: var(--text);
-}
-
-.lightbox[open] { display: flex; flex-direction: column; gap: 16px; }
-.lightbox::backdrop { background: transparent; }
-
-.lightbox__top { display: flex; align-items: center; justify-content: space-between; }
-.lightbox__counter { font-size: 14px; font-weight: 600; }
-
-.lightbox__figure { display: flex; flex: 1; flex-direction: column; gap: 12px; min-height: 0; margin: 0; }
-.lightbox__photo { flex: 1; min-height: 0; }
-.lightbox__caption { color: var(--muted); font-size: 14px; text-align: center; }
-
-.lightbox__button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border: 1px solid var(--text);
-  border-radius: 50%;
-  background: var(--bg);
-  cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
-}
-
-.lightbox__button:hover { background: var(--text); color: var(--bg); }
-
-.lightbox__nav { position: absolute; top: 50%; transform: translateY(-50%); }
-.lightbox__nav--prev { left: 32px; }
-.lightbox__nav--next { right: 32px; }
-
 /* ---------- Zoomable picture: stage viewer, event map (components/gallery/ZoomableMedia.tsx) ---------- */
 .zoomable__media {
   position: absolute;
@@ -256,10 +213,6 @@
   .venue-gallery:not(.is-expanded) .venue-gallery__item--extra { display: none; }
   .venue-gallery__more { display: inline-flex; }
 
-  .lightbox { padding: 16px 16px 24px; }
-  .lightbox__button { width: 40px; height: 40px; }
-  .lightbox__nav--prev { left: 24px; }
-  .lightbox__nav--next { right: 24px; }
 
   /* Zoom buttons give way to pinch-to-zoom; fullscreen stays where the browser supports it */
   .zoomable__button--zoom { display: none; }
