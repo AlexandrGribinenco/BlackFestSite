@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { ContactForm } from "@/components/ContactForm";
 import { Socials } from "@/components/Socials";
+import { COMPANY } from "@/lib/company";
 import { EVENT } from "@/lib/event";
 import "./contacts.css";
 
@@ -36,8 +37,11 @@ export default function ContactsPage() {
             <div className="contact-item">
               <dt>Organizer</dt>
               <dd>
-                <strong>Î.I. CIOBANU ALEXANDRU</strong>
-                <span className="contact-item__note">IDNO [IDNO] · View Bar</span>
+                <strong>{COMPANY.legalName}</strong>
+                <span className="contact-item__note">
+                  IDNO {COMPANY.idno} · {COMPANY.brand}
+                </span>
+                <span className="contact-item__note">Legal address: {COMPANY.legalAddress}</span>
               </dd>
             </div>
             {contacts.map((item) => (

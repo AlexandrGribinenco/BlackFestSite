@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { COMPANY } from "@/lib/company";
 import { footerFestivalNav, footerLegalNav } from "@/lib/navigation";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "./NewsletterForm";
@@ -21,10 +22,13 @@ export function SiteFooter() {
           <div className="footer-brand">
             <Logo />
             <p>Music, art &amp; culture festival by View Bar.</p>
+            {/* Legal details are required on the site by maib */}
             <p>
-              Organizer: Î.I. CIOBANU ALEXANDRU
+              Organizer: {COMPANY.legalName}
               <br />
-              IDNO [IDNO]
+              IDNO {COMPANY.idno}
+              <br />
+              {COMPANY.legalAddress}
             </p>
           </div>
 
@@ -64,8 +68,9 @@ export function SiteFooter() {
         <div className="footer-bottom">
           <div className="payments">
             <span>Secure payment:</span>
-            {/* Full names, as the client asked */}
-            {["Visa", "Mastercard", "American Express", "Apple Pay", "Google Pay"].map((method) => (
+            {/* Full names, as the client asked. maib requires its own logo and the card scheme logos here:
+                TODO: replace the text badges with the official logo files from maib */}
+            {["maib", "Visa", "Mastercard", "American Express", "Apple Pay", "Google Pay"].map((method) => (
               <span key={method} className="payments__card">
                 {method}
               </span>

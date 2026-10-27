@@ -45,7 +45,7 @@ export default async function LegalPage({ params }: Props) {
             Contents
           </p>
           <ol>
-            {doc.sections.map((title, i) => (
+            {doc.sections.map(({ title }, i) => (
               <li key={title}>
                 <a href={`#${sectionId(i, title)}`}>
                   {i + 1}. {title}
@@ -55,13 +55,21 @@ export default async function LegalPage({ params }: Props) {
           </ol>
         </nav>
 
-        {doc.sections.map((title, i) => (
+        {doc.sections.map(({ title, body }, i) => (
           <section key={title} className="legal-section" id={sectionId(i, title)}>
             <h2 className="legal-section__title">
               {i + 1}. {title}
             </h2>
-            {/* TODO: legal text */}
-            <Skeleton size="sm" widths={[undefined, undefined, undefined, "60%"]} />
+            {body ? (
+              body.map((paragraph) => (
+                <p key={paragraph} className="legal-section__text">
+                  {paragraph}
+                </p>
+              ))
+            ) : (
+              // TODO: legal text
+              <Skeleton size="sm" widths={[undefined, undefined, undefined, "60%"]} />
+            )}
           </section>
         ))}
 

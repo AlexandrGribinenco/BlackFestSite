@@ -56,6 +56,8 @@
 
 .legal-section__title { margin-bottom: 14px; font-size: 18px; font-weight: 700; }
 .legal-section .skeleton { gap: 10px; }
+.legal-section__text { max-width: 760px; color: #d9d2ec; font-size: 14px; line-height: 1.65; }
+.legal-section__text + .legal-section__text { margin-top: 10px; }
 .legal__article > .btn { margin-top: 28px; }
 
 /* ---------- Responsive ---------- */
@@ -78,4 +80,5 @@
   .legal-contents { display: none; }
   .legal-section { padding: 20px 0; }
   .legal-section__title { font-size: 16px; }
+  .legal-section__text { font-size: 13px; }
 }
