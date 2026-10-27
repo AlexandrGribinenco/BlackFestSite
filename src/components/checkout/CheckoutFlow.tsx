@@ -17,6 +17,7 @@ import {
   type Order,
   type SeatCategory,
 } from "@/lib/checkout";
+import { PAYMENTS_CONNECTED, startPayment } from "@/lib/payments";
 import { CheckoutHeader } from "./CheckoutHeader";
 import { CheckoutSteps } from "./CheckoutSteps";
 import { DETAILS_FORM_ID, DetailsStep, EMPTY_DETAILS, type CustomerDetails } from "./DetailsStep";
@@ -24,7 +25,7 @@ import { DoneStep } from "./DoneStep";
 import { MobileOrderBar } from "./MobileOrderBar";
 import { OrderSummary } from "./OrderSummary";
 import { PaymentFailed } from "./PaymentFailed";
-import { PAYMENT_FORM_ID, PaymentStep, type PaymentMethod } from "./PaymentStep";
+import { PAYMENT_FORM_ID, PaymentStep } from "./PaymentStep";
 import { SeatsStep } from "./SeatsStep";
 import { TicketsStep } from "./TicketsStep";
 
@@ -57,8 +58,8 @@ export function CheckoutFlow() {
   const [order, setOrder] = useState<Order>(EMPTY_ORDER);
   const [details, setDetails] = useState<CustomerDetails>(EMPTY_DETAILS);
   const [detailsDone, setDetailsDone] = useState(false);
-  const [method, setMethod] = useState<PaymentMethod>("card");
   const [processing, setProcessing] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
   const [paymentFailed, setPaymentFailed] = useState(false);
   const [holdUntil, setHoldUntil] = useState<number | null>(null);
@@ -134,10 +135,25 @@ export function CheckoutFlow() {
     goTo("tickets");
   }
 
-  function pay() {
+  async function pay() {
     setProcessing(true);
     setPaymentFailed(false);
-    // TODO: hand over to the payment provider; this only simulates the result
+    setPaymentError(null);
+
+    // maib: the server prices the order and returns the maib payment page; the buyer comes back to /checkout/result
+    if (PAYMENTS_CONNECTED) {
+      const { firstName, lastName, email, phone, acceptTerms } = details;
+      const result = await startPayment(order, { firstName, lastName, email, phone }, acceptTerms);
+      if ("payUrl" in result) {
+        window.location.assign(result.payUrl);
+        return;
+      }
+      setProcessing(false);
+      setPaymentError(result.error);
+      return;
+    }
+
+    // Not connected (the static test site): simulate the result
     setTimeout(() => {
       setProcessing(false);
       if (SIMULATED_PAYMENT_RESULT === "failure") {
@@ -239,16 +255,9 @@ export function CheckoutFlow() {
               )}
               {step === "payment" &&
                 (paymentFailed ? (
-                  <PaymentFailed
-                    holdUntil={holdUntil}
-                    onRetry={pay}
-                    onUseAnotherCard={() => {
-                      setPaymentFailed(false);
-                      setMethod("card");
-                    }}
-                  />
+                  <PaymentFailed holdUntil={holdUntil} onRetry={pay} onUseAnotherCard={() => setPaymentFailed(false)} />
                 ) : (
-                  <PaymentStep order={order} method={method} onMethodChange={setMethod} onSubmit={pay} onBack={back} />
+                  <PaymentStep order={order} error={paymentError} onSubmit={pay} onBack={back} />
                 ))}
             </div>
 

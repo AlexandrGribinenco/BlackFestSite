@@ -20,6 +20,8 @@ export type TicketType = {
   /** Shorter description used on mobile */
   shortDescription: string;
   price: string;
+  /** Price as a number in CURRENCY, used to charge the card; null until the real prices are set */
+  amount: number | null;
   phase: string;
   soldOut?: boolean;
   /** Seated tickets are placed on the seat map in step 2 */
@@ -27,11 +29,11 @@ export type TicketType = {
 };
 
 export const TICKET_TYPES: TicketType[] = [
-  { id: "ga", name: "General Admission", description: "Standing, all festival days", shortDescription: "Standing · Early Bird", price: "[PRICE]", phase: "Early Bird", soldOut: true },
-  { id: "cat-a", name: "Category A", description: "Reserved seat, closest to stage", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", phase: "Phase 1", seatCategory: "A" },
-  { id: "cat-b", name: "Category B", description: "Reserved seat", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", phase: "Phase 1", seatCategory: "B" },
-  { id: "cat-c", name: "Category C", description: "Reserved seat, back rows", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", phase: "Phase 1", seatCategory: "C" },
-  { id: "vip", name: "VIP / Table", description: "VIP zone, table for up to [N]", shortDescription: "VIP zone · Phase 1", price: "[PRICE]", phase: "Phase 1" },
+  { id: "ga", name: "General Admission", description: "Standing, all festival days", shortDescription: "Standing · Early Bird", price: "[PRICE]", amount: null, phase: "Early Bird", soldOut: true },
+  { id: "cat-a", name: "Category A", description: "Reserved seat, closest to stage", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1", seatCategory: "A" },
+  { id: "cat-b", name: "Category B", description: "Reserved seat", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1", seatCategory: "B" },
+  { id: "cat-c", name: "Category C", description: "Reserved seat, back rows", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1", seatCategory: "C" },
+  { id: "vip", name: "VIP / Table", description: "VIP zone, table for up to [N]", shortDescription: "VIP zone · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1" },
 ];
 
 export type Addon = {
@@ -39,11 +41,13 @@ export type Addon = {
   name: string;
   description: string;
   price: string;
+  /** Price as a number in CURRENCY; null until the real prices are set */
+  amount: number | null;
 };
 
 export const ADDONS: Addon[] = [
-  { id: "camping", name: "Camping spot", description: "Tent place, all nights", price: "[PRICE]" },
-  { id: "parking", name: "Parking pass", description: "One car, all festival days", price: "[PRICE]" },
+  { id: "camping", name: "Camping spot", description: "Tent place, all nights", price: "[PRICE]", amount: null },
+  { id: "parking", name: "Parking pass", description: "One car, all festival days", price: "[PRICE]", amount: null },
 ];
 
 export const SEAT_CATEGORIES: SeatCategory[] = ["A", "B", "C"];
@@ -58,6 +62,10 @@ export const HOLD_SECONDS = 10 * 60;
 export const SIMULATED_PAYMENT_RESULT: "success" | "failure" = "success";
 
 export const BOOKING_FEE = "[FEE]";
+/** Booking fee per order in CURRENCY. TODO: the real fee, or remove the fee line */
+export const BOOKING_FEE_AMOUNT = 0;
+/** Currency of prices and card payments; maib accepts MDL, EUR and USD */
+export const CURRENCY = "MDL";
 export const ORDER_TOTAL = "[TOTAL]";
 
 export type Order = {

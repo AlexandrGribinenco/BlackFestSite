@@ -28,6 +28,12 @@ https://alexandrgribinenco.github.io/BlackFestSite/
 Это статическая версия сайта: workflow передаёт `PAGES_BASE_PATH=/BlackFestSite`, и `next build`
 складывает готовые страницы в `out/`. Без этой переменной сборка обычная, для `npm run start`.
 
+## Оплата картой (maib)
+
+План, требования банка и состояние — в [docs/payments-maib.md](docs/payments-maib.md). Коротко:
+- серверная часть — `src/server/` и `src/app/api/payments/` (файлы `route.api.ts`). Она работает только на хостинге с сервером: статическая сборка для GitHub Pages её пропускает;
+- настройки — в `.env.example`. Пока `NEXT_PUBLIC_PAYMENTS_API_URL` не задан, Checkout имитирует оплату.
+
 ## Структура
 
 ```
@@ -52,6 +58,9 @@ src/
     checkout/       оформление заказа: своя шапка, без подвала
       page.tsx
       checkout.css
+      result/       страница возврата после оплаты на maib
+    api/payments/   API оплаты maib: создать платёж, callback, статус (только серверная сборка)
+  server/           серверный код: клиент API maib, расчёт заказа, письмо-подтверждение
   components/
     checkout/       шаги Checkout: CheckoutFlow (состояние и переходы), TicketsStep, SeatsStep,
                     DetailsStep, PaymentStep, DoneStep, OrderSummary, MobileOrderBar и др.
@@ -78,6 +87,8 @@ src/
     bar-menu.ts     меню бара: категории, позиции, метки
     hotels.ts       отели-партнёры
     shop.ts         товары магазина и Festival pack
+    company.ts      юридические данные организатора (IDNO, адрес) — требование maib
+    payments.ts     оплата из браузера: старт платежа и статус
     links.ts        внешние ссылки открываются в новой вкладке
 docs/
   figma-notes.md    заметки по макету
