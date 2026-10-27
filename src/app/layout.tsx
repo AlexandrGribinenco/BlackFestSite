@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import { CookieConsent } from "@/components/CookieConsent";
+import { FormMessages } from "@/components/FormMessages";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body>
         {children}
         <CookieConsent />
+        <FormMessages />
       </body>
     </html>
   );
