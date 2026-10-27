@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { CartItem } from "@/lib/cart";
-import { formatMoney, optionsLabel, type DeliveryMethod } from "@/lib/shop";
+import { formatMoney } from "@/lib/checkout";
+import { optionsLabel, type DeliveryMethod } from "@/lib/shop";
 
 type ShopOrderSummaryProps = {
   step: "cart" | "delivery" | "payment";

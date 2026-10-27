@@ -1,17 +1,36 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { TICKET_TYPES, formatSeats, seatsOfCategory, type Order } from "@/lib/checkout";
 import { EVENT } from "@/lib/event";
+import { ticketsFromOrder } from "@/lib/tickets";
+
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 type DoneStepProps = {
   order: Order;
   email: string;
+  /** Buyer's name, printed on the tickets */
+  holder: string;
   orderNumber: string;
 };
 
 // Step 5 (Figma: D3 "Section · Payment successful!" 2:1822, M4.5 51:574)
-export function DoneStep({ order, email, orderNumber }: DoneStepProps) {
+export function DoneStep({ order, email, holder, orderNumber }: DoneStepProps) {
+  const [pdfState, setPdfState] = useState<"idle" | "making" | "failed">("idle");
+
+  async function downloadPdf() {
+    setPdfState("making");
+    try {
+      await downloadTicketsPdf(order, holder, orderNumber);
+      setPdfState("idle");
+    } catch (error) {
+      console.error("[tickets] PDF failed", error);
+      setPdfState("failed");
+    }
+  }
+
   const ticketLines = TICKET_TYPES.filter((type) => (order.tickets[type.id] ?? 0) > 0).map((type) => {
     const seats = type.seatCategory ? formatSeats(seatsOfCategory(order, type.seatCategory)) : "";
     return seats ? `${type.name} · ${seats}` : `${type.name} × ${order.tickets[type.id]}`;
@@ -47,20 +66,48 @@ export function DoneStep({ order, email, orderNumber }: DoneStepProps) {
       </article>
 
       <div className="done__actions">
-        {/* TODO: link to the PDF ticket; until then the browser's print dialog can save the ticket as PDF */}
-        <button className="btn btn-primary btn-ring" type="button" onClick={() => window.print()}>
-          Download PDF
+        <button className="btn btn-primary btn-ring" type="button" disabled={pdfState === "making"} onClick={downloadPdf}>
+          {pdfState === "making" ? "Preparing PDF…" : "Download PDF"}
         </button>
         <button className="btn btn-outline" type="button" onClick={() => downloadCalendarFile(orderNumber)}>
           Add to calendar
         </button>
       </div>
 
+      {pdfState === "failed" && (
+        <p className="pay-error" role="alert">
+          The PDF couldn’t be made. Your tickets are also in the confirmation e-mail.
+        </p>
+      )}
+
       <p className="done__help">
         No email? Check your spam folder or <Link href="/contacts">contact us</Link>
       </p>
     </section>
   );
+}
+
+// The PDF library and the fonts load only when the buyer asks for the PDF (lib/ticket-pdf.ts, Figma: D9)
+async function downloadTicketsPdf(order: Order, holder: string, orderNumber: string) {
+  const [{ ticketsPdf }, regular, bold] = await Promise.all([
+    import("@/lib/ticket-pdf"),
+    fetch(`${BASE_PATH}/fonts/Inter-Regular.ttf`).then((r) => r.arrayBuffer()),
+    fetch(`${BASE_PATH}/fonts/Inter-Bold.ttf`).then((r) => r.arrayBuffer()),
+  ]);
+  const bytes = await ticketsPdf({
+    tickets: ticketsFromOrder(order),
+    holder,
+    orderNumber,
+    siteUrl: `${window.location.origin}${BASE_PATH}`,
+    fonts: { regular, bold },
+  });
+
+  const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: "application/pdf" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `black-out-fest-2027-tickets-${orderNumber}.pdf`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 const toIcsDate = (date: Date) => date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");

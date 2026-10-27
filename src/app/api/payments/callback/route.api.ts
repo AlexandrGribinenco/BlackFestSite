@@ -3,6 +3,7 @@
 // The firewall must let in maib's servers: 91.250.245.70, 91.250.245.71, 91.250.245.142.
 import { paymentConfirmationEmail, sendEmail } from "@/server/email";
 import { getPaymentInfo, verifyCallbackSignature, type CallbackPayload } from "@/server/maib";
+import { ticketsAttachment } from "@/server/tickets";
 
 export const dynamic = "force-dynamic";
 
@@ -18,15 +19,20 @@ export async function POST(request: Request) {
 
   if (status === "OK" && typeof payId === "string") {
     try {
-      // pay-info has the buyer's e-mail and the items, so the e-mail can be sent without a database
+      // pay-info has the buyer's e-mail and name and the items, so the e-mail and the e-tickets need no database
       const payment = await getPaymentInfo(payId);
-      const email = paymentConfirmationEmail(payment, new Date());
+      // Without the PDF the e-mail still goes out and says the tickets follow
+      const tickets = await ticketsAttachment(payment).catch((error) => {
+        console.error(`[payments] e-tickets for ${orderId} failed`, error);
+        return null;
+      });
+      const email = paymentConfirmationEmail(payment, new Date(), tickets ?? undefined);
       if (email) await sendEmail(email);
     } catch (error) {
       // Still answer 200: a retry would not help and could send the e-mail twice
       console.error(`[payments] confirmation e-mail for ${orderId} failed`, error);
     }
-    // TODO: mark the order as paid, issue the e-tickets and release the seat hold (needs the database)
+    // TODO: mark the order as paid and release the seat hold (needs the database)
   }
 
   return new Response("OK", { status: 200 });

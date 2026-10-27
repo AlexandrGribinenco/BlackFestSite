@@ -223,7 +223,7 @@ export function CheckoutFlow() {
       <main className="checkout">
         {step === "done" && orderNumber ? (
           <div className="container">
-            <DoneStep order={order} email={details.email} orderNumber={orderNumber} />
+            <DoneStep order={order} email={details.email} holder={`${details.firstName} ${details.lastName}`.trim()} orderNumber={orderNumber} />
           </div>
         ) : (
           <div className="container checkout__grid">

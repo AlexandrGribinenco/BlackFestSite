@@ -554,11 +554,3 @@ p.pay-option__head { cursor: default; }
   .done__actions { flex-direction: column; width: 100%; }
   .done__actions .btn { width: 100%; height: 48px; }
 }
-
-/* "Download PDF" prints only the ticket */
-@media print {
-  body:has(.done-ticket) * { visibility: hidden; }
-  body:has(.done-ticket) .done-ticket,
-  body:has(.done-ticket) .done-ticket * { visibility: visible; color: #000; }
-  body:has(.done-ticket) .done-ticket { position: absolute; top: 0; left: 0; }
-}

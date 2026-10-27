@@ -68,6 +68,12 @@ export const BOOKING_FEE_AMOUNT = 0;
 export const CURRENCY = "MDL";
 export const ORDER_TOTAL = "[TOTAL]";
 
+/** Amount in CURRENCY, or the placeholder while the price is not set */
+export function formatMoney(amount: number | null, placeholder = "[PRICE]"): string {
+  if (amount === null) return placeholder;
+  return `${amount.toLocaleString("en", { maximumFractionDigits: 2 })} ${CURRENCY}`;
+}
+
 export type Order = {
   tickets: Record<string, number>;
   addons: Record<string, number>;

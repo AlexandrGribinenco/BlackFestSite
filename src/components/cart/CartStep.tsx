@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { setLineQty, type CartItem } from "@/lib/cart";
-import { MAX_PER_PRODUCT, formatMoney, optionsLabel } from "@/lib/shop";
+import { formatMoney } from "@/lib/checkout";
+import { MAX_PER_PRODUCT, optionsLabel } from "@/lib/shop";
 import { QuantityStepper } from "../checkout/QuantityStepper";
 import { PromoCode } from "../checkout/TicketsStep";
 import { ProductArt } from "../shop/ProductArt";

@@ -33,11 +33,13 @@ export function priceOrder(input: unknown): PricedOrder | { error: string } {
   };
 
   const items: MaibItem[] = [];
-  const add = (id: string, name: string, amount: number | null, qty: unknown) => {
+  // A seated ticket is one item per seat, id "<type>/<seat id>", so each paid item maps to e-tickets (lib/tickets.ts)
+  const add = (id: string, name: string, amount: number | null, qty: unknown, seats: string[] = []) => {
     if (qty === undefined || qty === 0) return null;
     if (!Number.isInteger(qty) || (qty as number) < 0 || (qty as number) > MAX_PER_TYPE) return `Invalid quantity for ${name}`;
     if (amount === null) return `The price of ${name} is not set yet`;
-    items.push({ id, name: name.slice(0, 128), price: amount, quantity: qty as number });
+    if (seats.length === 0) items.push({ id, name: name.slice(0, 128), price: amount, quantity: qty as number });
+    for (const seat of seats) items.push({ id: `${id}/${seat}`, name: `${name} · ${formatSeats([seat])}`.slice(0, 128), price: amount, quantity: 1 });
     return null;
   };
 
@@ -45,8 +47,8 @@ export function priceOrder(input: unknown): PricedOrder | { error: string } {
     const type = TICKET_TYPES.find((t) => t.id === id);
     if (!type) return { error: `Unknown ticket type ${id}` };
     if (type.soldOut && qty > 0) return { error: `${type.name} is sold out` };
-    const seats = type.seatCategory ? formatSeats(seatsOfCategory(order, type.seatCategory)) : "";
-    const error = add(type.id, seats ? `${type.name} · ${seats}` : type.name, type.amount, qty);
+    const seats = type.seatCategory ? seatsOfCategory(order, type.seatCategory) : [];
+    const error = add(type.id, type.name, type.amount, qty, seats);
     if (error) return { error };
   }
 
@@ -57,7 +59,7 @@ export function priceOrder(input: unknown): PricedOrder | { error: string } {
     if (error) return { error };
   }
 
-  if (!items.some((item) => TICKET_TYPES.some((t) => t.id === item.id))) return { error: "The order has no tickets" };
+  if (!items.some((item) => TICKET_TYPES.some((t) => t.id === item.id.split("/")[0]))) return { error: "The order has no tickets" };
   if (!order.seats.every((id) => SEAT_ID.test(id)) || !seatsComplete(order)) return { error: "Pick a seat for every seated ticket" };
   // TODO: check on the ticketing backend that the seats are still free and held for this buyer
 

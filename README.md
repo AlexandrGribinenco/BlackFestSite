@@ -69,7 +69,7 @@ src/
       result/       страница возврата после оплаты на maib
     api/payments/   API оплаты maib: создать платёж, callback, статус (только серверная сборка)
     api/health/     служебная проверка хостинга: настройки, связь с maib и почтой, исходящий IP
-  server/           серверный код: клиент API maib, расчёт заказа, письмо-подтверждение (SMTP)
+  server/           серверный код: клиент API maib, расчёт заказа, письмо-подтверждение (SMTP) с PDF-билетами
   components/
     checkout/       шаги Checkout: CheckoutFlow (состояние и переходы), TicketsStep, SeatsStep,
                     DetailsStep, PaymentStep, DoneStep, OrderSummary, MobileOrderBar и др.
@@ -101,6 +101,8 @@ src/
     shop.ts         товары магазина (описания, опции, цены), способы доставки, Festival pack
     company.ts      юридические данные организатора (IDNO, адрес) — требование maib
     payments.ts     оплата из браузера: старт платежа и статус
+    tickets.ts      электронные билеты заказа: по одному на место и на каждый доп
+    ticket-pdf.ts   PDF-билеты по макету D9: в браузере (Download PDF) и на сервере (вложение в письмо)
     links.ts        внешние ссылки открываются в новой вкладке
 docs/
   figma-notes.md    заметки по макету
@@ -108,6 +110,8 @@ docs/
   deploy-hostmd.md  сайт на хостинге host.md: Plesk, Git, Node.js, почта
   screens/          скриншоты Home и Tickets (десктоп и мобильная версия)
 public/
+  fonts/            Inter (TTF, лицензия OFL) для PDF-билетов: в стандартных шрифтах PDF нет ș, ț, ă
+  images/payments/  официальные логотипы maib и платёжных систем
   images/coming-soon.svg  исходная временная картинка вместо фото
   images/coming-soon-bg.svg, coming-soon-text.svg  её фон и надпись отдельными слоями:
                           так компонент ComingSoonImage заполняет блок любых пропорций без обрезки текста
@@ -132,6 +136,6 @@ public/
 - Даты — заглушки (`src/lib/event.ts`, `PRICE_STEP_AT` в `src/app/(site)/tickets/page.tsx`).
 - Checkout — прототип без бэкенда: заказ живёт в памяти браузера, места и занятость — заглушки,
   оплата имитируется (поля карты никуда не отправляются, их нужно заменить полями платёжного провайдера),
-  промокоды не работают, «Download PDF» открывает печать билета.
+  промокоды не работают. «Download PDF» собирает PDF-билеты в браузере (`src/lib/ticket-pdf.ts`, макет D9).
 - Форма подписки и кнопки «Add to cart» на главной ещё никуда не подключены.
 - Ссылки на соцсети — заглушки `#` (`src/lib/navigation.ts`).

@@ -1,7 +1,6 @@
 // Official shop. The Shop page follows Figma: 04 · Colors / D10 · Shop 296:1002 (the new design the client chose); the
 // product page and the cart follow the restored wireframes: Desktop / D11 347:807, D12 347:141, Mobile / M10, M11.
 // TODO: replace the placeholders with the real products, descriptions and prices
-import { CURRENCY } from "./checkout";
 
 export type ShopCategory = "art" | "posters" | "vinyl" | "e-journal";
 
@@ -296,10 +295,4 @@ export function optionsLabel(product: ShopProduct, picked: Record<string, string
     .map((option) => option.values.find((v) => v.id === picked[option.id])?.label)
     .filter(Boolean)
     .join(" · ");
-}
-
-/** Amount in CURRENCY, or the placeholder while the price is not set */
-export function formatMoney(amount: number | null, placeholder = "[PRICE]"): string {
-  if (amount === null) return placeholder;
-  return `${amount.toLocaleString("en", { maximumFractionDigits: 2 })} ${CURRENCY}`;
 }

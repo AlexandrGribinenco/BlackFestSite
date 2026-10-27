@@ -2,10 +2,10 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { SIMULATED_PAYMENT_RESULT } from "@/lib/checkout";
+import { SIMULATED_PAYMENT_RESULT, formatMoney } from "@/lib/checkout";
 import { cartCount, cartItems, cartSubtotal, clearCart, useCart } from "@/lib/cart";
 import { PAYMENTS_CONNECTED } from "@/lib/payments";
-import { DELIVERY_METHODS, formatMoney, type DeliveryMethod } from "@/lib/shop";
+import { DELIVERY_METHODS, type DeliveryMethod } from "@/lib/shop";
 import { CheckoutSteps } from "../checkout/CheckoutSteps";
 import { MobileOrderBar } from "../checkout/MobileOrderBar";
 import { CartStep } from "./CartStep";
