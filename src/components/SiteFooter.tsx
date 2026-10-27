@@ -5,6 +5,19 @@ import { Logo } from "./Logo";
 import { NewsletterForm } from "./NewsletterForm";
 import { Socials } from "./Socials";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+// maib requires its own logo and the card scheme logos in the footer: the official files from the maib docs
+// (logo.zip), shown on white so their colors stay as given. Sizes are the display sizes, the files are 2x or more.
+const PAYMENT_LOGOS = [
+  { name: "maib", file: "maib.png", width: 57, height: 16 },
+  { name: "Visa", file: "visa.png", width: 37, height: 12 },
+  { name: "Mastercard", file: "mastercard.png", width: 32, height: 20 },
+  { name: "American Express", file: "amex.png", width: 24, height: 24 },
+];
+// No official files for these in the maib archive, so they stay as text, in full names as the client asked
+const PAYMENT_WALLETS = ["Apple Pay", "Google Pay"];
+
 // Figma: Components / Footer · desktop 1:633, Footer · mobile 1:838
 export function SiteFooter() {
   return (
@@ -68,11 +81,14 @@ export function SiteFooter() {
         <div className="footer-bottom">
           <div className="payments">
             <span>Secure payment:</span>
-            {/* Full names, as the client asked. maib requires its own logo and the card scheme logos here:
-                TODO: replace the text badges with the official logo files from maib */}
-            {["maib", "Visa", "Mastercard", "American Express", "Apple Pay", "Google Pay"].map((method) => (
-              <span key={method} className="payments__card">
-                {method}
+            {PAYMENT_LOGOS.map((logo) => (
+              <span key={logo.name} className="payments__card payments__card--logo">
+                <img src={`${BASE_PATH}/images/payments/${logo.file}`} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" />
+              </span>
+            ))}
+            {PAYMENT_WALLETS.map((wallet) => (
+              <span key={wallet} className="payments__card">
+                {wallet}
               </span>
             ))}
           </div>

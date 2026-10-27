@@ -835,6 +835,10 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.04em;
 }
 
+/* Official logos keep their own colors, so they sit on white */
+.payments__card--logo { padding: 0 8px; background: #fff; border-color: #fff; }
+.payments__card--logo img { display: block; }
+
 /* ---------- Cookie consent (components/CookieConsent.tsx) ---------- */
 .cookie-banner {
   position: fixed;
