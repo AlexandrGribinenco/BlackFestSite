@@ -9,6 +9,15 @@ on:
         description: "Card payment through maib (off: checkout only simulates the payment)"
         type: boolean
         default: false
+      site_url:
+        description: "Site address, for share previews, the sitemap and the PDF tickets (as SITE_URL in Plesk)"
+        type: string
+        required: true
+        default: "https://www.auroraaustralishub.com.md"
+      search_engines:
+        description: "Let search engines index the site (turn on at the launch, when the placeholders are gone)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -30,13 +39,16 @@ jobs:
 
       - run: npm ci
 
-      # NEXT_PUBLIC_PAYMENTS_API_URL is read at build time; empty means the payment API is on the same server
+      # NEXT_PUBLIC_* are read at build time. An empty NEXT_PUBLIC_PAYMENTS_API_URL means the payment API is on the
+      # same server; the site address and the indexing switch go into the prerendered pages (lib/site.ts)
       - name: Build
         run: |
           if [ "${{ inputs.payments }}" = "true" ]; then export NEXT_PUBLIC_PAYMENTS_API_URL=""; fi
+          if [ "${{ inputs.search_engines }}" = "true" ]; then export NEXT_PUBLIC_INDEXABLE=1; fi
           npm run build
         env:
           STANDALONE_BUILD: "1"
+          NEXT_PUBLIC_SITE_URL: ${{ inputs.site_url }}
 
       # The deploy branch keeps a history that only moves forward, so Plesk can always pull it.
       # tmp/restart.txt changes on every build: Passenger restarts the app when it changes.

@@ -4,7 +4,9 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CookieSettingsButton } from "@/components/CookieConsent";
 import { LegalDocNav } from "@/components/LegalDocNav";
 import { Skeleton } from "@/components/Skeleton";
+import { COMPANY } from "@/lib/company";
 import { LEGAL_DOCS, LEGAL_OWNER, LEGAL_UPDATED, sectionId } from "@/lib/legal";
+import { pageMetadata } from "@/lib/site";
 import "./legal.css";
 
 // Figma: Desktop / D7 · Legal page (template) 347:1878, Mobile / M8 · Legal + cookie banner 3:11516
@@ -20,7 +22,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const doc = LEGAL_DOCS.find((d) => d.slug === slug);
-  return { title: doc ? `${doc.title} — Black Out Fest 2027` : "Black Out Fest 2027" };
+  if (!doc) return {};
+  return pageMetadata({
+    title: `${doc.title} — Black Out Fest 2027`,
+    description: `${doc.title} of Black Out Fest 2027, run by ${COMPANY.legalName}.`,
+    path: `/legal/${doc.slug}`,
+  });
 }
 
 export default async function LegalPage({ params }: Props) {

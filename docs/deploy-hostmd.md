@@ -22,11 +22,12 @@ SSH на Shared Hosting нет. Он и не нужен: сайт приходи
 
 `npm install` на хостинге не нужен. Секреты (ключи maib, пароль почты) хранятся только в Plesk, не в репозитории: репозиторий публичный.
 
-Галочка **payments** при запуске workflow:
-- выключена — Checkout только имитирует оплату, как на тестовом сайте;
-- включена — Checkout создаёт платёж через `/api/payments`.
-
-Включать её, когда в Plesk есть ключи maib и цены заданы в коде.
+Параметры при запуске workflow:
+- **payments**:
+  - выключена — Checkout только имитирует оплату, как на тестовом сайте;
+  - включена — Checkout создаёт платёж через `/api/payments`. Включать, когда в Plesk есть ключи maib и цены заданы в коде.
+- **site_url** — адрес сайта, по умолчанию `https://www.auroraaustralishub.com.md`. Он попадает в превью ссылок, карту сайта и PDF-билеты. Должен совпадать с `SITE_URL` в Plesk.
+- **search_engines** — пустить поисковики. Пока выключена, на всех страницах стоит `noindex`, а `robots.txt` закрывает сайт. Включить при запуске, когда на сайте не останется заглушек.
 
 ## Настройка в Plesk (один раз)
 
@@ -100,7 +101,7 @@ maib присылает callback со своих серверов 91.250.245.70,
 
 ## Обновление сайта
 
-1. GitHub → Actions → Build for hosting → Run workflow. Ветка `main`, нужное значение payments.
+1. GitHub → Actions → Build for hosting → Run workflow. Ветка `main`, нужные значения payments, site_url и search_engines.
 2. Через пару минут сборка в ветке `deploy`. Plesk забирает её по вебхуку, или нажать Pull Updates / Deploy в Plesk → Git.
 3. Если сайт не обновился — Restart App.
 

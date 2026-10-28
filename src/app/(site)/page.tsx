@@ -1,14 +1,24 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { Countdown } from "@/components/Countdown";
+import { JsonLd } from "@/components/JsonLd";
 import { OrganizerCard, type OrganizerCardProps } from "@/components/OrganizerCard";
 import { ProductCard, type ProductCardProps } from "@/components/ProductCard";
 import { SectionHead } from "@/components/SectionHead";
 import { Skeleton } from "@/components/Skeleton";
 import { TicketCard, type TicketCardProps } from "@/components/TicketCard";
 import { EVENT } from "@/lib/event";
+import { pageMetadata } from "@/lib/site";
+import { festivalEventData } from "@/lib/structured-data";
 
 // Figma: Desktop / D1 · Home 1:2, Mobile / M1 · Home 2:7604
+
+export const metadata: Metadata = pageMetadata({
+  title: "Black Out Fest 2027 — Music, art & culture festival",
+  description: "Black Out Fest 2027 — music, art & culture festival by View Bar. Tickets, line-up, gallery and official shop.",
+  path: "/",
+});
 
 const tickets: TicketCardProps[] = [
   { phase: "Early bird", title: "General Admission", price: "[PRICE]", status: "sold-out", href: "/tickets" },
@@ -47,6 +57,7 @@ const organizerCards: OrganizerCardProps[] = [
 export default function HomePage() {
   return (
     <main>
+      <JsonLd data={festivalEventData()} />
       {/* Hero */}
       <section className="hero">
         <div className="container hero__grid">

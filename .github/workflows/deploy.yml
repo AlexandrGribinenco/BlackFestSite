@@ -31,10 +31,12 @@ jobs:
 
       - run: npm ci
 
-      # Static export into out/, served from the repository subfolder
+      # Static export into out/, served from the repository subfolder. The test site's address goes into the share
+      # previews and the sitemap; NEXT_PUBLIC_INDEXABLE is not set, so search engines are kept out (lib/site.ts)
       - run: npm run build
         env:
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
 
       - uses: actions/upload-pages-artifact@v4
         with:

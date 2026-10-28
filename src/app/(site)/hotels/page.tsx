@@ -4,14 +4,16 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { HotelList } from "@/components/hotels/HotelList";
 import { HOTELS } from "@/lib/hotels";
+import { pageMetadata } from "@/lib/site";
 import "./hotels.css";
 
 // Figma: Desktop / D15 · Hotels 347:6446, Mobile / M14 · Hotels 179:3281
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Hotels — Black Out Fest 2027",
   description: "Partner hotels near Black Out Fest 2027: compare distance, price and amenities and book directly on the hotel’s website.",
-};
+  path: "/hotels",
+});
 
 const steps = [
   { title: "Choose a hotel", text: "Compare distance, price and amenities." },

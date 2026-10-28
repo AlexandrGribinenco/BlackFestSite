@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JournalArt, PosterArt, VinylArt } from "@/components/shop/ProductArt";
 import { ShopCatalog } from "@/components/shop/ShopCatalog";
 import { SHOP_PRODUCTS } from "@/lib/shop";
+import { pageMetadata } from "@/lib/site";
 import "./shop.css";
 
 // Figma: 04 · Colors / D10 · Shop 296:1002 — the new Shop design the client chose (no mobile frame; mobile is adapted).
@@ -12,10 +13,11 @@ import "./shop.css";
 // Display face of the new Shop design, loaded for this page only
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display", display: "swap" });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Shop — Black Out Fest 2027",
   description: "Official merchandise of Black Out Fest 2027: framed art, posters, vinyl and the festival e-journal. Limited runs.",
-};
+  path: "/shop",
+});
 
 export default function ShopPage() {
   return (

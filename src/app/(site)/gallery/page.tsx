@@ -7,14 +7,16 @@ import { VenueGallery, type VenuePhoto } from "@/components/gallery/VenueGallery
 import { ZoomableMedia } from "@/components/gallery/ZoomableMedia";
 import { SectionNav, type NavSection } from "@/components/SectionNav";
 import { Skeleton } from "@/components/Skeleton";
+import { pageMetadata } from "@/lib/site";
 import "./gallery.css";
 
 // Figma: Desktop / D4 · Gallery 347:2778, Mobile / M5 · Gallery 3:10546
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Gallery — Black Out Fest 2027",
   description: "The venue before the crowd: photos of the space, the 3D stage, the sound system and the event map of Black Out Fest 2027.",
-};
+  path: "/gallery",
+});
 
 const sections: NavSection[] = [
   { id: "venue", label: "Venue" },

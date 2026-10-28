@@ -6,18 +6,22 @@ import { AddonCard, type AddonCardProps } from "@/components/AddonCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { FaqList, type FaqItem } from "@/components/FaqList";
+import { JsonLd } from "@/components/JsonLd";
 import { PhaseCard } from "@/components/PhaseCard";
 import { ReleaseCard, type ReleaseCardProps } from "@/components/ReleaseCard";
 import { SectionHead } from "@/components/SectionHead";
 import { TicketOptionCard, type TicketOptionCardProps } from "@/components/TicketOptionCard";
+import { pageMetadata } from "@/lib/site";
+import { festivalEventData } from "@/lib/structured-data";
 import "./tickets.css";
 
 // Figma: Desktop / D2 · Tickets 2:2, Mobile / M3 · Tickets 3:9151
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Tickets — Black Out Fest 2027",
   description: "Ticket releases, prices and seating for Black Out Fest 2027. The price you see is the price you pay.",
-};
+  path: "/tickets",
+});
 
 // TODO: replace with the real date of the next price step
 const PRICE_STEP_AT = "2027-02-01T12:00:00+02:00";
@@ -87,6 +91,7 @@ const faq: FaqItem[] = [
 export default function TicketsPage() {
   return (
     <main className="tickets-page">
+      <JsonLd data={festivalEventData()} />
       {/* Page hero */}
       <section className="page-hero">
         <div className="container">

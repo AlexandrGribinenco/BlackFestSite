@@ -27,6 +27,19 @@ https://alexandrgribinenco.github.io/BlackFestSite/
 (`.github/workflows/deploy.yml`, ход сборки — во вкладке Actions репозитория).
 Это статическая версия сайта: workflow передаёт `PAGES_BASE_PATH=/BlackFestSite`, и `next build`
 складывает готовые страницы в `out/`. Без этой переменной сборка обычная, для `npm run start`.
+Тестовый сайт закрыт от поисковиков (`noindex` и `robots.txt`), чтобы заглушки не попали в поиск.
+
+## SEO
+
+- Адрес сайта и разрешение индексации задаются при сборке (`src/lib/site.ts`):
+  - `NEXT_PUBLIC_SITE_URL` — адрес сайта;
+  - `NEXT_PUBLIC_INDEXABLE=1` — пустить поисковики, только при запуске.
+- У каждой страницы свои заголовок, описание, canonical и превью для соцсетей: `pageMetadata()` в `src/lib/site.ts`.
+- Картинка превью `/og.png` рисуется при сборке (`src/app/og.png/route.tsx`).
+- Иконки: `public/icon.svg` и `/apple-icon.png` (`src/app/apple-icon.png/route.tsx`). Сейчас это временный значок-«затмение», заменить на логотип, когда он будет.
+- Генерируются `robots.txt` и `sitemap.xml` (`src/app/robots.ts`, `src/app/sitemap.ts`).
+- Структурированные данные для Google (`src/lib/structured-data.ts`): фестиваль как событие (MusicEvent) и товары с ценой.
+  Пока дата, площадка и цены — заглушки, они не выводятся.
 
 ## Оплата картой (maib)
 

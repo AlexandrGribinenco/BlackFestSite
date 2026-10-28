@@ -5,14 +5,16 @@ import { ContactForm } from "@/components/ContactForm";
 import { Socials } from "@/components/Socials";
 import { COMPANY } from "@/lib/company";
 import { EVENT } from "@/lib/event";
+import { pageMetadata } from "@/lib/site";
 import "./contacts.css";
 
 // Figma: Desktop / D6 · Contacts 347:2154, Mobile / M7 · Contacts 3:11262
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contacts — Black Out Fest 2027",
   description: "Contact the Black Out Fest team: general questions, tickets and orders, partners and advertising.",
-};
+  path: "/contacts",
+});
 
 // TODO: real addresses and phone
 const contacts = [

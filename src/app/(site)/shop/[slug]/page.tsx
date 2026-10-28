@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { JsonLd } from "@/components/JsonLd";
 import { SectionHead } from "@/components/SectionHead";
 import { ProductArt } from "@/components/shop/ProductArt";
 import { ProductDetail } from "@/components/shop/ProductDetail";
 import { DELIVERY_METHODS, SHOP_PRODUCTS, productById, type ShopProduct } from "@/lib/shop";
+import { pageMetadata } from "@/lib/site";
+import { productData } from "@/lib/structured-data";
 import "./product.css";
 
 // Figma: Desktop / D11 · Product page 347:807, Mobile / M10 · Product page 3:12030 — the restored wireframes,
@@ -21,7 +24,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const product = productById((await params).slug);
-  return product ? { title: `${product.name} — Shop — Black Out Fest 2027`, description: product.summary } : {};
+  if (!product) return {};
+  return pageMetadata({ title: `${product.name} — Shop — Black Out Fest 2027`, description: product.summary, path: `/shop/${product.id}` });
 }
 
 export default async function ProductPage({ params }: Params) {
@@ -32,6 +36,7 @@ export default async function ProductPage({ params }: Params) {
 
   return (
     <main className="product-page">
+      <JsonLd data={productData(product)} />
       <div className="container product-top">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop", href: "/shop" }, { label: product.shortName }]} />
         {/* Mobile has a back link instead of the breadcrumbs (Figma: M10) */}

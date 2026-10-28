@@ -6,14 +6,16 @@ import { FaqList, type FaqItem } from "@/components/FaqList";
 import { SectionNav, type NavSection } from "@/components/SectionNav";
 import { Skeleton } from "@/components/Skeleton";
 import { EVENT } from "@/lib/event";
+import { pageMetadata } from "@/lib/site";
 import "./info.css";
 
 // Figma: Desktop / D5 · Info & FAQ 347:2389, Mobile / M6 · Info & FAQ 3:10899
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Info & FAQ — Black Out Fest 2027",
   description: "Getting there, parking, camping, bar & restaurant, entry rules and answers to common questions about Black Out Fest 2027.",
-};
+  path: "/info",
+});
 
 const sections: NavSection[] = [
   { id: "getting-there", label: "Getting there", short: "Get there" },

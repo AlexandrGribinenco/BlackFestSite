@@ -6,14 +6,16 @@ import { MenuTagBadge } from "@/components/bar/MenuTagBadge";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { MENU, MENU_LEGEND } from "@/lib/bar-menu";
+import { pageMetadata } from "@/lib/site";
 import "./bar.css";
 
 // Figma: Desktop / D13 · Bar & Restaurant 347:5840, Mobile / M12 · Bar & Restaurant 179:778
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Bar & Restaurant — Black Out Fest 2027",
   description: "Street food, cocktails and a chill zone right next to the stage: opening hours, location and the menu of the View Bar at Black Out Fest 2027.",
-};
+  path: "/bar-restaurant",
+});
 
 // TODO: replace the placeholders with the real hours and location
 const heroFacts = ["Open · [HOURS]", "Zone · [LOCATION]", "Card & cash"];
