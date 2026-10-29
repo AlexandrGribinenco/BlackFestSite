@@ -3,6 +3,8 @@
 // currency, payment date and the order description (items and quantities).
 // Sent over SMTP from a mailbox on the site's domain. host.md doesn't allow sending through outside mail servers or
 // services, only through the hosting's own (mail.<domain>, port 465 or 587), at most 500 e-mails an hour per domain.
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
 import nodemailer, { type Transporter } from "nodemailer";
 import { COMPANY } from "@/lib/company";
 import { EVENT } from "@/lib/event";
@@ -97,10 +99,21 @@ function smtp(): Transporter | null {
   return transporter;
 }
 
+/** Without a mail server (local tests): the e-mail and its attachments go to EMAIL_OUTBOX_DIR as files */
+async function saveToOutbox(dir: string, email: Email) {
+  const base = path.join(dir, `${Date.now()}-${email.to.replace(/[^\w@.-]/g, "_")}`);
+  await mkdir(dir, { recursive: true });
+  await writeFile(`${base}.html`, email.html);
+  await writeFile(`${base}.txt`, `To: ${email.to}\nSubject: ${email.subject}\n\n${email.text}`);
+  for (const attachment of email.attachments ?? []) await writeFile(`${base}-${attachment.filename}`, attachment.content);
+  console.info(`[email] saved to ${base}.html: "${email.subject}"`);
+}
+
 export async function sendEmail(email: Email): Promise<void> {
   const from = process.env.EMAIL_FROM;
   const transport = smtp();
   if (!transport || !from) {
+    if (process.env.EMAIL_OUTBOX_DIR) return saveToOutbox(process.env.EMAIL_OUTBOX_DIR, email);
     console.warn(`[email] SMTP_HOST / SMTP_USER / SMTP_PASSWORD / EMAIL_FROM not set, not sent: "${email.subject}" to ${email.to}`);
     return;
   }
