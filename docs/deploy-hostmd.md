@@ -70,9 +70,11 @@ SSH на Shared Hosting нет. Он и не нужен: сайт приходи
 | Переменная | Значение |
 |---|---|
 | `SITE_URL` | `https://<домен>` |
-| `MAIB_PROJECT_ID` | из письма maib (тест) или из Production Project |
-| `MAIB_PROJECT_SECRET` | там же |
-| `MAIB_SIGNATURE_KEY` | там же |
+| `MAIB_CLIENT_ID` | ClientId: из письма maib (тест) или из Production Project |
+| `MAIB_CLIENT_SECRET` | ClientSecret, там же |
+| `MAIB_SIGNATURE_KEY` | SignatureKey, там же |
+| `MAIB_API_URL` | `https://sandbox.maibmerchants.md` для тестовых ключей; для боевых не задавать |
+| `ADMIN_TOKEN` | длинная случайная строка, открывает `/api/admin/refund` (возвраты) |
 | `SMTP_HOST` | `mail.<домен>` |
 | `SMTP_PORT` | `465` (SSL) или `587` (TLS) |
 | `SMTP_USER` | `tickets@<домен>` |
@@ -95,9 +97,9 @@ SSH на Shared Hosting нет. Он и не нужен: сайт приходи
 
 - **IP сервера** для Merchant Portal: `outgoingIp` на странице `/api/health`. Сверить с IP в Plesk на странице домена (Hosting Settings).
 - **Callback URL**: `https://<домен>/api/payments/callback`.
-- **Ok URL** и **Fail URL**: `https://<домен>/checkout/result`.
+- **Success URL** и **Fail URL**: `https://<домен>/checkout/result`.
 
-maib присылает callback со своих серверов 91.250.245.70, 91.250.245.71 и 91.250.245.142. На общем хостинге входящие HTTPS-запросы обычно открыты для всех.
+Сайт и так передаёт эти адреса в каждом платеже. С каких IP maib присылает уведомления, в документации Checkout не указано; на общем хостинге входящие HTTPS-запросы обычно открыты для всех.
 
 ## Обновление сайта
 

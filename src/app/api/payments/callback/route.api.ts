@@ -1,36 +1,37 @@
-// POST /api/payments/callback — maib sends the final payment result here (server to server).
-// maib retries until it gets HTTP 200 (after 10 s, 1 min, 5 min, 10 min, 1 h, 12 h and 24 h).
-// The firewall must let in maib's servers: 91.250.245.70, 91.250.245.71, 91.250.245.142.
+// POST /api/payments/callback — maib sends the payment result here (server to server), signed in the X-Signature and
+// X-Signature-Timestamp headers. The body is read as raw text: the signature covers its exact bytes.
+// maib's retry policy for the callback is not documented; answering 200 to every valid callback is the safe side.
 import { paymentConfirmationEmail, sendEmail } from "@/server/email";
-import { getPaymentInfo, verifyCallbackSignature, type CallbackPayload } from "@/server/maib";
+import { getCheckout, verifyCallbackSignature, type CheckoutCallback } from "@/server/maib";
+import { paidOrder } from "@/server/orders";
 import { ticketsAttachment } from "@/server/tickets";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  const payload = (await request.json().catch(() => null)) as CallbackPayload | null;
-  if (!payload || !verifyCallbackSignature(payload)) {
+  const raw = await request.text();
+  if (!verifyCallbackSignature(raw, request.headers.get("x-signature"), request.headers.get("x-signature-timestamp"))) {
     console.warn("[payments] callback with a bad signature");
-    return new Response("Bad signature", { status: 400 });
+    return new Response("Bad signature", { status: 401 });
   }
 
-  const { payId, orderId, status } = payload.result;
-  console.info(`[payments] callback ${orderId} ${payId}: ${status}`);
+  const callback = JSON.parse(raw) as CheckoutCallback;
+  console.info(`[payments] callback ${callback.orderId} checkout ${callback.checkoutId} payment ${callback.paymentId}: ${callback.paymentStatus}`);
 
-  if (status === "OK" && typeof payId === "string") {
+  if (callback.paymentStatus === "Executed") {
     try {
-      // pay-info has the buyer's e-mail and name and the items, so the e-mail and the e-tickets need no database
-      const payment = await getPaymentInfo(payId);
+      // The checkout details hold the items and the buyer, so the e-mail and the e-tickets need no database
+      const order = paidOrder(await getCheckout(callback.checkoutId), callback);
       // Without the PDF the e-mail still goes out and says the tickets follow
-      const tickets = await ticketsAttachment(payment).catch((error) => {
-        console.error(`[payments] e-tickets for ${orderId} failed`, error);
+      const tickets = await ticketsAttachment(order).catch((error) => {
+        console.error(`[payments] e-tickets for ${order.orderId} failed`, error);
         return null;
       });
-      const email = paymentConfirmationEmail(payment, new Date(), tickets ?? undefined);
+      const email = paymentConfirmationEmail(order, tickets ?? undefined);
       if (email) await sendEmail(email);
     } catch (error) {
       // Still answer 200: a retry would not help and could send the e-mail twice
-      console.error(`[payments] confirmation e-mail for ${orderId} failed`, error);
+      console.error(`[payments] confirmation e-mail for ${callback.orderId} failed`, error);
     }
     // TODO: mark the order as paid and release the seat hold (needs the database)
   }

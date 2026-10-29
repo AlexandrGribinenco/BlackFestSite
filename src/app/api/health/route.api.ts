@@ -8,14 +8,16 @@ export const dynamic = "force-dynamic";
 
 const SETTINGS = [
   "SITE_URL",
-  "MAIB_PROJECT_ID",
-  "MAIB_PROJECT_SECRET",
+  "MAIB_API_URL",
+  "MAIB_CLIENT_ID",
+  "MAIB_CLIENT_SECRET",
   "MAIB_SIGNATURE_KEY",
   "SMTP_HOST",
   "SMTP_PORT",
   "SMTP_USER",
   "SMTP_PASSWORD",
   "EMAIL_FROM",
+  "ADMIN_TOKEN",
 ];
 
 type Check = { ok: boolean; ms: number; detail: string };
@@ -37,7 +39,7 @@ export async function GET() {
   if (!cached || Date.now() - cached.at > KEEP_MS) {
     const [maib, smtp, outgoingIp] = await Promise.all([
       // Any HTTP status means the connection works; credentials are checked in the payment test
-      check(async () => `api.maibmerchants.md answered HTTP ${await pingMaib()}`),
+      check(async () => `${process.env.MAIB_API_URL ?? "https://api.maibmerchants.md"} answered HTTP ${await pingMaib()}`),
       check(async () => {
         await verifySmtp();
         return `${process.env.SMTP_HOST}: connected and logged in`;

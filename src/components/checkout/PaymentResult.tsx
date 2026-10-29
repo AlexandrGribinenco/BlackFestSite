@@ -11,21 +11,22 @@ type State = { kind: "loading" } | { kind: "error"; message: string } | { kind: 
 
 const money = (amount: number, currency: string) => `${amount.toFixed(2)} ${currency}`;
 
-// Page the buyer returns to from the maib payment page (okUrl and failUrl, with ?payId=…&orderId=…).
-// maib requires it to show the order number, the order details and the payment date.
+// Page the buyer returns to from the maib checkout page (successUrl and failUrl, with ?checkoutId=…&checkoutStatus=…&orderId=…).
+// maib requires it to show the order number, the order details and the payment date. The status is asked from maib:
+// the address alone proves nothing.
 export function PaymentResult() {
   const params = useSearchParams();
-  const payId = params.get("payId");
+  const checkoutId = params.get("checkoutId");
   const orderId = params.get("orderId");
   const [state, setState] = useState<State>({ kind: "loading" });
 
   const check = useCallback(async () => {
     if (!PAYMENTS_CONNECTED) return setState({ kind: "error", message: "Online payment is not connected on this site yet." });
-    if (!payId) return setState({ kind: "error", message: "The payment link is incomplete." });
+    if (!checkoutId) return setState({ kind: "error", message: "The payment link is incomplete." });
     setState({ kind: "loading" });
-    const result = await fetchPaymentResult(payId);
+    const result = await fetchPaymentResult(checkoutId);
     setState("error" in result ? { kind: "error", message: result.error } : { kind: "result", payment: result });
-  }, [payId]);
+  }, [checkoutId]);
 
   useEffect(() => {
     check();
@@ -66,9 +67,9 @@ export function PaymentResult() {
     }
 
     const { payment } = state;
-    const number = payment.orderId ?? orderId ?? payment.payId;
+    const number = payment.orderId ?? orderId ?? payment.checkoutId;
 
-    if (payment.status === "CREATED" || payment.status === "PENDING") {
+    if (payment.status === "PENDING") {
       return (
         <section className="done" aria-live="polite">
           <h1 className="done__title">Payment is being processed</h1>
@@ -89,8 +90,7 @@ export function PaymentResult() {
             Payment didn’t go through
           </h1>
           <p className="payment-failed__text">
-            Your card was not charged. Order {number}
-            {payment.status === "TIMEOUT" ? " — the payment page timed out." : "."}
+            Your card was not charged. Order {number}.
           </p>
           <div className="payment-failed__actions">
             <Link className="btn btn-primary btn-ring" href="/checkout">
@@ -120,7 +120,7 @@ export function PaymentResult() {
           </div>
           <div>
             <dt>Date</dt>
-            <dd>{new Date(payment.checkedAt).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" })}</dd>
+            <dd>{new Date(payment.paidAt ?? payment.checkedAt).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" })}</dd>
           </div>
           <div>
             <dt>Paid</dt>

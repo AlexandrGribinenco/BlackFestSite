@@ -11,9 +11,12 @@ import {
   seatsOfCategory,
   type Order,
 } from "@/lib/checkout";
-import type { MaibItem } from "./maib";
+import type { Checkout, CheckoutCallback } from "./maib";
 
-export type PricedOrder = { items: MaibItem[]; total: number };
+/** An order line; it goes to maib as a checkout item and comes back with the paid order */
+export type OrderItem = { id: string; name: string; price: number; quantity: number };
+
+export type PricedOrder = { items: OrderItem[]; total: number };
 
 const round = (value: number) => Math.round(value * 100) / 100;
 
@@ -32,7 +35,7 @@ export function priceOrder(input: unknown): PricedOrder | { error: string } {
     seats: Array.isArray(raw.seats) ? raw.seats.filter((s): s is string => typeof s === "string") : [],
   };
 
-  const items: MaibItem[] = [];
+  const items: OrderItem[] = [];
   // A seated ticket is one item per seat, id "<type>/<seat id>", so each paid item maps to e-tickets (lib/tickets.ts)
   const add = (id: string, name: string, amount: number | null, qty: unknown, seats: string[] = []) => {
     if (qty === undefined || qty === 0) return null;
@@ -68,6 +71,41 @@ export function priceOrder(input: unknown): PricedOrder | { error: string } {
   const total = round(items.reduce((sum, item) => sum + item.price * item.quantity, 0));
   if (total < 1) return { error: "The order total must be at least 1" };
   return { items, total };
+}
+
+/** A paid order as maib returns it (checkout details and the callback): what the e-mail and the e-tickets are made of */
+export type PaidOrder = {
+  orderId: string;
+  checkoutId: string;
+  paymentId: string;
+  amount: number;
+  currency: string;
+  paidAt: Date;
+  items: OrderItem[];
+  buyerName: string;
+  buyerEmail: string | null;
+  /** Masked card number; only the callback has it */
+  cardNumber: string | null;
+};
+
+export function paidOrder(checkout: Checkout, callback?: CheckoutCallback): PaidOrder {
+  return {
+    orderId: checkout.order?.id ?? callback?.orderId ?? checkout.id,
+    checkoutId: checkout.id,
+    paymentId: checkout.payment?.paymentId ?? callback?.paymentId ?? "",
+    amount: checkout.payment?.amount ?? checkout.amount,
+    currency: checkout.payment?.currency ?? checkout.currency,
+    paidAt: new Date(checkout.payment?.executedAt ?? callback?.paymentExecutedAt ?? checkout.completedAt ?? Date.now()),
+    items: (checkout.order?.orderItems ?? []).map((item) => ({
+      id: item.externalId ?? "",
+      name: item.title ?? "",
+      price: item.amount ?? 0,
+      quantity: item.quantity ?? 1,
+    })),
+    buyerName: checkout.payer?.name ?? callback?.payerName ?? "",
+    buyerEmail: checkout.payer?.email ?? callback?.payerEmail ?? null,
+    cardNumber: callback?.senderCardNumber ?? null,
+  };
 }
 
 /** Order number shown to the buyer and sent to maib (up to 36 characters), e.g. BOF-M2X7K9-4F1A */

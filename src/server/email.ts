@@ -6,7 +6,7 @@
 import nodemailer, { type Transporter } from "nodemailer";
 import { COMPANY } from "@/lib/company";
 import { EVENT } from "@/lib/event";
-import type { PaymentInfo } from "./maib";
+import type { PaidOrder } from "./orders";
 
 export type Attachment = { filename: string; content: Uint8Array; contentType: string };
 
@@ -18,21 +18,21 @@ const escapeHtml = (value: string) =>
 const money = (amount: number, currency: string) => `${amount.toFixed(2)} ${currency}`;
 
 /** `tickets` is the PDF with the e-tickets; without it the e-mail says they follow separately */
-export function paymentConfirmationEmail(payment: PaymentInfo, paidAt: Date, tickets?: Attachment): Email | null {
-  if (!payment.email) return null;
+export function paymentConfirmationEmail(order: PaidOrder, tickets?: Attachment): Email | null {
+  if (!order.buyerEmail) return null;
 
   const siteUrl = (process.env.SITE_URL ?? "").replace(/\/$/, "");
-  const orderNumber = payment.orderId ?? payment.payId;
-  const date = paidAt.toLocaleString("en-GB", { timeZone: "Europe/Chisinau", dateStyle: "long", timeStyle: "short" });
-  const items = (payment.items ?? []).map((item) => `${item.name}${item.quantity > 1 ? ` × ${item.quantity}` : ""}`);
+  const orderNumber = order.orderId;
+  const date = order.paidAt.toLocaleString("en-GB", { timeZone: "Europe/Chisinau", dateStyle: "long", timeStyle: "short" });
+  const items = order.items.map((item) => `${item.name}${item.quantity > 1 ? ` × ${item.quantity}` : ""}`);
   const facts: Array<[string, string]> = [
     ["Order", `#${orderNumber}`],
     ["Date & time", `${EVENT.date} · ${EVENT.time}`],
     ["Venue", `${EVENT.venue}, ${EVENT.address}`],
     ["Tickets", items.join("; ") || "—"],
-    ["Total paid", money(payment.amount, payment.currency)],
+    ["Total paid", money(order.amount, order.currency)],
     ["Payment date", date],
-    ["Card", payment.cardNumber ?? "—"],
+    ["Card", order.cardNumber ?? "—"],
     ["Merchant", COMPANY.legalName],
     ["Website", siteUrl ? `${COMPANY.siteName} (${siteUrl})` : COMPANY.siteName],
   ];
@@ -47,7 +47,7 @@ export function paymentConfirmationEmail(payment: PaymentInfo, paidAt: Date, tic
 
   const subject = `Your tickets for ${EVENT.name} — order ${orderNumber}`;
   const text = [
-    `Dear ${payment.clientName || "guest"},`,
+    `Dear ${order.buyerName || "guest"},`,
     `thank you for your order. ${attached}`,
     "",
     ...facts.map(([label, value]) => `${label}: ${value}`),
@@ -67,7 +67,7 @@ export function paymentConfirmationEmail(payment: PaymentInfo, paidAt: Date, tic
 <tr><td align="center" style="padding:20px;background:#111"><span style="display:inline-block;padding:8px 22px;border:1.5px solid #fff;color:#fff;font-size:13px;font-weight:700;letter-spacing:1px">LOGO</span></td></tr>
 <tr><td style="padding:32px 32px 8px">
 <h1 style="margin:0 0 16px;font-size:24px;line-height:1.25">Your tickets for ${escapeHtml(EVENT.name)}</h1>
-<p style="margin:0 0 20px;font-size:14px;line-height:1.5">Dear ${escapeHtml(payment.clientName || "guest")},<br>thank you for your order. ${attached}</p>
+<p style="margin:0 0 20px;font-size:14px;line-height:1.5">Dear ${escapeHtml(order.buyerName || "guest")},<br>thank you for your order. ${attached}</p>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px">${facts
     .map(
       ([label, value]) =>
@@ -83,7 +83,7 @@ export function paymentConfirmationEmail(payment: PaymentInfo, paidAt: Date, tic
 </table>
 </body></html>`;
 
-  return { to: payment.email, subject, text, html, attachments: tickets ? [tickets] : undefined };
+  return { to: order.buyerEmail, subject, text, html, attachments: tickets ? [tickets] : undefined };
 }
 
 let transporter: Transporter | undefined;

@@ -26,19 +26,22 @@ export async function startPayment(order: Order, customer: Customer, acceptTerms
 }
 
 export type PaymentResult = {
-  payId: string;
+  checkoutId: string;
   orderId?: string;
-  status: "OK" | "FAILED" | "CREATED" | "PENDING" | "DECLINED" | "TIMEOUT";
-  statusMessage?: string;
+  /** Paid, still in progress, or not paid */
+  status: "OK" | "PENDING" | "FAILED";
   amount: number;
   currency: string;
   items: Array<{ id: string; name: string; price: number; quantity: number }>;
+  /** When the payment went through */
+  paidAt: string | null;
   checkedAt: string;
 };
 
-export async function fetchPaymentResult(payId: string): Promise<PaymentResult | { error: string }> {
+/** checkoutId comes in the address maib sends the buyer back to */
+export async function fetchPaymentResult(checkoutId: string): Promise<PaymentResult | { error: string }> {
   try {
-    const response = await fetch(`${API_URL}/api/payments/${encodeURIComponent(payId)}`, { cache: "no-store" });
+    const response = await fetch(`${API_URL}/api/payments/${encodeURIComponent(checkoutId)}`, { cache: "no-store" });
     const data = await response.json();
     return response.ok ? (data as PaymentResult) : { error: data.error ?? "Unknown payment" };
   } catch {
