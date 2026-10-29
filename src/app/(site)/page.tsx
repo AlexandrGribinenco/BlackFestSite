@@ -10,7 +10,7 @@ import { SectionHead } from "@/components/SectionHead";
 import { Skeleton } from "@/components/Skeleton";
 import { TicketCard, type TicketCardProps } from "@/components/TicketCard";
 import { EVENT } from "@/lib/event";
-import { HOME_PARTNERS } from "@/lib/partners";
+import { SPONSORS } from "@/lib/partners";
 import { pageMetadata } from "@/lib/site";
 import { festivalEventData } from "@/lib/structured-data";
 
@@ -213,17 +213,12 @@ export default function HomePage() {
               }
             />
             <ul className="partners__logos">
-              {HOME_PARTNERS.map((partner) => (
+              {SPONSORS.map((partner) => (
                 <li key={partner.name}>
                   <PartnerLogo partner={partner} />
                 </li>
               ))}
             </ul>
-            <div className="dots only-desktop" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
           </div>
 
           <aside className="brands-card" aria-labelledby="brands-title">

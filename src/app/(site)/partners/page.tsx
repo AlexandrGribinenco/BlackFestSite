@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PartnerTile } from "@/components/PartnerTile";
-import { GENERAL_PARTNER, MEDIA_PARTNERS, PARTNERS } from "@/lib/partners";
+import { SPONSORS } from "@/lib/partners";
 import { pageMetadata } from "@/lib/site";
 import "./partners.css";
 
-// Figma: Desktop / D14 · Partners 347:6222, Mobile / M13 · Partners 179:2145
+// Figma: Desktop / D14 · Partners 347:6222, Mobile / M13 · Partners 179:2145. Instead of the wireframe's general
+// partner, partners and media partners there is one Sponsors group with the client's two sponsors (lib/partners.ts).
 
 export const metadata: Metadata = pageMetadata({
   title: "Partners — Black Out Fest 2027",
-  description: "The brands, venues and media who make Black Out Fest 2027 possible, and how to become a partner of the festival.",
+  description: "The sponsors of Black Out Fest 2027 and how to become a partner of the festival.",
   path: "/partners",
 });
 
@@ -27,34 +28,14 @@ export default function PartnersPage() {
       </div>
 
       <div className="container">
-        <section className="partner-group" aria-labelledby="general-partner-title">
-          <h2 className="partner-group__title" id="general-partner-title">
-            General partner
+        <section className="partner-group" aria-labelledby="sponsors-title">
+          <h2 className="partner-group__title" id="sponsors-title">
+            Sponsors
           </h2>
-          <PartnerTile partner={GENERAL_PARTNER} featured />
-        </section>
-
-        <section className="partner-group" aria-labelledby="partners-title">
-          <h2 className="partner-group__title" id="partners-title">
-            Partners
-          </h2>
-          <ul className="partner-grid">
-            {PARTNERS.map((partner) => (
+          <ul className="partner-grid partner-grid--sponsors">
+            {SPONSORS.map((partner) => (
               <li key={partner.name}>
-                <PartnerTile partner={partner} />
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="partner-group" aria-labelledby="media-partners-title">
-          <h2 className="partner-group__title" id="media-partners-title">
-            Media partners
-          </h2>
-          <ul className="partner-grid partner-grid--media">
-            {MEDIA_PARTNERS.map((partner) => (
-              <li key={partner.name}>
-                <PartnerTile partner={partner} />
+                <PartnerTile partner={partner} featured />
               </li>
             ))}
           </ul>
