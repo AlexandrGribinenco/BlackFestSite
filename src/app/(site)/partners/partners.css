@@ -21,10 +21,21 @@
   background: var(--surface);
 }
 
-.partner-tile__logo { width: 100%; height: 108px; border-radius: var(--radius); }
-.partner-grid--media .partner-tile__logo { height: 100px; }
-.partner-tile__name { margin-top: 16px; font-size: 14px; font-weight: 700; }
-.partner-tile__category { margin-top: 4px; color: var(--muted); font-size: 11px; }
+.partner-tile__logo {
+  --logo-h: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 108px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.partner-grid--media .partner-tile__logo { --logo-h: 36px; height: 100px; }
+.partner-tile__name { margin-top: 16px; font-size: 15px; font-weight: 700; }
+.partner-tile__category { margin-top: 4px; color: var(--muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
 .partner-tile__text { margin-top: 10px; color: var(--muted); font-size: 13px; }
 
 .partner-tile__link {
@@ -38,7 +49,7 @@
 .partner-tile__link:hover { color: var(--text); }
 
 .partner-tile--featured { padding: 28px; }
-.partner-tile--featured .partner-tile__logo { height: 200px; }
+.partner-tile--featured .partner-tile__logo { --logo-h: 100px; height: 200px; }
 .partner-tile--featured .partner-tile__name { margin-top: 24px; font-size: 18px; }
 
 /* ---------- Hotel partners ---------- */
@@ -89,11 +100,11 @@
   .partner-grid--media { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .partner-tile { padding: 12px; }
   .partner-tile__logo,
-  .partner-grid--media .partner-tile__logo { height: 68px; }
+  .partner-grid--media .partner-tile__logo { --logo-h: 28px; height: 68px; }
   .partner-tile__name { margin-top: 12px; font-size: 13px; }
 
   .partner-tile--featured { padding: 24px; }
-  .partner-tile--featured .partner-tile__logo { height: 120px; }
+  .partner-tile--featured .partner-tile__logo { --logo-h: 56px; height: 120px; }
   .partner-tile--featured .partner-tile__name { margin-top: 20px; font-size: 18px; }
 
   .hotel-partners { flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); }

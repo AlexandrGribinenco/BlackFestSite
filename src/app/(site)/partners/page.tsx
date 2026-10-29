@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { PartnerTile, type Partner } from "@/components/PartnerTile";
+import { PartnerTile } from "@/components/PartnerTile";
+import { GENERAL_PARTNER, MEDIA_PARTNERS, PARTNERS } from "@/lib/partners";
 import { pageMetadata } from "@/lib/site";
 import "./partners.css";
 
@@ -12,16 +13,6 @@ export const metadata: Metadata = pageMetadata({
   description: "The brands, venues and media who make Black Out Fest 2027 possible, and how to become a partner of the festival.",
   path: "/partners",
 });
-
-// TODO: replace the placeholders with the real partners and their websites
-const generalPartner: Partner = {
-  name: "[PARTNER NAME]",
-  description: "Short description of the partner and how it supports the festival — 1–2 lines.",
-  url: "#",
-};
-
-const partners: Partner[] = Array.from({ length: 4 }, () => ({ name: "[PARTNER NAME]", category: "[CATEGORY]", url: "#" }));
-const mediaPartners: Partner[] = Array.from({ length: 6 }, () => ({ name: "[PARTNER NAME]", category: "[CATEGORY]", url: "#" }));
 
 export default function PartnersPage() {
   return (
@@ -40,7 +31,7 @@ export default function PartnersPage() {
           <h2 className="partner-group__title" id="general-partner-title">
             General partner
           </h2>
-          <PartnerTile {...generalPartner} featured />
+          <PartnerTile partner={GENERAL_PARTNER} featured />
         </section>
 
         <section className="partner-group" aria-labelledby="partners-title">
@@ -48,9 +39,9 @@ export default function PartnersPage() {
             Partners
           </h2>
           <ul className="partner-grid">
-            {partners.map((partner, i) => (
-              <li key={i}>
-                <PartnerTile {...partner} />
+            {PARTNERS.map((partner) => (
+              <li key={partner.name}>
+                <PartnerTile partner={partner} />
               </li>
             ))}
           </ul>
@@ -61,9 +52,9 @@ export default function PartnersPage() {
             Media partners
           </h2>
           <ul className="partner-grid partner-grid--media">
-            {mediaPartners.map((partner, i) => (
-              <li key={i}>
-                <PartnerTile {...partner} />
+            {MEDIA_PARTNERS.map((partner) => (
+              <li key={partner.name}>
+                <PartnerTile partner={partner} />
               </li>
             ))}
           </ul>

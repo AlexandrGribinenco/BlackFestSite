@@ -4,11 +4,13 @@ import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { Countdown } from "@/components/Countdown";
 import { JsonLd } from "@/components/JsonLd";
 import { OrganizerCard, type OrganizerCardProps } from "@/components/OrganizerCard";
+import { PartnerLogo } from "@/components/PartnerLogo";
 import { ProductCard, type ProductCardProps } from "@/components/ProductCard";
 import { SectionHead } from "@/components/SectionHead";
 import { Skeleton } from "@/components/Skeleton";
 import { TicketCard, type TicketCardProps } from "@/components/TicketCard";
 import { EVENT } from "@/lib/event";
+import { HOME_PARTNERS } from "@/lib/partners";
 import { pageMetadata } from "@/lib/site";
 import { festivalEventData } from "@/lib/structured-data";
 
@@ -211,9 +213,9 @@ export default function HomePage() {
               }
             />
             <ul className="partners__logos">
-              {Array.from({ length: 6 }, (_, i) => (
-                <li key={i} className="placeholder">
-                  Logo
+              {HOME_PARTNERS.map((partner) => (
+                <li key={partner.name}>
+                  <PartnerLogo partner={partner} />
                 </li>
               ))}
             </ul>

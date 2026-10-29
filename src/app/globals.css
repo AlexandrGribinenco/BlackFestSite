@@ -683,7 +683,20 @@ img { display: block; max-width: 100%; }
   gap: 16px;
 }
 
-.partners__logos li { height: 78px; border-radius: var(--radius-sm); }
+.partners__logos li {
+  --logo-h: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 78px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+/* components/PartnerLogo.tsx: as tall as --logo-h of its box, narrower when a wide logo doesn't fit */
+.partner-logo { width: auto; max-width: 74%; height: var(--logo-h, 40px); object-fit: contain; }
+.partner-logo--text { display: flex; align-items: center; height: auto; font-size: calc(var(--logo-h, 40px) * 0.6); font-weight: 800; letter-spacing: -0.01em; }
 
 .dots { display: flex; justify-content: center; gap: 4px; margin-top: 24px; }
 .dots span { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
@@ -1075,7 +1088,7 @@ img { display: block; max-width: 100%; }
 
   /* Partners */
   .partners__logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .partners__logos li { height: 56px; }
+  .partners__logos li { --logo-h: 22px; height: 56px; }
   .brands-card { padding: 20px; border-radius: var(--radius); }
   .brands-card .btn { width: 100%; }
 
