@@ -54,24 +54,28 @@ export function TicketsStep({ order, onTicketChange, onAddonChange }: TicketsSte
         })}
       </ul>
 
-      <h2 className="checkout-subheading">Add-ons</h2>
-      <ul className="ticket-list">
-        {ADDONS.map((addon) => {
-          const qty = order.addons[addon.id] ?? 0;
-          return (
-            <li key={addon.id} className={cx("ticket-row", qty > 0 && "is-selected")}>
-              <div className="ticket-row__info">
-                <h3 className="ticket-row__name">{addon.name}</h3>
-                <p className="ticket-row__desc">{addon.description}</p>
-              </div>
-              <div className="ticket-row__price">
-                <p className="ticket-row__amount">{addon.price}</p>
-              </div>
-              <QuantityStepper label={addon.name} value={qty} onChange={(value) => onAddonChange(addon.id, value)} />
-            </li>
-          );
-        })}
-      </ul>
+      {ADDONS.length > 0 && (
+        <>
+          <h2 className="checkout-subheading">Add-ons</h2>
+          <ul className="ticket-list">
+            {ADDONS.map((addon) => {
+              const qty = order.addons[addon.id] ?? 0;
+              return (
+                <li key={addon.id} className={cx("ticket-row", qty > 0 && "is-selected")}>
+                  <div className="ticket-row__info">
+                    <h3 className="ticket-row__name">{addon.name}</h3>
+                    <p className="ticket-row__desc">{addon.description}</p>
+                  </div>
+                  <div className="ticket-row__price">
+                    <p className="ticket-row__amount">{addon.price}</p>
+                  </div>
+                  <QuantityStepper label={addon.name} value={qty} onChange={(value) => onAddonChange(addon.id, value)} />
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </section>
   );
 }

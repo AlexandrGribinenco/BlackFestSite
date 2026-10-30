@@ -5,11 +5,13 @@ import { useCallback, useEffect, useState } from "react";
 import {
   CHECKOUT_STEPS,
   EMPTY_ORDER,
+  HAS_SEATS,
   HOLD_SECONDS,
-  ORDER_TOTAL,
   SIMULATED_PAYMENT_RESULT,
+  formatMoney,
   formatSeats,
   needsSeats,
+  orderTotal,
   seatsComplete,
   seatsNeeded,
   ticketCount,
@@ -31,6 +33,8 @@ import { TicketsStep } from "./TicketsStep";
 
 const stepIndex = (step: CheckoutStep) => CHECKOUT_STEPS.findIndex((s) => s.id === step);
 const stepHref = (step: CheckoutStep) => (step === "tickets" ? "/checkout" : `/checkout?step=${step}`);
+// Without seated ticket types the step bar has no "Seats" step
+const STEPS = HAS_SEATS ? CHECKOUT_STEPS : CHECKOUT_STEPS.filter((s) => s.id !== "seats");
 
 function parseStep(value: string | null): CheckoutStep {
   return CHECKOUT_STEPS.some((s) => s.id === value) ? (value as CheckoutStep) : "tickets";
@@ -67,10 +71,11 @@ export function CheckoutFlow() {
 
   // The seat hold starts when the buyer opens the checkout (client only, so the server render matches)
   useEffect(() => {
-    setHoldUntil(Date.now() + HOLD_SECONDS * 1000);
+    if (HAS_SEATS) setHoldUntil(Date.now() + HOLD_SECONDS * 1000);
   }, []);
 
   const count = ticketCount(order);
+  const total = formatMoney(orderTotal(order));
   const seated = needsSeats(order);
 
   // Furthest step the current order allows
@@ -131,7 +136,7 @@ export function CheckoutFlow() {
     setDetailsDone(false);
     setHoldExpired(false);
     setPaymentFailed(false);
-    setHoldUntil(Date.now() + HOLD_SECONDS * 1000);
+    if (HAS_SEATS) setHoldUntil(Date.now() + HOLD_SECONDS * 1000);
     goTo("tickets");
   }
 
@@ -195,7 +200,7 @@ export function CheckoutFlow() {
           </button>
         ) : (
           <button className={className} type="submit" form={PAYMENT_FORM_ID} disabled={disabled}>
-            {processing ? "Processing…" : `Pay ${ORDER_TOTAL}`}
+            {processing ? "Processing…" : `Pay ${total}`}
           </button>
         );
       default:
@@ -204,21 +209,21 @@ export function CheckoutFlow() {
   }
 
   const mobileBar: Record<Exclude<CheckoutStep, "done">, [string, string]> = {
-    tickets: [count === 0 ? "No tickets yet" : `${count} ${count === 1 ? "ticket" : "tickets"}`, `Total ${ORDER_TOTAL}`],
-    seats: [formatSeats(order.seats) || "No seats picked", `Total ${ORDER_TOTAL}`],
-    details: [`Total ${ORDER_TOTAL}`, `${count} ${count === 1 ? "ticket" : "tickets"}`],
-    payment: [`Total ${ORDER_TOTAL}`, "Secure payment"],
+    tickets: [count === 0 ? "No tickets yet" : `${count} ${count === 1 ? "ticket" : "tickets"}`, `Total ${total}`],
+    seats: [formatSeats(order.seats) || "No seats picked", `Total ${total}`],
+    details: [`Total ${total}`, `${count} ${count === 1 ? "ticket" : "tickets"}`],
+    payment: [`Total ${total}`, "Secure payment"],
   };
 
   return (
     <>
       <CheckoutHeader
         onBack={step === "done" ? null : back}
-        showTimer={step !== "done"}
+        showTimer={HAS_SEATS && step !== "done"}
         holdUntil={holdUntil}
         onHoldExpire={handleHoldExpire}
       />
-      <CheckoutSteps steps={CHECKOUT_STEPS} current={step} onSelect={step === "done" ? undefined : goTo} />
+      <CheckoutSteps steps={STEPS} current={step} onSelect={step === "done" ? undefined : goTo} />
 
       <main className="checkout">
         {step === "done" && orderNumber ? (

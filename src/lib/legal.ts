@@ -48,7 +48,7 @@ const terms: LegalSection[] = [
   {
     title: "Ordering and payment",
     body: [
-      "To order, choose your tickets or products, enter your contact details, accept these Terms and pay online. Orders are paid by bank card (Visa, Mastercard, American Express), Apple Pay or Google Pay. Prices are shown in [MDL] and include all taxes.",
+      "To order, choose your tickets or products, enter your contact details, accept these Terms and pay online. Orders are paid by bank card (Visa, Mastercard, American Express), Apple Pay or Google Pay. Prices are shown in euro (EUR) and include all taxes.",
       "Payments are processed by maib (BC “MAIB” S.A.) using 3-D Secure: at checkout you are redirected to a secure maib payment page, where your bank may ask you to confirm the payment with a one-time code. The payment page asks for the card number, the expiry date, the CVV/CVC code and the cardholder’s name. Card data is encrypted and stored only on the payment processor’s secure server; it is never entered on or stored by this website.",
       "If your card currency differs from the transaction currency, the conversion is made under the conditions of the bank that issued your card.",
       "After a successful payment you receive a confirmation by e-mail with the order number, the amount, the currency, the payment date and the list of ordered items. [How the fiscal receipt is issued.]",

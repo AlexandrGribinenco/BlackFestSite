@@ -65,8 +65,8 @@ export async function ticketsPdf({ tickets, holder, orderNumber, siteUrl, fonts 
       ["Name", holder || "—"],
       ["Ticket", ticket.title],
       ...(ticket.seat ? [["Seat", ticket.seat] as [string, string]] : []),
-      ["Date & time", `${EVENT.date} · Doors ${EVENT.time}`],
-      ["Venue", `${EVENT.venue}, ${EVENT.address}`],
+      ["Date & time", `${EVENT.date} · ${EVENT.time}`],
+      ["Venue", EVENT.address],
       ["Price", ticket.price],
       ["Order", `#${orderNumber}`],
     ];

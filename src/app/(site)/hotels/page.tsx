@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { HotelList } from "@/components/hotels/HotelList";
+import { COMPANY } from "@/lib/company";
 import { HOTELS } from "@/lib/hotels";
 import { pageMetadata } from "@/lib/site";
 import "./hotels.css";
@@ -66,9 +67,9 @@ export default function HotelsPage() {
             <h2 className="hotel-note__title" id="hotel-note-title">
               Own a hotel near the festival?
             </h2>
-            {/* TODO: real partnership e-mail */}
             <p className="hotel-note__text">
-              Black Out Fest is not responsible for bookings made on partner websites. Want to join the list? Write to partners@[domain].
+              Black Out Fest is not responsible for bookings made on partner websites. Want to join the list? Write to{" "}
+              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.
             </p>
           </div>
           <Link className="btn btn-outline" href="/partners">

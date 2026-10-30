@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EVENT } from "@/lib/event";
 import type { DeliveryMethod } from "@/lib/shop";
 
 type ShopDoneStepProps = {
@@ -36,7 +37,7 @@ export function ShopDoneStep({ orderNumber, email, method }: ShopDoneStepProps) 
           ) : method.id === "pickup" ? (
             <>
               <p className="done-ticket__event">{method.name}</p>
-              <p>Pick-up point at the entrance · [DATE]</p>
+              <p>Pick-up point at the entrance · {EVENT.date}</p>
               <p className="done-ticket__note">Show this QR to collect your order. For courier delivery we send a tracking link instead.</p>
             </>
           ) : (

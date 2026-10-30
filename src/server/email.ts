@@ -30,7 +30,7 @@ export function paymentConfirmationEmail(order: PaidOrder, tickets?: Attachment)
   const facts: Array<[string, string]> = [
     ["Order", `#${orderNumber}`],
     ["Date & time", `${EVENT.date} · ${EVENT.time}`],
-    ["Venue", `${EVENT.venue}, ${EVENT.address}`],
+    ["Venue", EVENT.address],
     ["Tickets", items.join("; ") || "—"],
     ["Total paid", money(order.amount, order.currency)],
     ["Payment date", date],

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { COMPANY } from "@/lib/company";
 
 const TOPICS = ["General question", "Tickets & orders", "Partners & advertising", "Press"];
 
@@ -12,7 +13,7 @@ export function ContactForm() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!e.currentTarget.reportValidity()) return;
-    setStatus("The form isn’t connected yet — please write to info@[domain] for now.");
+    setStatus(`The form isn’t connected yet — please write to ${COMPANY.email} for now.`);
   }
 
   return (

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PartnerTile } from "@/components/PartnerTile";
+import { COMPANY } from "@/lib/company";
 import { SPONSORS } from "@/lib/partners";
 import { pageMetadata } from "@/lib/site";
 import "./partners.css";
@@ -58,9 +59,9 @@ export default function PartnersPage() {
             <h2 className="become-partner__title" id="become-partner-title">
               Become a partner
             </h2>
-            {/* TODO: real partnership e-mail */}
             <p className="become-partner__text">
-              Sponsorship, bar &amp; food, media and hotel partnerships. Write to partners@[domain] or download the partner deck.
+              Sponsorship, bar &amp; food, media and hotel partnerships. Write to <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> or
+              download the partner deck.
             </p>
           </div>
           <div className="become-partner__actions">

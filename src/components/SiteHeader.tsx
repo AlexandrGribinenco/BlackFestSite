@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { cartCount, useCart } from "@/lib/cart";
+import { EVENT } from "@/lib/event";
 import { mainNav } from "@/lib/navigation";
 import { Logo } from "./Logo";
 import { Socials } from "./Socials";
@@ -104,7 +105,9 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <p className="mobile-menu__meta">[DATE] · [VENUE]</p>
+        <p className="mobile-menu__meta">
+          {EVENT.date} · {EVENT.venue}
+        </p>
         <Link className="btn btn-primary btn-block" href="/tickets">
           Buy tickets
         </Link>

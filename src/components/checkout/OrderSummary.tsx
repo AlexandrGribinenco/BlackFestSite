@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
-import { ADDONS, BOOKING_FEE, ORDER_TOTAL, TICKET_TYPES, formatSeats, seatsOfCategory, type Order } from "@/lib/checkout";
+import { ADDONS, BOOKING_FEE_AMOUNT, TICKET_TYPES, formatMoney, formatSeats, orderTotal, seatsOfCategory, type Order } from "@/lib/checkout";
 import { EVENT } from "@/lib/event";
 
 // Figma: Components / Order summary 1:751
@@ -29,7 +29,7 @@ export function OrderSummary({ order, cta }: { order: Order; cta: ReactNode }) {
 
       <p className="order-summary__total">
         <span>Total</span>
-        <span>{ORDER_TOTAL}</span>
+        <span>{formatMoney(orderTotal(order))}</span>
       </p>
 
       {cta}
@@ -47,6 +47,8 @@ export function OrderSummary({ order, cta }: { order: Order; cta: ReactNode }) {
     </aside>
   );
 }
+
+const lineTotal = (amount: number | null, qty: number) => formatMoney(amount === null ? null : amount * qty);
 
 export function OrderLines({ order }: { order: Order }) {
   const tickets = TICKET_TYPES.filter((type) => (order.tickets[type.id] ?? 0) > 0);
@@ -66,7 +68,7 @@ export function OrderLines({ order }: { order: Order }) {
               {type.name} × {order.tickets[type.id]}
               {seats && <small>{seats}</small>}
             </span>
-            <strong>{type.price}</strong>
+            <strong>{lineTotal(type.amount, order.tickets[type.id])}</strong>
           </li>
         );
       })}
@@ -75,13 +77,15 @@ export function OrderLines({ order }: { order: Order }) {
           <span>
             {addon.name} × {order.addons[addon.id]}
           </span>
-          <strong>{addon.price}</strong>
+          <strong>{lineTotal(addon.amount, order.addons[addon.id])}</strong>
         </li>
       ))}
-      <li className="order-lines__fee">
-        <span>Booking fee</span>
-        <span>{BOOKING_FEE}</span>
-      </li>
+      {BOOKING_FEE_AMOUNT > 0 && (
+        <li className="order-lines__fee">
+          <span>Booking fee</span>
+          <span>{formatMoney(BOOKING_FEE_AMOUNT)}</span>
+        </li>
+      )}
     </ul>
   );
 }

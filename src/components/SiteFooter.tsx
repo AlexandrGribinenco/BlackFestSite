@@ -71,9 +71,9 @@ export function SiteFooter() {
             <h3>Follow us</h3>
             <Socials />
             <p>
-              info@[domain]
+              <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
               <br />
-              +373 [PHONE]
+              <a href={COMPANY.phoneHref}>{COMPANY.phone}</a>
             </p>
           </div>
         </div>

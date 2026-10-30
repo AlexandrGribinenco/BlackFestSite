@@ -12,17 +12,15 @@ import "./contacts.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contacts — Black Out Fest 2027",
-  description: "Contact the Black Out Fest team: general questions, tickets and orders, partners and advertising.",
+  description: "Contact the Black Out Fest team by e-mail or phone: tickets and orders, partners and advertising.",
   path: "/contacts",
 });
 
-// TODO: real addresses and phone
+// The client gave one e-mail and one phone for everything (30.10.2026), instead of the wireframe's separate
+// mailboxes; the address is the organizer's legal address above.
 const contacts = [
-  { label: "General questions", short: "General", value: "info@[domain]", href: "mailto:info@[domain]" },
-  { label: "Tickets & orders", short: "Tickets", value: "tickets@[domain]", href: "mailto:tickets@[domain]" },
-  { label: "Partners & advertising", short: "Partners", value: "partners@[domain]", href: "mailto:partners@[domain]" },
-  { label: "Phone", value: "+373 [PHONE]", href: "tel:+373" },
-  { label: "Address", value: "[ADDRESS], Moldova" },
+  { label: "E-mail", value: COMPANY.email, href: `mailto:${COMPANY.email}` },
+  { label: "Phone", value: COMPANY.phone, href: COMPANY.phoneHref },
 ];
 
 export default function ContactsPage() {
@@ -48,17 +46,10 @@ export default function ContactsPage() {
             </div>
             {contacts.map((item) => (
               <div key={item.label} className="contact-item">
-                <dt>
-                  {item.short ? (
-                    <>
-                      <span className="only-desktop">{item.label}</span>
-                      <span className="only-mobile">{item.short}</span>
-                    </>
-                  ) : (
-                    item.label
-                  )}
-                </dt>
-                <dd>{item.href ? <a href={item.href}>{item.value}</a> : <strong>{item.value}</strong>}</dd>
+                <dt>{item.label}</dt>
+                <dd>
+                  <a href={item.href}>{item.value}</a>
+                </dd>
               </div>
             ))}
           </dl>
@@ -70,7 +61,7 @@ export default function ContactsPage() {
 
       <div className="container contacts__map-wrap">
         <div className="placeholder contacts__map">
-          <ComingSoonImage alt={`Map — ${EVENT.venueName} location, coming soon`} />
+          <ComingSoonImage alt={`Map — ${EVENT.venue}, coming soon`} />
         </div>
       </div>
     </main>

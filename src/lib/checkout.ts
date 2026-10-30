@@ -1,5 +1,7 @@
 // Checkout data and order rules (Figma: Desktop / D3 · Checkout 2:518, Mobile / M4.1–M4.5)
-// Prices are wireframe placeholders; replace them and the seat data with the ticketing backend.
+// Ticket types and prices: the client's list of 30.10.2026, in euro. None of them is seated, so the seat step,
+// the seat hold timer and the venue plan stay hidden; the seat map code is kept for a seated event.
+// TODO: what each ticket includes (the features below follow the names), and the add-ons if there are any.
 
 export type CheckoutStep = "tickets" | "seats" | "details" | "payment" | "done";
 
@@ -22,19 +24,73 @@ export type TicketType = {
   price: string;
   /** Price as a number in CURRENCY, used to charge the card; null until the real prices are set */
   amount: number | null;
+  /** Short label above or under the price */
   phase: string;
+  /** What the ticket includes, on the Tickets page cards */
+  features: string[];
   soldOut?: boolean;
   /** Seated tickets are placed on the seat map in step 2 */
   seatCategory?: SeatCategory;
 };
 
+/** Currency of prices and card payments; maib accepts MDL, EUR and USD */
+export const CURRENCY = "EUR";
+
+const priced = (amount: number) => ({ amount, price: formatMoney(amount) });
+
 export const TICKET_TYPES: TicketType[] = [
-  { id: "ga", name: "General Admission", description: "Standing, all festival days", shortDescription: "Standing · Early Bird", price: "[PRICE]", amount: null, phase: "Early Bird", soldOut: true },
-  { id: "cat-a", name: "Category A", description: "Reserved seat, closest to stage", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1", seatCategory: "A" },
-  { id: "cat-b", name: "Category B", description: "Reserved seat", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1", seatCategory: "B" },
-  { id: "cat-c", name: "Category C", description: "Reserved seat, back rows", shortDescription: "Reserved seat · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1", seatCategory: "C" },
-  { id: "vip", name: "VIP / Table", description: "VIP zone, table for up to [N]", shortDescription: "VIP zone · Phase 1", price: "[PRICE]", amount: null, phase: "Phase 1" },
+  {
+    id: "early-bird",
+    name: "Early Bird",
+    description: "Festival entry at the early price",
+    shortDescription: "Festival entry · early price",
+    ...priced(165),
+    phase: "Early price",
+    features: ["Festival entry", "Early price, while it lasts"],
+  },
+  {
+    id: "door",
+    name: "Door Ticket",
+    description: "Festival entry at the standard price",
+    shortDescription: "Festival entry",
+    ...priced(185),
+    phase: "Standard",
+    features: ["Festival entry", "Standard price"],
+  },
+  {
+    id: "backstage",
+    name: "Backstage",
+    description: "Festival entry and backstage access",
+    shortDescription: "Entry + backstage",
+    ...priced(215),
+    phase: "Backstage",
+    features: ["Festival entry", "Backstage access"],
+  },
+  {
+    id: "press",
+    name: "Press",
+    description: "Festival entry for media, with press area access",
+    shortDescription: "Entry for media",
+    ...priced(250),
+    phase: "Media",
+    features: ["Festival entry", "Press area access"],
+  },
+  {
+    id: "vip",
+    name: "VIP",
+    description: "Festival entry and the VIP zone",
+    shortDescription: "Entry + VIP zone",
+    ...priced(350),
+    phase: "Premium",
+    features: ["Festival entry", "VIP zone"],
+  },
 ];
+
+/** False while no ticket type is seated: no seat step, seat hold or venue plan */
+export const HAS_SEATS = TICKET_TYPES.some((type) => type.seatCategory);
+
+/** The lowest ticket price, for "from …" labels */
+export const LOWEST_PRICE = formatMoney(Math.min(...TICKET_TYPES.filter((type) => !type.soldOut && type.amount !== null).map((type) => type.amount as number)));
 
 export type Addon = {
   id: string;
@@ -45,10 +101,8 @@ export type Addon = {
   amount: number | null;
 };
 
-export const ADDONS: Addon[] = [
-  { id: "camping", name: "Camping spot", description: "Tent place, all nights", price: "[PRICE]", amount: null },
-  { id: "parking", name: "Parking pass", description: "One car, all festival days", price: "[PRICE]", amount: null },
-];
+// The wireframe's camping spot and parking pass are not in the client's list: no add-ons until the client asks for them
+export const ADDONS: Addon[] = [];
 
 export const SEAT_CATEGORIES: SeatCategory[] = ["A", "B", "C"];
 export const SEAT_ROWS = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -61,17 +115,29 @@ export const HOLD_SECONDS = 10 * 60;
 // TODO: remove once the payment provider is connected
 export const SIMULATED_PAYMENT_RESULT: "success" | "failure" = "success";
 
-export const BOOKING_FEE = "[FEE]";
-/** Booking fee per order in CURRENCY. TODO: the real fee, or remove the fee line */
+/** Booking fee per order in CURRENCY; 0 hides the fee line (the price shown is the price paid) */
 export const BOOKING_FEE_AMOUNT = 0;
-/** Currency of prices and card payments; maib accepts MDL, EUR and USD */
-export const CURRENCY = "MDL";
-export const ORDER_TOTAL = "[TOTAL]";
 
 /** Amount in CURRENCY, or the placeholder while the price is not set */
 export function formatMoney(amount: number | null, placeholder = "[PRICE]"): string {
   if (amount === null) return placeholder;
   return `${amount.toLocaleString("en", { maximumFractionDigits: 2 })} ${CURRENCY}`;
+}
+
+/** The order total in CURRENCY, as the server charges it (server/orders.ts); null while a chosen item has no price */
+export function orderTotal(order: Order): number | null {
+  const lines = [
+    ...TICKET_TYPES.map((type) => ({ amount: type.amount, qty: order.tickets[type.id] ?? 0 })),
+    ...ADDONS.map((addon) => ({ amount: addon.amount, qty: order.addons[addon.id] ?? 0 })),
+  ];
+  let total = 0;
+  for (const { amount, qty } of lines) {
+    if (qty === 0) continue;
+    if (amount === null) return null;
+    total += amount * qty;
+  }
+  if (total > 0) total += BOOKING_FEE_AMOUNT;
+  return Math.round(total * 100) / 100;
 }
 
 export type Order = {

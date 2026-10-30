@@ -3,6 +3,7 @@
 import { formatClock, useSecondsLeft } from "./CheckoutHeader";
 
 type PaymentFailedProps = {
+  /** End of the seat hold; null when the order has no seats */
   holdUntil: number | null;
   onRetry: () => void;
   onUseAnotherCard: () => void;
@@ -23,7 +24,7 @@ export function PaymentFailed({ holdUntil, onRetry, onUseAnotherCard }: PaymentF
         Payment didn’t go through
       </h1>
       <p className="payment-failed__text">
-        Your card was not charged. Your seats are still held for {formatClock(secondsLeft)}.
+        Your card was not charged.{holdUntil !== null && <> Your seats are still held for {formatClock(secondsLeft)}.</>}
       </p>
       <div className="payment-failed__actions">
         <button className="btn btn-primary btn-ring" type="button" onClick={onRetry}>

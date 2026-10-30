@@ -9,6 +9,7 @@ import { ProductCard, type ProductCardProps } from "@/components/ProductCard";
 import { SectionHead } from "@/components/SectionHead";
 import { Skeleton } from "@/components/Skeleton";
 import { TicketCard, type TicketCardProps } from "@/components/TicketCard";
+import { LOWEST_PRICE, TICKET_TYPES } from "@/lib/checkout";
 import { EVENT } from "@/lib/event";
 import { SPONSORS } from "@/lib/partners";
 import { pageMetadata } from "@/lib/site";
@@ -22,11 +23,14 @@ export const metadata: Metadata = pageMetadata({
   path: "/",
 });
 
-const tickets: TicketCardProps[] = [
-  { phase: "Early bird", title: "General Admission", price: "[PRICE]", status: "sold-out", href: "/tickets" },
-  { phase: "Phase 1", title: "General Admission", price: "[PRICE]", status: "on-sale", href: "/tickets" },
-  { phase: "Phase 1", title: "VIP", price: "[PRICE]", status: "on-sale", href: "/tickets" },
-];
+// All of the client's ticket types (lib/checkout.ts); Figma shows three cards, five wrap to a second row
+const tickets: TicketCardProps[] = TICKET_TYPES.map((type) => ({
+  phase: type.phase,
+  title: type.name,
+  price: type.price,
+  status: type.soldOut ? "sold-out" : "on-sale",
+  href: "/tickets",
+}));
 
 const products: ProductCardProps[] = [
   { title: "Framed print — [ARTWORK]", price: "[PRICE]", badge: "New" },
@@ -74,7 +78,9 @@ export default function HomePage() {
               <br />
               Fest 2027
             </h1>
-            <p className="hero__meta">[DATE] · Doors [TIME] · [VENUE], [CITY]</p>
+            <p className="hero__meta">
+              {EVENT.date} · {EVENT.time} · {EVENT.venue}
+            </p>
 
             <Skeleton className="hero__skeleton" widths={["88%", "71%", "49%"]} />
 
@@ -83,13 +89,13 @@ export default function HomePage() {
             <div className="hero__actions">
               <Link className="btn btn-primary btn-lg btn-ring" href="/tickets">
                 <span className="only-desktop">Buy tickets</span>
-                <span className="only-mobile">Buy tickets · from [PRICE]</span>
+                <span className="only-mobile">Buy tickets · from {LOWEST_PRICE}</span>
               </Link>
               <Link className="btn btn-outline btn-lg" href="/info">
                 Event info
               </Link>
               <p className="hero__price">
-                From <strong>[PRICE]</strong>
+                From <strong>{LOWEST_PRICE}</strong>
                 <br />
                 The price you pay — no hidden fees
               </p>
@@ -102,7 +108,7 @@ export default function HomePage() {
       <section className="section section--band" aria-labelledby="tickets-title">
         <div className="container">
           <SectionHead
-            eyebrow="Ticket releases"
+            eyebrow="On sale now"
             title="Tickets"
             titleId="tickets-title"
             action={

@@ -125,7 +125,7 @@ function downloadCalendarFile(orderNumber: string) {
     `DTSTART:${toIcsDate(start)}`,
     `DTEND:${toIcsDate(end)}`,
     `SUMMARY:${EVENT.name}`,
-    `LOCATION:${EVENT.venue}`,
+    `LOCATION:${EVENT.address}`,
     "END:VEVENT",
     "END:VCALENDAR",
   ].join("\r\n");
