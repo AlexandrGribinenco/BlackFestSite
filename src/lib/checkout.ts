@@ -1,5 +1,5 @@
 // Checkout data and order rules (Figma: Desktop / D3 · Checkout 2:518, Mobile / M4.1–M4.5)
-// Ticket types and prices: the client's list of 30.10.2026, in euro. None of them is seated, so the seat step,
+// Ticket types and prices: the client's list of 30.10.2026 (plus the Regular ticket he added the same day), in euro. None of them is seated, so the seat step,
 // the seat hold timer and the venue plan stay hidden; the seat map code is kept for a seated event.
 // TODO: what each ticket includes (the features below follow the names), and the add-ons if there are any.
 
@@ -49,13 +49,22 @@ export const TICKET_TYPES: TicketType[] = [
     features: ["Festival entry", "Early price, while it lasts"],
   },
   {
+    id: "regular",
+    name: "Regular Ticket",
+    description: "Festival entry at the regular price",
+    shortDescription: "Festival entry",
+    ...priced(175),
+    phase: "Regular",
+    features: ["Festival entry", "Regular price"],
+  },
+  {
     id: "door",
     name: "Door Ticket",
-    description: "Festival entry at the standard price",
-    shortDescription: "Festival entry",
+    description: "Festival entry at the door price",
+    shortDescription: "Festival entry · door price",
     ...priced(185),
-    phase: "Standard",
-    features: ["Festival entry", "Standard price"],
+    phase: "Door price",
+    features: ["Festival entry", "Door price"],
   },
   {
     id: "backstage",

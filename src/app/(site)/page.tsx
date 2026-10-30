@@ -23,7 +23,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/",
 });
 
-// All of the client's ticket types (lib/checkout.ts); Figma shows three cards, five wrap to a second row
+// All of the client's ticket types (lib/checkout.ts); Figma shows three cards, more wrap to the next rows
 const tickets: TicketCardProps[] = TICKET_TYPES.map((type) => ({
   phase: type.phase,
   title: type.name,
