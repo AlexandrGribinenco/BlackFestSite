@@ -1,7 +1,8 @@
 // Checkout data and order rules (Figma: Desktop / D3 · Checkout 2:518, Mobile / M4.1–M4.5)
 // Ticket types and prices: the client's list of 30.10.2026 (plus the Regular ticket he added the same day), in euro. None of them is seated, so the seat step,
 // the seat hold timer and the venue plan stay hidden; the seat map code is kept for a seated event.
-// TODO: what each ticket includes (the features below follow the names), and the add-ons if there are any.
+// What Backstage, Press and VIP include: the client's answers of 04.11.2026; the entry tickets follow their names.
+// TODO: the add-ons, if there are any.
 
 export type CheckoutStep = "tickets" | "seats" | "details" | "payment" | "done";
 
@@ -33,7 +34,7 @@ export type TicketType = {
   seatCategory?: SeatCategory;
 };
 
-/** Currency of prices and card payments; maib accepts MDL, EUR and USD */
+/** Currency of prices and card payments; maib accepts MDL, EUR and USD, and the client's maib account takes EUR (04.11.2026) */
 export const CURRENCY = "EUR";
 
 const priced = (amount: number) => ({ amount, price: formatMoney(amount) });
@@ -69,29 +70,29 @@ export const TICKET_TYPES: TicketType[] = [
   {
     id: "backstage",
     name: "Backstage",
-    description: "Festival entry and backstage access",
-    shortDescription: "Entry + backstage",
+    description: "Festival entry and access to the stage, where the artists and crew are",
+    shortDescription: "Entry + stage access",
     ...priced(215),
     phase: "Backstage",
-    features: ["Festival entry", "Backstage access"],
+    features: ["Festival entry", "Stage access with the artists and crew"],
   },
   {
     id: "press",
     name: "Press",
-    description: "Festival entry for media, with press area access",
-    shortDescription: "Entry for media",
+    description: "Festival entry for journalists",
+    shortDescription: "Entry for journalists",
     ...priced(250),
     phase: "Media",
-    features: ["Festival entry", "Press area access"],
+    features: ["Festival entry", "For journalists"],
   },
   {
     id: "vip",
     name: "VIP",
-    description: "Festival entry and the VIP zone",
-    shortDescription: "Entry + VIP zone",
+    description: "Festival entry and a reserved table",
+    shortDescription: "Entry + reserved table",
     ...priced(350),
     phase: "Premium",
-    features: ["Festival entry", "VIP zone"],
+    features: ["Festival entry", "Reserved table"],
   },
 ];
 
