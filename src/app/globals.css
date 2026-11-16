@@ -297,13 +297,12 @@ img { display: block; max-width: 100%; }
   display: inline-flex;
   flex: none;
   align-items: center;
-  justify-content: center;
-  width: 152px;
   height: 44px;
-  border: 2px solid var(--text);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .breadcrumbs ol {
@@ -1036,7 +1035,7 @@ img { display: block; max-width: 100%; }
   .state-panel__code { font-size: 72px; }
   .state-panel__title { font-size: 24px; }
 
-  .logo { width: 88px; height: 32px; border-width: 1.5px; font-size: 10px; }
+  .logo { height: 32px; font-size: 12px; letter-spacing: 0.1em; }
   .site-header__actions .btn { height: 36px; padding: 0 16px; font-size: 13px; }
 
   .section-title { font-size: 26px; }

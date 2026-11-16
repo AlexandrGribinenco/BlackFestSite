@@ -75,7 +75,8 @@ export function CookieConsent() {
               We use cookies
             </h2>
             <p>
-              We use cookies to run the site, analyse traffic and personalise content. Read our{" "}
+              We use essential cookies to run the site and process your order. Analytics and marketing cookies are used only
+              if you allow them. Read our{" "}
               <Link href="/legal/cookies">Cookie Policy</Link>.
             </p>
           </div>
