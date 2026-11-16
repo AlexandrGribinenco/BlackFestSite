@@ -14,6 +14,9 @@ const nextConfig: NextConfig =
         // Server build: also picks up the payment API routes, named route.api.ts (app/api/payments)
         pageExtensions: ["tsx", "ts", "api.ts"],
         output: standalone ? "standalone" : undefined,
+        // Next copies each prerendered page into .next/server/route-cache on first view and serves that copy from
+        // then on. A deploy doesn't touch that folder, so the hosting kept showing the old pages: keep the cache in memory
+        experimental: { isrFlushToDisk: false },
       }
     : {
         // Static export can't run server code, so the payment API routes are left out
