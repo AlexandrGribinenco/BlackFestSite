@@ -1,10 +1,23 @@
 // GET /api/health — service check for the hosting, where there is no SSH: are the settings in place, and does this
 // server reach maib and the mail server. Shows no secrets, only whether each setting is filled in. No payment is
 // created and no e-mail is sent. The answer is kept for a minute, so reloading the page doesn't hammer maib or the mail.
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { verifySmtp } from "@/server/email";
 import { pingMaib } from "@/server/maib";
 
 export const dynamic = "force-dynamic";
+
+// The build this process loaded and when it started: after a deploy, a "build" that differs from .next/BUILD_ID on the
+// disk means the hosting is still running the old process
+const BUILD = (() => {
+  try {
+    return readFileSync(path.join(process.cwd(), ".next/BUILD_ID"), "utf8").trim();
+  } catch {
+    return "unknown";
+  }
+})();
+const STARTED_AT = new Date(Date.now() - process.uptime() * 1000).toISOString();
 
 const SETTINGS = [
   "SITE_URL",
@@ -55,6 +68,8 @@ export async function GET() {
       at: Date.now(),
       body: {
         checkedAt: new Date().toISOString(),
+        build: BUILD,
+        startedAt: STARTED_AT,
         node: process.version,
         // Set at build time by the "payments" checkbox of the Build for hosting workflow
         paymentsInBuild: process.env.NEXT_PUBLIC_PAYMENTS_API_URL !== undefined,

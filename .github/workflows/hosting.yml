@@ -61,11 +61,14 @@ jobs:
           else
             git init -q -b deploy bundle
           fi
+          # Earlier builds' CSS and JS stay: pages served by a process that hasn't restarted yet still link to them
+          if [ -d bundle/.next/static ]; then mv bundle/.next/static previous-static; fi
           find bundle -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -r .next/standalone/. bundle/
           # The standalone output already has some of public/ (files the server reads), so merge into it, not under it
           mkdir -p bundle/.next/static bundle/public
           cp -r .next/static/. bundle/.next/static/
+          if [ -d previous-static ]; then cp -rn previous-static/. bundle/.next/static/; fi
           cp -r public/. bundle/public/
           mkdir -p bundle/tmp
           echo "$GITHUB_SHA payments=${{ inputs.payments }}" > bundle/tmp/restart.txt
