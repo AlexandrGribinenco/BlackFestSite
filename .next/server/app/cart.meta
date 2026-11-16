@@ -1,0 +1,39 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(site)/layout,_N_T_/(site)/cart/layout,_N_T_/(site)/cart/page,_N_T_/cart"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KHNpdGUp/cart/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 96,
+            "slots": {
+              "children": {
+                "hints": 160,
+                "slots": null
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/32bf98ea9fd994a37cee20a6ee06edd0434685a90631c2efcf0e70306c913e7b/$/cart",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/(site)/cart/page"
+    },
+    "isFallback": false
+  }
+}

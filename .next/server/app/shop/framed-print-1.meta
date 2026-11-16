@@ -1,0 +1,44 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(site)/layout,_N_T_/(site)/shop/layout,_N_T_/(site)/shop/[slug]/layout,_N_T_/(site)/shop/[slug]/page,_N_T_/shop/framed-print-1"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KHNpdGUp/shop/$d$slug/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 96,
+            "slots": {
+              "children": {
+                "hints": 96,
+                "slots": {
+                  "children": {
+                    "hints": 160,
+                    "slots": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/3aa05b1cf6962a1cb6a6b3c0cc90ec44b24b299ffa1a9c6611e865e43ebcb9c2/$/shop/framed-print-1",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/(site)/shop/[slug]/page"
+    },
+    "isFallback": false
+  }
+}

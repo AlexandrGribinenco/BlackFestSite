@@ -1,0 +1,39 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(site)/layout,_N_T_/(site)/gallery/layout,_N_T_/(site)/gallery/page,_N_T_/gallery"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KHNpdGUp/gallery/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 96,
+            "slots": {
+              "children": {
+                "hints": 160,
+                "slots": null
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/acbeb36214ae120eabb6fcc9d64e875608b501ae986f92b80787692d75e5f3c7/$/gallery",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/(site)/gallery/page"
+    },
+    "isFallback": false
+  }
+}

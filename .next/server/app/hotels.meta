@@ -1,0 +1,39 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(site)/layout,_N_T_/(site)/hotels/layout,_N_T_/(site)/hotels/page,_N_T_/hotels"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KHNpdGUp/hotels/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 96,
+            "slots": {
+              "children": {
+                "hints": 160,
+                "slots": null
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/476f2c7cde14f6c83e698be992ff1e4ec5bf1402e40b1cc0a981debd15ba37c3/$/hotels",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/(site)/hotels/page"
+    },
+    "isFallback": false
+  }
+}

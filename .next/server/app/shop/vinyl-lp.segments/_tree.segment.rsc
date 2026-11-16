@@ -1,0 +1,13 @@
+:HL["/_next/static/chunks/05w1txt8x2_40.css","style"]
+:HL["/_next/static/media/1bffadaabf893a1e-s.p.3-6t-g6q0vh0a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/9e9f04e3c37952ab-s.p.0pan85mumqyf3.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/chunks/1877ukjlkbnge.css","style"]
+:HL["/_next/static/chunks/0h2zq0voas_gv.css","style"]
+:HL["/_next/static/chunks/3-prrk3vkb2i2.css","style"]
+:HL["/_next/static/chunks/3xqr_e13agnzx.css","style"]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":{"n":"slug","t":"d","k":"vinyl-lp","s":[]},"h":65632,"c":"$Q4"}]]
+2:[["children",{"s":"shop","h":131168,"c":"$Q3"}]]
+1:[["children",{"s":"(site)","h":131168,"c":"$Q2"}]]
+0:{"b":"yFH8sn5M-mBF_l6RlcPFm","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}

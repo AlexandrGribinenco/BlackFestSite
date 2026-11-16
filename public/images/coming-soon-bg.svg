@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<!-- Background layer of coming-soon.svg (no text); shown with object-fit: cover -->
+<defs>
+<radialGradient id="g1" cx="0.25" cy="0.3" r="0.55"><stop offset="0" stop-color="#2EF2A8" stop-opacity="0.55"/><stop offset="1" stop-color="#2EF2A8" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2" cx="0.75" cy="0.35" r="0.55"><stop offset="0" stop-color="#8B5CF6" stop-opacity="0.6"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></radialGradient>
+<radialGradient id="g3" cx="0.55" cy="0.85" r="0.5"><stop offset="0" stop-color="#22D3EE" stop-opacity="0.35"/><stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></radialGradient>
+<filter id="b"><feGaussianBlur stdDeviation="40"/></filter>
+</defs>
+<rect width="1920" height="1080" fill="#05060F"/>
+<g filter="url(#b)">
+<rect width="1920" height="1080" fill="url(#g1)"/><rect width="1920" height="1080" fill="url(#g2)"/><rect width="1920" height="1080" fill="url(#g3)"/>
+<path d="M-100 520 C 300 300, 700 640, 1100 420 S 1800 300, 2050 480" stroke="#2EF2A8" stroke-opacity="0.35" stroke-width="90" fill="none"/>
+<path d="M-100 600 C 400 420, 800 760, 1250 520 S 1850 420, 2050 600" stroke="#A78BFA" stroke-opacity="0.3" stroke-width="70" fill="none"/>
+</g>
+</svg>

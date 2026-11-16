@@ -1,0 +1,44 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(site)/layout,_N_T_/(site)/legal/layout,_N_T_/(site)/legal/[slug]/layout,_N_T_/(site)/legal/[slug]/page,_N_T_/legal/terms"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KHNpdGUp/legal/$d$slug/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 96,
+            "slots": {
+              "children": {
+                "hints": 96,
+                "slots": {
+                  "children": {
+                    "hints": 160,
+                    "slots": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/44304f5b22fa4d4ed32c91c317227d8c8f9d5c45807c470912022280d3c70f59/$/legal/terms",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/(site)/legal/[slug]/page"
+    },
+    "isFallback": false
+  }
+}
