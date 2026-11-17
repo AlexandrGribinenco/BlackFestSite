@@ -8,7 +8,7 @@ import { StatePanel } from "@/components/StatePanel";
 // so it adds the site header and footer itself.
 
 export const metadata: Metadata = {
-  title: "Page not found — Black Out Fest 2027",
+  title: "Page not found — Black Out Fest Australia",
 };
 
 export default function NotFound() {
