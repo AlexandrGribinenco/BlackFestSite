@@ -1,5 +1,5 @@
 /* Product mock-ups (ProductArt.tsx): Shop, product page, cart. The display face (--font-display) is loaded on the Shop page only;
-   elsewhere the e-journal cover falls back to Impact. */
+   elsewhere the e-magazine cover falls back to Impact. */
 .vinyl-art { position: relative; aspect-ratio: 1.48; }
 
 .vinyl-art__sleeve {

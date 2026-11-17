@@ -2,7 +2,7 @@
   "headers": {
     "x-nextjs-stale-time": "300",
     "x-nextjs-prerender": "1",
-    "x-next-cache-tags": "_N_T_/layout,_N_T_/(site)/layout,_N_T_/(site)/shop/layout,_N_T_/(site)/shop/[slug]/layout,_N_T_/(site)/shop/[slug]/page,_N_T_/shop/e-journal-1"
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(site)/layout,_N_T_/(site)/shop/layout,_N_T_/(site)/shop/[slug]/layout,_N_T_/(site)/shop/[slug]/page,_N_T_/shop/e-mag-1"
   },
   "segmentPaths": [
     "/_tree",
@@ -34,7 +34,7 @@
     }
   },
   "routeCache": {
-    "key": "/route-cache/APP_PAGE/3aa05b1cf6962a1cb6a6b3c0cc90ec44b24b299ffa1a9c6611e865e43ebcb9c2/$/shop/e-journal-1",
+    "key": "/route-cache/APP_PAGE/3aa05b1cf6962a1cb6a6b3c0cc90ec44b24b299ffa1a9c6611e865e43ebcb9c2/$/shop/e-mag-1",
     "owner": {
       "kind": "APP_PAGE",
       "sourceRoute": "/(site)/shop/[slug]/page"
