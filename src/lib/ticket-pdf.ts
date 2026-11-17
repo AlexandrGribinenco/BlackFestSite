@@ -49,9 +49,8 @@ export async function ticketsPdf({ tickets, holder, orderNumber, siteUrl, fonts 
     const page = pdf.addPage([PAGE_W, PAGE_H]);
     const draw = new PageWriter(page);
 
-    // Header: logo and the organizer's details
-    draw.box(MARGIN, 40, 96, 96, 1.5);
-    draw.centered("LOGO", MARGIN + 48, 82, 10, bold, INK);
+    // Header: the festival name (no logo yet, as on the site) and the organizer's details
+    ["BLACK", "OUT", "FEST"].forEach((word, i) => draw.text(word, MARGIN, 44 + i * 24, 22, bold, INK));
     [COMPANY.legalName, COMPANY.legalAddress, `${website} · ${COMPANY.email}`, COMPANY.phone].forEach((line, i) => {
       draw.text(line, 156, 44 + i * 16, 9.5, regular, MUTED, PAGE_W - MARGIN - 156);
     });
@@ -117,10 +116,6 @@ class PageWriter {
     }
     lines.forEach((line, i) => this.text(line, x, top + i * leading, size, font, color, maxWidth));
     return lines.length * leading;
-  }
-
-  centered(value: string, centerX: number, top: number, size: number, font: PDFFont, color = INK) {
-    this.text(value, centerX - font.widthOfTextAtSize(value, size) / 2, top, size, font, color);
   }
 
   right(value: string, rightX: number, top: number, size: number, font: PDFFont, color = INK) {
