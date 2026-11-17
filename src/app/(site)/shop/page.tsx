@@ -14,7 +14,7 @@ import "./shop.css";
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display", display: "swap" });
 
 export const metadata: Metadata = pageMetadata({
-  title: "Shop — Black Out Fest Australia",
+  title: "Store — Black Out Fest Australia",
   description: "Official merchandise of Black Out Fest Australia: framed art, posters, vinyl and the festival e-magazine. Limited runs.",
   path: "/shop",
 });
@@ -23,11 +23,11 @@ export default function ShopPage() {
   return (
     <main className={`shop-page ${anton.variable}`}>
       <div className="container shop-top">
-        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop" }]} />
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Store" }]} />
 
         <section className="shop-hero" aria-labelledby="shop-title">
           <div className="shop-hero__copy">
-            <p className="shop-hero__eyebrow">Official shop · Festival collection</p>
+            <p className="shop-hero__eyebrow">Official store · Festival collection</p>
             {/* The client asked for the full word instead of "merch" */}
             <h1 className="shop-hero__title" id="shop-title">
               Official merchandise drop 01

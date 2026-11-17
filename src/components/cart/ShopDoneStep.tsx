@@ -52,7 +52,7 @@ export function ShopDoneStep({ orderNumber, email, method }: ShopDoneStepProps) 
 
       <div className="done__actions">
         <Link className="btn btn-outline" href="/shop">
-          Back to shop
+          Back to store
         </Link>
         <Link className="btn btn-primary" href="/tickets">
           Get festival tickets

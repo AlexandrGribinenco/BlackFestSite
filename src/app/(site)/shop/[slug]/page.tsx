@@ -25,7 +25,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const product = productById((await params).slug);
   if (!product) return {};
-  return pageMetadata({ title: `${product.name} — Shop — Black Out Fest Australia`, description: product.summary, path: `/shop/${product.id}` });
+  return pageMetadata({ title: `${product.name} — Store — Black Out Fest Australia`, description: product.summary, path: `/shop/${product.id}` });
 }
 
 export default async function ProductPage({ params }: Params) {
@@ -38,10 +38,10 @@ export default async function ProductPage({ params }: Params) {
     <main className="product-page">
       <JsonLd data={productData(product)} />
       <div className="container product-top">
-        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop", href: "/shop" }, { label: product.shortName }]} />
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Store", href: "/shop" }, { label: product.shortName }]} />
         {/* Mobile has a back link instead of the breadcrumbs (Figma: M10) */}
         <Link className="product-back" href="/shop">
-          Shop
+          Store
         </Link>
 
         <ProductDetail product={product}>

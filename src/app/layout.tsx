@@ -17,7 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(`${SITE_URL}/`),
   title: "Black Out Fest Australia — Music, art & culture festival",
-  description: "Black Out Fest Australia — music, art & culture festival by View Bar. Tickets, line-up, gallery and official shop.",
+  description: "Black Out Fest Australia — music, art & culture festival by View Bar. Tickets, line-up, gallery and official store.",
   openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US", images: [OG_IMAGE] },
   twitter: { card: "summary_large_image", images: [OG_IMAGE.url] },
   robots: INDEXABLE ? undefined : { index: false, follow: false },

@@ -23,7 +23,7 @@ export function CartStep({ items, count }: { items: CartItem[]; count: number })
         <div className="cart-empty">
           <p>Your cart is empty.</p>
           <Link className="btn btn-primary" href="/shop">
-            Go to the shop
+            Go to the store
           </Link>
         </div>
       ) : (

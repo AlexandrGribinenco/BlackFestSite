@@ -19,7 +19,7 @@ import { festivalEventData } from "@/lib/structured-data";
 
 export const metadata: Metadata = pageMetadata({
   title: "Black Out Fest Australia — Music, art & culture festival",
-  description: "Black Out Fest Australia — music, art & culture festival by View Bar. Tickets, line-up, gallery and official shop.",
+  description: "Black Out Fest Australia — music, art & culture festival by View Bar. Tickets, line-up, gallery and official store.",
   path: "/",
 });
 
@@ -73,11 +73,11 @@ export default function HomePage() {
 
           <div className="hero__content">
             <p className="eyebrow eyebrow--accent">Music, art &amp; culture festival</p>
-            {/* The client's title (17.11.2026): "Black Out Fest — Tasmania, Australia", the place on a line of its own */}
+            {/* The client's title (17.11.2026): "Black Out Fest — Tasmania (TAS), Australia", the place on a line of its own */}
             <h1 className="hero__title">
               Black Out Fest
               <span className="visually-hidden"> — </span>
-              <span className="hero__title-place">Tasmania, Australia</span>
+              <span className="hero__title-place">Tasmania (TAS), Australia</span>
             </h1>
             <p className="hero__meta">
               {EVENT.date} · {EVENT.time} · {EVENT.venue}
@@ -125,16 +125,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Official shop */}
+      {/* Official store */}
       <section className="section" aria-labelledby="shop-title">
         <div className="container">
           <SectionHead
-            eyebrow="Official shop"
+            eyebrow="Official store"
             title="Art, vinyl & posters"
             titleId="shop-title"
             action={
               <Link className="link-arrow" href="/shop">
-                Shop<span className="only-desktop"> all</span>
+                All<span className="only-desktop"> products</span>
               </Link>
             }
           />

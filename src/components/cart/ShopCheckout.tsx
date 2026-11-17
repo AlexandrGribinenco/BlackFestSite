@@ -81,7 +81,7 @@ export function ShopCheckout() {
     // TODO: shop orders on the server: price the cart and the delivery, keep the address for the courier, then the maib
     // payment as for tickets (docs/payments-maib.md). Until then a real payment can't be taken for the shop.
     if (PAYMENTS_CONNECTED) {
-      setPaymentError("Online payment for shop orders opens soon. Please try again later.");
+      setPaymentError("Online payment for store orders opens soon. Please try again later.");
       return;
     }
 

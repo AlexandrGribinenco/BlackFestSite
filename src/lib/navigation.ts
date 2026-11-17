@@ -5,7 +5,7 @@ export type NavLink = {
 
 export const mainNav: NavLink[] = [
   { href: "/tickets", label: "Tickets" },
-  { href: "/shop", label: "Shop" },
+  { href: "/shop", label: "Store" },
   { href: "/gallery", label: "Gallery" },
   { href: "/bar-restaurant", label: "Bar & Restaurant" },
   { href: "/hotels", label: "Hotels" },
@@ -21,7 +21,7 @@ export const footerFestivalNav: NavLink[] = [
   { href: "/partners", label: "Partners" },
   { href: "/info", label: "Info & FAQ" },
   { href: "/contacts", label: "Contacts" },
-  { href: "/shop", label: "Shop" },
+  { href: "/shop", label: "Store" },
 ];
 
 export const footerLegalNav: NavLink[] = [
