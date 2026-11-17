@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       currency: CURRENCY,
       orderInfo: {
         id: orderId,
-        description: `${COMPANY.siteName} 2027 — order ${orderId}`.slice(0, 125),
+        description: `${COMPANY.siteName} — order ${orderId}`.slice(0, 125),
         date: new Date().toISOString(),
         orderAmount: priced.total,
         orderCurrency: CURRENCY,

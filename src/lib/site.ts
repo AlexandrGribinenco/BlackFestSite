@@ -8,10 +8,10 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3
 /** Off until the launch, so the placeholders don't end up in search results */
 export const INDEXABLE = process.env.NEXT_PUBLIC_INDEXABLE === "1";
 
-export const SITE_NAME = "Black Out Fest 2027";
+export const SITE_NAME = "Black Out Fest Australia";
 
 /** Share preview for every page (app/og.png/route.tsx) */
-export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: "Black Out Fest 2027 — music, art & culture festival" };
+export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: "Black Out Fest Australia — music, art & culture festival" };
 
 /** Absolute address of a page, e.g. for structured data */
 export const absoluteUrl = (path: string) => `${SITE_URL}${path === "/" ? "" : path}`;

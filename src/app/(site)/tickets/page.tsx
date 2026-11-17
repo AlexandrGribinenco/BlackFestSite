@@ -20,8 +20,8 @@ import "./tickets.css";
 // are left out; the ticket cards and the add-ons come from the checkout data.
 
 export const metadata: Metadata = pageMetadata({
-  title: "Tickets — Black Out Fest 2027",
-  description: `Tickets and prices for Black Out Fest 2027, ${EVENT.date}, ${EVENT.venue}. The price you see is the price you pay.`,
+  title: "Tickets — Black Out Fest Australia",
+  description: `Tickets and prices for Black Out Fest Australia, ${EVENT.date}, ${EVENT.venue}. The price you see is the price you pay.`,
   path: "/tickets",
 });
 
@@ -75,12 +75,12 @@ export default function TicketsPage() {
 
           <div className="page-hero__grid">
             <div className="placeholder page-hero__poster">
-              <ComingSoonImage alt="Black Out Fest 2027 poster — coming soon" priority />
+              <ComingSoonImage alt="Black Out Fest Australia poster — coming soon" priority />
             </div>
 
             <div>
               <h1 className="page-hero__title">Tickets</h1>
-              <p className="page-hero__subtitle">Black Out Fest 2027</p>
+              <p className="page-hero__subtitle">Black Out Fest Australia</p>
               <p className="page-hero__meta">
                 {EVENT.date} · {EVENT.time} · {EVENT.venue} · [AGE]+
               </p>

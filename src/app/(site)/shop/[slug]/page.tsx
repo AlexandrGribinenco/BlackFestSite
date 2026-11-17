@@ -25,7 +25,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const product = productById((await params).slug);
   if (!product) return {};
-  return pageMetadata({ title: `${product.name} — Shop — Black Out Fest 2027`, description: product.summary, path: `/shop/${product.id}` });
+  return pageMetadata({ title: `${product.name} — Shop — Black Out Fest Australia`, description: product.summary, path: `/shop/${product.id}` });
 }
 
 export default async function ProductPage({ params }: Params) {

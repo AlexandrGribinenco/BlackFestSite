@@ -16,8 +16,8 @@ const inter = Inter({
 // Relative addresses in the metadata resolve against the site address.
 export const metadata: Metadata = {
   metadataBase: new URL(`${SITE_URL}/`),
-  title: "Black Out Fest 2027 — Music, art & culture festival",
-  description: "Black Out Fest 2027 — music, art & culture festival by View Bar. Tickets, line-up, gallery and official shop.",
+  title: "Black Out Fest Australia — Music, art & culture festival",
+  description: "Black Out Fest Australia — music, art & culture festival by View Bar. Tickets, line-up, gallery and official shop.",
   openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US", images: [OG_IMAGE] },
   twitter: { card: "summary_large_image", images: [OG_IMAGE.url] },
   robots: INDEXABLE ? undefined : { index: false, follow: false },

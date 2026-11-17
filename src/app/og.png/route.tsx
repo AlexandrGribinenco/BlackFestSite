@@ -39,9 +39,9 @@ export async function GET() {
         </div>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", fontSize: 128, fontWeight: 700, lineHeight: 1, letterSpacing: -3 }}>
-        <span>BLACK OUT</span>
-        <span>FEST 2027</span>
+      <div style={{ display: "flex", flexDirection: "column", fontSize: 112, fontWeight: 700, lineHeight: 1, letterSpacing: -3 }}>
+        <span>BLACK OUT FEST</span>
+        <span>AUSTRALIA</span>
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", color: "#9a8fb3", fontSize: 30 }}>

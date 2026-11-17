@@ -27,5 +27,5 @@ export async function ticketsAttachment(order: PaidOrder): Promise<Attachment | 
     siteUrl: process.env.SITE_URL ?? "",
     fonts: await loadFonts(),
   });
-  return { filename: `black-out-fest-2027-tickets-${orderNumber}.pdf`, content, contentType: "application/pdf" };
+  return { filename: `black-out-fest-australia-tickets-${orderNumber}.pdf`, content, contentType: "application/pdf" };
 }

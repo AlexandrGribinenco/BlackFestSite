@@ -12,8 +12,8 @@ import "./bar.css";
 // Figma: Desktop / D13 · Bar & Restaurant 347:5840, Mobile / M12 · Bar & Restaurant 179:778
 
 export const metadata: Metadata = pageMetadata({
-  title: "Bar & Restaurant — Black Out Fest 2027",
-  description: "Street food, cocktails and a chill zone right next to the stage: opening hours, location and the menu of the View Bar at Black Out Fest 2027.",
+  title: "Bar & Restaurant — Black Out Fest Australia",
+  description: "Street food, cocktails and a chill zone right next to the stage: opening hours, location and the menu of the View Bar at Black Out Fest Australia.",
   path: "/bar-restaurant",
 });
 

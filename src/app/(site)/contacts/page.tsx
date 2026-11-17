@@ -11,7 +11,7 @@ import "./contacts.css";
 // Figma: Desktop / D6 · Contacts 347:2154, Mobile / M7 · Contacts 3:11262
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contacts — Black Out Fest 2027",
+  title: "Contacts — Black Out Fest Australia",
   description: "Contact the Black Out Fest team by e-mail or phone: tickets and orders, partners and advertising.",
   path: "/contacts",
 });

@@ -92,7 +92,7 @@ export function SiteFooter() {
               </span>
             ))}
           </div>
-          <p className="footer-bottom__copy">© 2027 Black Out Fest. All rights reserved.</p>
+          <p className="footer-bottom__copy">© {new Date().getFullYear()} {COMPANY.siteName}. All rights reserved.</p>
         </div>
       </div>
     </footer>

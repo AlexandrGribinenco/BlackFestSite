@@ -18,8 +18,8 @@ import { festivalEventData } from "@/lib/structured-data";
 // Figma: Desktop / D1 · Home 1:2, Mobile / M1 · Home 2:7604
 
 export const metadata: Metadata = pageMetadata({
-  title: "Black Out Fest 2027 — Music, art & culture festival",
-  description: "Black Out Fest 2027 — music, art & culture festival by View Bar. Tickets, line-up, gallery and official shop.",
+  title: "Black Out Fest Australia — Music, art & culture festival",
+  description: "Black Out Fest Australia — music, art & culture festival by View Bar. Tickets, line-up, gallery and official shop.",
   path: "/",
 });
 
@@ -35,7 +35,7 @@ const tickets: TicketCardProps[] = TICKET_TYPES.map((type) => ({
 const products: ProductCardProps[] = [
   { title: "Framed print — [ARTWORK]", price: "[PRICE]", badge: "New" },
   { title: "Vinyl LP — [ARTIST / ALBUM]", price: "[PRICE]" },
-  { title: "Poster — Line-up 2027 (A2)", price: "[PRICE]", badge: "Pre-order" },
+  { title: "Poster — Line-up (A2)", price: "[PRICE]", badge: "Pre-order" },
   { title: "E-journal · issue #1 (PDF)", price: "[PRICE]" },
 ];
 
@@ -68,7 +68,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="container hero__grid">
           <div className="placeholder hero__poster">
-            <ComingSoonImage alt="Black Out Fest 2027 poster — coming soon" priority />
+            <ComingSoonImage alt="Black Out Fest Australia poster — coming soon" priority />
           </div>
 
           <div className="hero__content">
@@ -76,7 +76,7 @@ export default function HomePage() {
             <h1 className="hero__title">
               Black Out
               <br />
-              Fest 2027
+              Fest Australia
             </h1>
             <p className="hero__meta">
               {EVENT.date} · {EVENT.time} · {EVENT.venue}

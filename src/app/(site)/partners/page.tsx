@@ -11,8 +11,8 @@ import "./partners.css";
 // partner, partners and media partners there is one Sponsors group with the client's two sponsors (lib/partners.ts).
 
 export const metadata: Metadata = pageMetadata({
-  title: "Partners — Black Out Fest 2027",
-  description: "The sponsors of Black Out Fest 2027 and how to become a partner of the festival.",
+  title: "Partners — Black Out Fest Australia",
+  description: "The sponsors of Black Out Fest Australia and how to become a partner of the festival.",
   path: "/partners",
 });
 

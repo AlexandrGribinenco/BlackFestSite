@@ -11,8 +11,8 @@ import "./hotels.css";
 // Figma: Desktop / D15 · Hotels 347:6446, Mobile / M14 · Hotels 179:3281
 
 export const metadata: Metadata = pageMetadata({
-  title: "Hotels — Black Out Fest 2027",
-  description: "Partner hotels near Black Out Fest 2027: compare distance, price and amenities and book directly on the hotel’s website.",
+  title: "Hotels — Black Out Fest Australia",
+  description: "Partner hotels near Black Out Fest Australia: compare distance, price and amenities and book directly on the hotel’s website.",
   path: "/hotels",
 });
 

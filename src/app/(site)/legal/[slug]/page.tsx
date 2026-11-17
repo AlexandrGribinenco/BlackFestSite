@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const doc = LEGAL_DOCS.find((d) => d.slug === slug);
   if (!doc) return {};
   return pageMetadata({
-    title: `${doc.title} — Black Out Fest 2027`,
-    description: `${doc.title} of Black Out Fest 2027, run by ${COMPANY.legalName}.`,
+    title: `${doc.title} — Black Out Fest Australia`,
+    description: `${doc.title} of Black Out Fest Australia, run by ${COMPANY.legalName}.`,
     path: `/legal/${doc.slug}`,
   });
 }

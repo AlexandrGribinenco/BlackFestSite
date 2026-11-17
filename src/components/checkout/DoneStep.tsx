@@ -105,7 +105,7 @@ async function downloadTicketsPdf(order: Order, holder: string, orderNumber: str
   const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: "application/pdf" }));
   const link = document.createElement("a");
   link.href = url;
-  link.download = `black-out-fest-2027-tickets-${orderNumber}.pdf`;
+  link.download = `black-out-fest-australia-tickets-${orderNumber}.pdf`;
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
@@ -133,7 +133,7 @@ function downloadCalendarFile(orderNumber: string) {
   const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
   const link = document.createElement("a");
   link.href = url;
-  link.download = "black-out-fest-2027.ics";
+  link.download = "black-out-fest-australia.ics";
   link.click();
   URL.revokeObjectURL(url);
 }

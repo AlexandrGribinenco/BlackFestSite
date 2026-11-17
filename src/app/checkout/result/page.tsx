@@ -7,7 +7,7 @@ import "../checkout.css";
 // and D8 "Payment failed" blocks.
 
 export const metadata: Metadata = {
-  title: "Payment — Black Out Fest 2027",
+  title: "Payment — Black Out Fest Australia",
   robots: { index: false },
 };
 

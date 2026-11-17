@@ -9,7 +9,7 @@ import "./cart.css";
 // (steps, order summary, forms, mobile bar).
 
 export const metadata: Metadata = {
-  title: "Cart — Black Out Fest 2027",
+  title: "Cart — Black Out Fest Australia",
   robots: { index: false },
 };
 

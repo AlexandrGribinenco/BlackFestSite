@@ -7,7 +7,7 @@ import "./checkout.css";
 // Lives outside the (site) group: checkout has its own header and no site footer.
 
 export const metadata: Metadata = {
-  title: "Checkout — Black Out Fest 2027",
+  title: "Checkout — Black Out Fest Australia",
   robots: { index: false },
 };
 

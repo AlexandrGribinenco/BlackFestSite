@@ -12,8 +12,8 @@ import "./info.css";
 // Figma: Desktop / D5 · Info & FAQ 347:2389, Mobile / M6 · Info & FAQ 3:10899
 
 export const metadata: Metadata = pageMetadata({
-  title: "Info & FAQ — Black Out Fest 2027",
-  description: "Getting there, parking, camping, bar & restaurant, entry rules and answers to common questions about Black Out Fest 2027.",
+  title: "Info & FAQ — Black Out Fest Australia",
+  description: "Getting there, parking, camping, bar & restaurant, entry rules and answers to common questions about Black Out Fest Australia.",
   path: "/info",
 });
 

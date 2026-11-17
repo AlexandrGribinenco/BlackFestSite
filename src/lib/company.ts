@@ -11,5 +11,5 @@ export const COMPANY = {
   /** Brand the festival is run under */
   brand: "View Bar",
   /** Site name used in payment confirmations */
-  siteName: "Black Out Fest",
+  siteName: "Black Out Fest Australia",
 };

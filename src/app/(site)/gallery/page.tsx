@@ -13,8 +13,8 @@ import "./gallery.css";
 // Figma: Desktop / D4 · Gallery 347:2778, Mobile / M5 · Gallery 3:10546
 
 export const metadata: Metadata = pageMetadata({
-  title: "Gallery — Black Out Fest 2027",
-  description: "The venue before the crowd: photos of the space, the 3D stage, the sound system and the event map of Black Out Fest 2027.",
+  title: "Gallery — Black Out Fest Australia",
+  description: "The venue before the crowd: photos of the space, the 3D stage, the sound system and the event map of Black Out Fest Australia.",
   path: "/gallery",
 });
 
