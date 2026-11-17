@@ -9,7 +9,7 @@ import { ProductCard, type ProductCardProps } from "@/components/ProductCard";
 import { SectionHead } from "@/components/SectionHead";
 import { Skeleton } from "@/components/Skeleton";
 import { TicketCard, type TicketCardProps } from "@/components/TicketCard";
-import { LOWEST_PRICE, TICKET_TYPES } from "@/lib/checkout";
+import { TICKET_TYPES } from "@/lib/checkout";
 import { EVENT } from "@/lib/event";
 import { SPONSORS } from "@/lib/partners";
 import { pageMetadata } from "@/lib/site";
@@ -36,7 +36,7 @@ const products: ProductCardProps[] = [
   { title: "Framed print — [ARTWORK]", price: "[PRICE]", badge: "New" },
   { title: "Vinyl LP — [ARTIST / ALBUM]", price: "[PRICE]" },
   { title: "Poster — Line-up (A2)", price: "[PRICE]", badge: "Pre-order" },
-  { title: "E-journal · issue #1 (PDF)", price: "[PRICE]" },
+  { title: "E-magazine by View Bar · Issue #1 (PDF)", price: "[PRICE]" },
 ];
 
 const experienceTiles = [
@@ -73,10 +73,11 @@ export default function HomePage() {
 
           <div className="hero__content">
             <p className="eyebrow eyebrow--accent">Music, art &amp; culture festival</p>
+            {/* The client's title (17.11.2026): "Black Out Fest — Tasmania, Australia", the place on a line of its own */}
             <h1 className="hero__title">
-              Black Out
-              <br />
-              Fest Australia
+              Black Out Fest
+              <span className="visually-hidden"> — </span>
+              <span className="hero__title-place">Tasmania, Australia</span>
             </h1>
             <p className="hero__meta">
               {EVENT.date} · {EVENT.time} · {EVENT.venue}
@@ -87,18 +88,13 @@ export default function HomePage() {
             <Countdown target={EVENT.start} />
 
             <div className="hero__actions">
+              {/* Just "Buy tickets", without the "from" price, as the client asked (17.11.2026) */}
               <Link className="btn btn-primary btn-lg btn-ring" href="/tickets">
-                <span className="only-desktop">Buy tickets</span>
-                <span className="only-mobile">Buy tickets · from {LOWEST_PRICE}</span>
+                Buy tickets
               </Link>
               <Link className="btn btn-outline btn-lg" href="/info">
                 Event info
               </Link>
-              <p className="hero__price">
-                From <strong>{LOWEST_PRICE}</strong>
-                <br />
-                The price you pay — no hidden fees
-              </p>
             </div>
           </div>
         </div>

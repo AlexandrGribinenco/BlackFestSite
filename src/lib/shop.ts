@@ -2,13 +2,13 @@
 // product page and the cart follow the restored wireframes: Desktop / D11 347:807, D12 347:141, Mobile / M10, M11.
 // TODO: replace the placeholders with the real products, descriptions and prices
 
-export type ShopCategory = "art" | "posters" | "vinyl" | "e-journal";
+export type ShopCategory = "art" | "posters" | "vinyl" | "e-mag";
 
 export const SHOP_CATEGORIES: Array<{ id: ShopCategory; label: string }> = [
   { id: "art", label: "Art" },
   { id: "posters", label: "Posters" },
   { id: "vinyl", label: "Vinyl" },
-  { id: "e-journal", label: "E-journal" },
+  { id: "e-mag", label: "E-mag" },
 ];
 
 /** How the product is drawn until real photos arrive */
@@ -231,15 +231,15 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     packaging: "Unframed posters are rolled in a tube; framed ones ship in a reinforced box.",
   },
   {
-    id: "e-journal-1",
-    name: "E-journal · Issue #1 (PDF)",
-    shortName: "E-journal #1",
+    id: "e-mag-1",
+    name: "E-magazine by View Bar · Issue #1 (PDF)",
+    shortName: "E-mag #1",
     price: "[PRICE]",
     amount: null,
-    category: "e-journal",
+    category: "e-mag",
     visual: "journal",
     digital: true,
-    summary: "The festival e-journal: interviews, photos and the story behind Black Out Fest.",
+    summary: "The festival e-magazine by View Bar: interviews, photos and the story behind Black Out Fest.",
     description: ["[What is inside: articles, interviews, number of pages.]"],
     specs: [
       ["Format", "PDF, [N] pages"],

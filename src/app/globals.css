@@ -501,6 +501,8 @@ img { display: block; max-width: 100%; }
   text-transform: uppercase;
 }
 
+.hero__title-place { display: block; font-size: 0.5em; line-height: 1.3; }
+
 .hero__meta { margin-top: 16px; font-size: 20px; line-height: 1.4; }
 
 .hero__skeleton { margin-top: 24px; }
@@ -534,9 +536,6 @@ img { display: block; max-width: 100%; }
   gap: 16px;
   margin-top: 32px;
 }
-
-.hero__price { font-size: 13px; line-height: 1.4; }
-.hero__price strong { font-weight: 700; }
 
 /* ---------- Tickets ---------- */
 .tickets {
@@ -831,7 +830,9 @@ img { display: block; max-width: 100%; }
   font-size: 11px;
 }
 
-.payments { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.payments { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.payments__row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.payments__wallet { display: block; }
 
 .payments__card {
   display: inline-flex;
@@ -1056,8 +1057,6 @@ img { display: block; max-width: 100%; }
   .countdown { margin-top: 16px; }
   .hero__actions { display: grid; gap: 12px; margin-top: 16px; }
   .hero__actions .btn { width: 100%; height: 48px; font-size: 14px; }
-  .hero__price { display: none; }
-
   /* Tickets */
   .ticket-card { flex-basis: 280px; padding: 20px; }
   .ticket-card .skeleton span + span { display: none; }

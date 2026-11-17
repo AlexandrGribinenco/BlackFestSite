@@ -15,7 +15,7 @@ const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-displ
 
 export const metadata: Metadata = pageMetadata({
   title: "Shop — Black Out Fest Australia",
-  description: "Official merchandise of Black Out Fest Australia: framed art, posters, vinyl and the festival e-journal. Limited runs.",
+  description: "Official merchandise of Black Out Fest Australia: framed art, posters, vinyl and the festival e-magazine. Limited runs.",
   path: "/shop",
 });
 
@@ -33,7 +33,7 @@ export default function ShopPage() {
               Official merchandise drop 01
             </h1>
             <p className="shop-hero__text">
-              Framed art, posters, vinyl and the festival e-journal.{" "}
+              Framed art, posters, vinyl and the festival e-magazine.{" "}
               <br />
               Limited runs — once they’re gone, they’re gone.
             </p>

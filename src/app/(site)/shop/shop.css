@@ -60,7 +60,7 @@
 .shop-hero__secondary { border-color: var(--line); background: rgba(11, 7, 20, 0.5); color: var(--text); }
 .shop-hero__secondary:hover { border-color: var(--muted); }
 
-/* Record, poster and e-journal laid out like the Figma "Composition" (620 × 440) */
+/* Record, poster and e-magazine laid out like the Figma "Composition" (620 × 440) */
 .shop-hero__composition { position: relative; width: 100%; aspect-ratio: 620 / 440; }
 .shop-hero .shop-hero__composition > * { position: absolute; }
 .shop-hero__vinyl { top: 15.9%; left: 17.9%; width: 71.6%; }

@@ -324,6 +324,7 @@
 .pay-option__head input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
 .pay-option__name { font-size: 14px; font-weight: 700; }
 .pay-option__brands { margin-left: auto; font-size: 11px; font-weight: 700; text-align: right; }
+.pay-option__mark { display: block; margin-left: auto; }
 p.pay-option__head { cursor: default; }
 .pay-option__text { margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 

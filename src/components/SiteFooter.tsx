@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { COMPANY } from "@/lib/company";
 import { footerFestivalNav, footerLegalNav } from "@/lib/navigation";
+import { WALLET_MARKS, walletMarkSrc } from "@/lib/wallets";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "./NewsletterForm";
 import { Socials } from "./Socials";
@@ -15,8 +16,8 @@ const PAYMENT_LOGOS = [
   { name: "Mastercard", file: "mastercard.png", width: 32, height: 20 },
   { name: "American Express", file: "amex.png", width: 24, height: 24 },
 ];
-// No official files for these in the maib archive, so they stay as text, in full names as the client asked
-const PAYMENT_WALLETS = ["Apple Pay", "Google Pay"];
+// Apple Pay and Google Pay have their own frame, so they go without the white chip, on a row of their own under the cards,
+// as the client asked (17.11.2026)
 
 // Figma: Components / Footer · desktop 1:633, Footer · mobile 1:838
 export function SiteFooter() {
@@ -80,17 +81,28 @@ export function SiteFooter() {
 
         <div className="footer-bottom">
           <div className="payments">
-            <span>Secure payment:</span>
-            {PAYMENT_LOGOS.map((logo) => (
-              <span key={logo.name} className="payments__card payments__card--logo">
-                <img src={`${BASE_PATH}/images/payments/${logo.file}`} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" />
-              </span>
-            ))}
-            {PAYMENT_WALLETS.map((wallet) => (
-              <span key={wallet} className="payments__card">
-                {wallet}
-              </span>
-            ))}
+            <div className="payments__row">
+              <span>Secure payment:</span>
+              {PAYMENT_LOGOS.map((logo) => (
+                <span key={logo.name} className="payments__card payments__card--logo">
+                  <img src={`${BASE_PATH}/images/payments/${logo.file}`} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" />
+                </span>
+              ))}
+            </div>
+            <div className="payments__row">
+              {WALLET_MARKS.map((mark) => (
+                <img
+                  key={mark.name}
+                  className="payments__wallet"
+                  src={walletMarkSrc(mark)}
+                  alt={mark.name}
+                  width={mark.width}
+                  height={mark.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ))}
+            </div>
           </div>
           <p className="footer-bottom__copy">© {new Date().getFullYear()} {COMPANY.siteName}. All rights reserved.</p>
         </div>

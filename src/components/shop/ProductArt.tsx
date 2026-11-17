@@ -54,7 +54,7 @@ export function JournalArt({ alt, className }: ArtProps) {
     <div className={cx("journal-art", className)} role="img" aria-label={alt}>
       <span className="journal-art__pages" aria-hidden="true" />
       <span className="journal-art__cover" aria-hidden="true">
-        E-journal
+        E-mag
         <br />
         #01
       </span>
