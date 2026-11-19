@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { CartItem } from "@/lib/cart";
 import { formatMoney } from "@/lib/checkout";
 import { optionsLabel, type DeliveryMethod } from "@/lib/shop";
+import { ACCEPTED_PAYMENTS } from "@/lib/wallets";
 
 type ShopOrderSummaryProps = {
   step: "cart" | "delivery" | "payment";
@@ -81,7 +82,7 @@ export function ShopOrderSummary({ step, items, count, subtotal, method, total, 
           </svg>
           Secure payment
         </span>
-        <span>Visa · Mastercard · American Express · Apple Pay · Google Pay</span>
+        <span>{ACCEPTED_PAYMENTS}</span>
       </p>
     </aside>
   );

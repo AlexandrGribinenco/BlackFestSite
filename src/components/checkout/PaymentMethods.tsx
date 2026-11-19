@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { APPLE_PAY_MARK, GOOGLE_PAY_MARK, walletMarkSrc, type WalletMark } from "@/lib/wallets";
+import { APPLE_PAY_MARK, GOOGLE_PAY_MARK, WALLETS_ON, walletMarkSrc, type WalletMark } from "@/lib/wallets";
 
 // Card, Apple Pay and Google Pay as separate choices, as the client asked (17.11.2026). All three are paid on the maib
 // payment page, which offers each of them there, so the choice here only changes the hint under the option.
-// Apple Pay and Google Pay show their official marks (17.11.2026).
-const METHODS: Array<{ id: string; name: string; brands?: string; mark?: WalletMark; text: string }> = [
+// Apple Pay and Google Pay show their official marks (17.11.2026) and are hidden while WALLETS_ON is false.
+const ALL_METHODS: Array<{ id: string; name: string; brands?: string; mark?: WalletMark; text: string }> = [
   {
     id: "card",
     name: "Card",
@@ -26,6 +26,8 @@ const METHODS: Array<{ id: string; name: string; brands?: string; mark?: WalletM
     text: "You confirm the payment with Google Pay on the maib payment page. Available if you have a card saved in Google Pay.",
   },
 ];
+
+const METHODS = ALL_METHODS.filter((method) => WALLETS_ON || !method.mark);
 
 export function PaymentMethods() {
   const [selected, setSelected] = useState(METHODS[0].id);

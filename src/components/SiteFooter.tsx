@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { COMPANY } from "@/lib/company";
 import { footerFestivalNav, footerLegalNav } from "@/lib/navigation";
-import { WALLET_MARKS, walletMarkSrc } from "@/lib/wallets";
+import { WALLETS_ON, WALLET_MARKS, walletMarkSrc } from "@/lib/wallets";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "./NewsletterForm";
 import { Socials } from "./Socials";
@@ -82,27 +82,30 @@ export function SiteFooter() {
         <div className="footer-bottom">
           <div className="payments">
             <div className="payments__row">
-              <span>Secure payment:</span>
+              {/* The client asked for other words than "Secure payment" (19.11.2026) */}
+              <span>We accept:</span>
               {PAYMENT_LOGOS.map((logo) => (
                 <span key={logo.name} className="payments__card payments__card--logo">
                   <img src={`${BASE_PATH}/images/payments/${logo.file}`} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" />
                 </span>
               ))}
             </div>
-            <div className="payments__row">
-              {WALLET_MARKS.map((mark) => (
-                <img
-                  key={mark.name}
-                  className="payments__wallet"
-                  src={walletMarkSrc(mark)}
-                  alt={mark.name}
-                  width={mark.width}
-                  height={mark.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              ))}
-            </div>
+            {WALLETS_ON && (
+              <div className="payments__row">
+                {WALLET_MARKS.map((mark) => (
+                  <img
+                    key={mark.name}
+                    className="payments__wallet"
+                    src={walletMarkSrc(mark)}
+                    alt={mark.name}
+                    width={mark.width}
+                    height={mark.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ))}
+              </div>
+            )}
           </div>
           <p className="footer-bottom__copy">© {new Date().getFullYear()} {COMPANY.siteName}. All rights reserved.</p>
         </div>

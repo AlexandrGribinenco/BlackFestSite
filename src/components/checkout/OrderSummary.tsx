@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { ComingSoonImage } from "@/components/ComingSoonImage";
 import { ADDONS, BOOKING_FEE_AMOUNT, TICKET_TYPES, formatMoney, formatSeats, orderTotal, seatsOfCategory, type Order } from "@/lib/checkout";
 import { EVENT } from "@/lib/event";
+import { ACCEPTED_PAYMENTS } from "@/lib/wallets";
 
 // Figma: Components / Order summary 1:751
 export function OrderSummary({ order, cta }: { order: Order; cta: ReactNode }) {
@@ -42,7 +43,7 @@ export function OrderSummary({ order, cta }: { order: Order; cta: ReactNode }) {
           </svg>
           Secure payment
         </span>
-        <span>Visa · Mastercard · American Express · Apple Pay · Google Pay</span>
+        <span>{ACCEPTED_PAYMENTS}</span>
       </p>
     </aside>
   );
