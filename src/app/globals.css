@@ -830,25 +830,47 @@ img { display: block; max-width: 100%; }
   font-size: 11px;
 }
 
-.payments { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.payments__row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.payments__wallet { display: block; }
-
-.payments__card {
-  display: inline-flex;
+/* Payment block: a card picture (components/PaymentCardArt.tsx) and large logos, as the client asked (19.11.2026) */
+.payments {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  height: 28px;
-  padding: 0 12px;
-  border: 1px solid var(--text);
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  gap: 16px 28px;
+  padding: 14px 20px 14px 22px;
+  border: 1px solid rgba(138, 63, 252, 0.5);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 160% at 0% 50%, rgba(138, 63, 252, 0.3), transparent 60%),
+    var(--surface);
 }
 
+.pay-card {
+  display: block;
+  flex: none;
+  width: 112px;
+  height: auto;
+  transform: rotate(-6deg);
+  filter: drop-shadow(0 6px 18px rgba(138, 63, 252, 0.55));
+  transition: transform 0.3s ease;
+}
+.pay-card text { font-family: var(--font); }
+.payments:hover .pay-card { transform: rotate(0deg) translateY(-2px); }
+
+.payments__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+
 /* Official logos keep their own colors, so they sit on white */
-.payments__card--logo { padding: 0 8px; background: #fff; border-color: #fff; }
-.payments__card--logo img { display: block; }
+.payments__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: var(--radius);
+  background: #fff;
+}
+.payments__logo img,
+.payments__wallet img { display: block; }
 
 /* ---------- Cookie consent (components/CookieConsent.tsx) ---------- */
 .cookie-banner {
@@ -1109,6 +1131,9 @@ img { display: block; max-width: 100%; }
   .footer-col--social { grid-area: social; }
   .footer-brand { grid-area: brand; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .payments { align-self: stretch; padding: 16px; }
+  .payments__logos { gap: 6px; }
+  .payments__logo { min-width: 56px; height: 40px; padding: 0 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

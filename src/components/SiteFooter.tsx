@@ -4,20 +4,22 @@ import { footerFestivalNav, footerLegalNav } from "@/lib/navigation";
 import { WALLETS_ON, WALLET_MARKS, walletMarkSrc } from "@/lib/wallets";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "./NewsletterForm";
+import { PaymentCardArt } from "./PaymentCardArt";
 import { Socials } from "./Socials";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 // maib requires its own logo and the card scheme logos in the footer: the official files from the maib docs
-// (logo.zip), shown on white so their colors stay as given. Sizes are the display sizes, the files are 2x or more.
+// (logo.zip), shown on white so their colors stay as given. Sizes are the display sizes: larger since the client asked
+// (19.11.2026); the files are 1.4x or more of them (Visa is the smallest file, 80 × 26).
 const PAYMENT_LOGOS = [
-  { name: "maib", file: "maib.png", width: 57, height: 16 },
-  { name: "Visa", file: "visa.png", width: 37, height: 12 },
-  { name: "Mastercard", file: "mastercard.png", width: 32, height: 20 },
-  { name: "American Express", file: "amex.png", width: 24, height: 24 },
+  { name: "maib", file: "maib.png", width: 78, height: 22 },
+  { name: "Visa", file: "visa.png", width: 56, height: 18 },
+  { name: "Mastercard", file: "mastercard.png", width: 48, height: 30 },
+  { name: "American Express", file: "amex.png", width: 34, height: 34 },
 ];
-// Apple Pay and Google Pay have their own frame, so they go without the white chip, on a row of their own under the cards,
-// as the client asked (17.11.2026)
+// Apple Pay and Google Pay have their own frame, so they go without the white chip (17.11.2026)
+const WALLET_SCALE = 40 / 28;
 
 // Figma: Components / Footer · desktop 1:633, Footer · mobile 1:838
 export function SiteFooter() {
@@ -80,32 +82,29 @@ export function SiteFooter() {
         </div>
 
         <div className="footer-bottom">
+          {/* A card picture and large logos, no caption: the client liked neither "Secure payment" nor "We accept" (19.11.2026) */}
           <div className="payments">
-            <div className="payments__row">
-              {/* The client asked for other words than "Secure payment" (19.11.2026) */}
-              <span>We accept:</span>
+            <PaymentCardArt />
+            <ul className="payments__logos" aria-label="Payment methods">
               {PAYMENT_LOGOS.map((logo) => (
-                <span key={logo.name} className="payments__card payments__card--logo">
+                <li key={logo.name} className="payments__logo">
                   <img src={`${BASE_PATH}/images/payments/${logo.file}`} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" />
-                </span>
+                </li>
               ))}
-            </div>
-            {WALLETS_ON && (
-              <div className="payments__row">
-                {WALLET_MARKS.map((mark) => (
-                  <img
-                    key={mark.name}
-                    className="payments__wallet"
-                    src={walletMarkSrc(mark)}
-                    alt={mark.name}
-                    width={mark.width}
-                    height={mark.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
+              {WALLETS_ON &&
+                WALLET_MARKS.map((mark) => (
+                  <li key={mark.name} className="payments__wallet">
+                    <img
+                      src={walletMarkSrc(mark)}
+                      alt={mark.name}
+                      width={Math.round(mark.width * WALLET_SCALE)}
+                      height={Math.round(mark.height * WALLET_SCALE)}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </li>
                 ))}
-              </div>
-            )}
+            </ul>
           </div>
           <p className="footer-bottom__copy">© {new Date().getFullYear()} {COMPANY.siteName}. All rights reserved.</p>
         </div>
