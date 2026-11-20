@@ -4,7 +4,6 @@ import { footerFestivalNav, footerLegalNav } from "@/lib/navigation";
 import { WALLETS_ON, WALLET_MARKS, walletMarkSrc } from "@/lib/wallets";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "./NewsletterForm";
-import { PaymentCardArt } from "./PaymentCardArt";
 import { Socials } from "./Socials";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -82,30 +81,28 @@ export function SiteFooter() {
         </div>
 
         <div className="footer-bottom">
-          {/* A card picture and large logos, no caption: the client liked neither "Secure payment" nor "We accept" (19.11.2026) */}
-          <div className="payments">
-            <PaymentCardArt />
-            <ul className="payments__logos" aria-label="Payment methods">
-              {PAYMENT_LOGOS.map((logo) => (
-                <li key={logo.name} className="payments__logo">
-                  <img src={`${BASE_PATH}/images/payments/${logo.file}`} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" />
+          {/* Large logos only: no caption (the client liked neither "Secure payment" nor "We accept", 19.11.2026)
+              and no card picture or background behind them (20.11.2026) */}
+          <ul className="payments" aria-label="Payment methods">
+            {PAYMENT_LOGOS.map((logo) => (
+              <li key={logo.name} className="payments__logo">
+                <img src={`${BASE_PATH}/images/payments/${logo.file}`} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" />
+              </li>
+            ))}
+            {WALLETS_ON &&
+              WALLET_MARKS.map((mark) => (
+                <li key={mark.name} className="payments__wallet">
+                  <img
+                    src={walletMarkSrc(mark)}
+                    alt={mark.name}
+                    width={Math.round(mark.width * WALLET_SCALE)}
+                    height={Math.round(mark.height * WALLET_SCALE)}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </li>
               ))}
-              {WALLETS_ON &&
-                WALLET_MARKS.map((mark) => (
-                  <li key={mark.name} className="payments__wallet">
-                    <img
-                      src={walletMarkSrc(mark)}
-                      alt={mark.name}
-                      width={Math.round(mark.width * WALLET_SCALE)}
-                      height={Math.round(mark.height * WALLET_SCALE)}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </li>
-                ))}
-            </ul>
-          </div>
+          </ul>
           <p className="footer-bottom__copy">© {new Date().getFullYear()} {COMPANY.siteName}. All rights reserved.</p>
         </div>
       </div>

@@ -830,33 +830,8 @@ img { display: block; max-width: 100%; }
   font-size: 11px;
 }
 
-/* Payment block: a card picture (components/PaymentCardArt.tsx) and large logos, as the client asked (19.11.2026) */
-.payments {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px 28px;
-  padding: 14px 20px 14px 22px;
-  border: 1px solid rgba(138, 63, 252, 0.5);
-  border-radius: var(--radius-lg);
-  background:
-    radial-gradient(120% 160% at 0% 50%, rgba(138, 63, 252, 0.3), transparent 60%),
-    var(--surface);
-}
-
-.pay-card {
-  display: block;
-  flex: none;
-  width: 112px;
-  height: auto;
-  transform: rotate(-6deg);
-  filter: drop-shadow(0 6px 18px rgba(138, 63, 252, 0.55));
-  transition: transform 0.3s ease;
-}
-.pay-card text { font-family: var(--font); }
-.payments:hover .pay-card { transform: rotate(0deg) translateY(-2px); }
-
-.payments__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+/* Payment logos: large (19.11.2026), with no card picture or background behind them (20.11.2026) */
+.payments { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 
 /* Official logos keep their own colors, so they sit on white */
 .payments__logo {
@@ -1131,8 +1106,7 @@ img { display: block; max-width: 100%; }
   .footer-col--social { grid-area: social; }
   .footer-brand { grid-area: brand; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
-  .payments { align-self: stretch; padding: 16px; }
-  .payments__logos { gap: 6px; }
+  .payments { gap: 8px; }
   .payments__logo { min-width: 56px; height: 40px; padding: 0 8px; }
 }
 
