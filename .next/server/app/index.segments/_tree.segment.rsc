@@ -1,8 +1,8 @@
-:HL["/_next/static/chunks/42vl9g6pr7aqz.css","style"]
+:HL["/_next/static/chunks/1fnqi0icefa52.css","style"]
 :HL["/_next/static/media/1bffadaabf893a1e-s.p.3-6t-g6q0vh0a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/images/coming-soon-bg.svg","image"]
 :HL["/images/coming-soon-text.svg","image"]
 2:[["children",{"s":"__PAGE__","h":128}]]
 1:[["children",{"s":"(site)","c":"$Q2"}]]
-0:{"b":"Ztu8H5HhYTecbf7b2kNPZ","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"9moDrqVfxl8Rmpy6Ms38h","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
