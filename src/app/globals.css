@@ -298,7 +298,8 @@ img { display: block; max-width: 100%; }
   flex: none;
   align-items: center;
   height: 44px;
-  font-size: 15px;
+  /* Larger since the client asked (20.11.2026); was 15px */
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1032,7 +1033,11 @@ img { display: block; max-width: 100%; }
   .state-panel__code { font-size: 72px; }
   .state-panel__title { font-size: 24px; }
 
-  .logo { height: 32px; font-size: 12px; letter-spacing: 0.1em; }
+  /* The name grows with the screen: about 16px on a 360px phone and 17px on a 390px one, up to 20px (was 12px; the
+     client asked for it larger, 20.11.2026). Tighter letter spacing and header gaps keep it beside the cart, Tickets and menu */
+  .logo { height: 32px; font-size: clamp(12px, 4.4vw, 20px); letter-spacing: 0.06em; }
+  .site-header__inner { gap: 12px; }
+  .site-header__actions { gap: 8px; }
   .site-header__actions .btn { height: 36px; padding: 0 16px; font-size: 13px; }
 
   .section-title { font-size: 26px; }
