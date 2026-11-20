@@ -7,18 +7,16 @@
   "segmentPaths": [
     "/_tree",
     "/_full",
-    "/_index",
-    "/!KHNpdGUp",
     "/!KHNpdGUp/tickets/__PAGE__"
   ],
   "prefetchHints": {
-    "hints": 0,
+    "hints": 64,
     "slots": {
       "children": {
-        "hints": 0,
+        "hints": 96,
         "slots": {
           "children": {
-            "hints": 64,
+            "hints": 96,
             "slots": {
               "children": {
                 "hints": 160,
